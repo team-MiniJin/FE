@@ -1,6 +1,7 @@
-import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import './globals.css';
+import { Header } from '@/widgets';
+import { Metadata } from 'next';
 import ReactQueryProvider from './ReactQueryProvider';
 
 const notoSansKR = Noto_Sans_KR({
@@ -22,7 +23,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={notoSansKR.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <div className="mx-auto w-[1024px] text-[text-default-color]">
+            <Header />
+            <main>{children}</main>
+          </div>
+        </ReactQueryProvider>
       </body>
     </html>
   );

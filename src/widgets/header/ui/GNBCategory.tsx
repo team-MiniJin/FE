@@ -15,7 +15,7 @@ export default function GNBCategory({
   return (
     <Link
       href={`/${categoryKey}`}
-      className={`${activedCategory === categoryKey ? 'text-[--brand-color]' : ''} px-1 py-3 text-lg font-bold hover:text-[--brand-color]`}
+      className={`${activedCategory === categoryKey ? 'text-[--brand-color]' : 'text-[--deactived-color]'} px-1 py-3 text-lg font-bold hover:text-[--brand-color]`}
       onClick={() => setActivedCatogory(categoryKey)}
     >
       {categoryValue}

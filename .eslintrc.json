@@ -18,17 +18,16 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react-hooks",
-    "react-refresh",
-    "no-relative-import-paths"
-  ],
+  "plugins": ["@typescript-eslint", "no-relative-import-paths"],
   "rules": {
-    "react-refresh/only-export-components": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": ["error"],
     "import/prefer-default-export": 0,
     "import/extensions": 0,
     "import/no-unresolved": 0,

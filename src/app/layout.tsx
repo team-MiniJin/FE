@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={notoSansKR.className}>
         <ReactQueryProvider>
-          <div className="mx-auto w-[1024px] text-[text-default-color]">
+          <div className="mx-auto max-w-[1024px] px-8 text-[text-default-color] ">
             <Header />
             <main>{children}</main>
           </div>

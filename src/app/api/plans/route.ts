@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
-
-// Mock 서버의 URL 설정
-const MOCK_SERVER_URL =
-  'https://306fb224-5596-41db-a234-a210a9ce18ea.mock.pstmn.io';
+import { MOCK_SERVER_URL } from '@/app/api/plans/constants/api';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const cursor = searchParams.get('cursor');
-    const response = await fetch(`${MOCK_SERVER_URL}/plans?cursor="${cursor}"`);
+    const response = await fetch(
+      `${MOCK_SERVER_URL}/plans?cursor=%22${cursor}%22`
+    );
     const data = await response.json();
     if (response.ok) {
       return NextResponse.json(data);
@@ -20,9 +19,12 @@ export async function GET(request: Request) {
     if (error instanceof Error) {
       errorMessage = error.message;
     }
-    return {
-      success: false,
-      message: errorMessage,
-    };
+    return NextResponse.json(
+      {
+        success: false,
+        message: errorMessage,
+      },
+      { status: 500 }
+    );
   }
 }

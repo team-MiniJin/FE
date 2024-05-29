@@ -66,7 +66,7 @@ export default function UpcomingPlans() {
             </button>
           </ul>
         ) : (
-          <div>아직 일정을 만들지 않으셨네요!</div>
+          <div className="h-[200px]">일정 만들러 가기(버튼 추가 예정)</div>
         )}
       </div>
     </div>

@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
-
-// Mock 서버의 URL 설정
-const MOCK_SERVER_URL =
-  'https://306fb224-5596-41db-a234-a210a9ce18ea.mock.pstmn.io';
+import { MOCK_SERVER_URL } from '@/app/api/plans/constants/api';
 
 export async function GET() {
   try {

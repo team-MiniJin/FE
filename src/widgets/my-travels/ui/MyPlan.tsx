@@ -1,13 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 import { calculateStayDuration } from '@/shared';
 import { MyPlanT } from '@/widgets/my-travels/types/plan';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {
   return (
-    <li className="flex items-center space-x-10 border-b px-3 py-8">
+    <li className="flex	cursor-pointer  items-center space-x-10 border-b px-3 py-8">
       <div className="h-[96px] w-[96px] rounded-full bg-gray-100" />
-      <div className="space-y-1">
+      <div className="space-y-2">
         <p className="inline-block rounded bg-[--brand-color] px-2 py-1 text-xs font-bold text-white">
           {plan.theme}
         </p>
@@ -23,19 +24,17 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
           <span>|</span>
           <p>{plan.number_of_members}명</p>
         </div>
-        <div className="flex items-center space-x-2 text-sm">
+        <div className="flex space-x-2">
           {plan?.regions?.map((region, idx) => (
             // eslint-disable-next-line react/no-array-index-key
-            <>
-              <p key={idx} className="inline-block">
-                {region}
-              </p>
+            <div key={idx} className="flex items-center space-x-2 text-sm">
+              <p className="inline-block ">{region}</p>
               {idx !== plan.regions.length - 1 && (
                 <span>
                   <IoIosArrowRoundForward />
                 </span>
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>

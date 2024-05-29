@@ -17,14 +17,15 @@ const useCarousel = (
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function getVisibleSlides() {
-    const width = window.innerWidth;
     let slides = 1; // 기본 값
-
-    // 주어진 브레이크포인트에 따라 슬라이드 수 설정
-    // eslint-disable-next-line no-restricted-syntax
-    for (const breakpoint in breakpoints) {
-      if (width >= parseInt(breakpoint, 10)) {
-        slides = breakpoints[breakpoint];
+    if (typeof window !== 'undefined') {
+      const width = window.innerWidth;
+      // 주어진 브레이크포인트에 따라 슬라이드 수 설정
+      // eslint-disable-next-line no-restricted-syntax
+      for (const breakpoint in breakpoints) {
+        if (width >= parseInt(breakpoint, 10)) {
+          slides = breakpoints[breakpoint];
+        }
       }
     }
     return slides;

@@ -3,7 +3,7 @@
 
 'use client';
 
-import useCarousel from '@/shared/hooks/useCarousel';
+import { useCarousel } from '@/shared';
 import useUpcomingPlans from '@/widgets/my-travels/model/useUpcomingPlans';
 import {
   MdOutlineKeyboardArrowLeft,

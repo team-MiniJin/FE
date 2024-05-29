@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { UpcomingPlansT } from '@/widgets/my-travels/types/plan';
-import { fetchUpcomingPlans } from '@/widgets/my-travels/api/fetchUpcomingPlans';
+import fetchUpcomingPlans from '@/widgets/my-travels/api/fetchUpcomingPlans';
+import { UpcomingPlanT } from '@/widgets/my-travels/types/plan';
 
 const useUpcomingPlans = () => {
-  const [data, setData] = useState<UpcomingPlansT[] | null>(null);
+  const [data, setData] = useState<UpcomingPlanT[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

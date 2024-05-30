@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { MOCK_SERVER_URL } from '@/app/api/plans/constants/api';
+import { MOCK_SERVER_URL } from '@/app/api/plans/consts/api';
 
 export async function GET() {
   try {

@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import { calculateStayDuration } from '@/shared';
-import { MyPlanT } from '@/widgets/my-travels/types/plan';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IoIosArrowRoundForward } from 'react-icons/io';
+import { MyPlanT } from '@/widgets/myPlans/types/myPlans';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {
   return (

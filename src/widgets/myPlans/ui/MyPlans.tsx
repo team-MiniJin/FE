@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteScroll } from '@/shared';
-import useMyPlans from '@/widgets/my-travels/model/useMyPlans';
+import useMyPlans from '@/widgets/myPlans/model/useMyPlans';
 import MyPlan from './MyPlan';
 
 export default function MyPlans() {
@@ -10,7 +10,6 @@ export default function MyPlans() {
   const observerRef = useInfiniteScroll(() => {
     if (hasNextPage && !isFetchingNextPage && !isFetching) fetchNextPage();
   }, hasNextPage);
-  console.log(data);
   return (
     <div className="space-y-4">
       <div>

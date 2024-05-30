@@ -4,11 +4,11 @@
 'use client';
 
 import { useCarousel } from '@/shared';
-import useUpcomingPlans from '@/widgets/my-travels/model/useUpcomingPlans';
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
+import useUpcomingPlans from '@/widgets/upcomingPlans/model/useUpcomingPlans';
 import UpcomingPlan from './UpcomingPlan';
 
 const BREAK_POINTS: { [key: number]: number } = {

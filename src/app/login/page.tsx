@@ -11,8 +11,12 @@ export default function LogIn() {
           <Input placeholder="비밀번호" type="password" />
           <Button text="로그인" />
           <div className="flex justify-between text-sm">
-            <Link href="/join">회원가입</Link>
-            <Link href="/findPassword">비밀번호 찾기</Link>
+            <Link href="/join" className="hover:text-gray-500">
+              회원가입
+            </Link>
+            <Link href="/findPassword" className="hover:text-gray-500">
+              비밀번호 찾기
+            </Link>
           </div>
           <div className="flex w-full items-center">
             <hr className="flex-1 border-gray-300" />

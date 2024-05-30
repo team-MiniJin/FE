@@ -1,9 +1,9 @@
 import { CreatingPlanButton } from '@/features';
 import { MyPlans, UpcomingPlans } from '@/widgets';
 
-export default function MyTravels() {
+export default function Page() {
   return (
-    <div className="mt-10">
+    <div>
       <div>
         <UpcomingPlans />
       </div>
@@ -12,7 +12,6 @@ export default function MyTravels() {
         <div className="absolute -top-4 right-0 ">
           <CreatingPlanButton />
         </div>
-
         <MyPlans />
       </div>
     </div>

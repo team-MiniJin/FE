@@ -6,7 +6,8 @@ export default function CreatingPlanButton() {
   return (
     <Button variant="outline" asChild>
       <Link href="/creating-plan">
-        <GoPlus className="mr-2" />새 여행 일정 만들기
+        <GoPlus className="mr-2" />
+        일정 만들기
       </Link>
     </Button>
   );

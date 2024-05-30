@@ -9,7 +9,7 @@ export default function Page() {
       </div>
       <div className="my-10 h-[1px] w-full border-t" />
       <div className="relative">
-        <div className="absolute -top-4 right-0 ">
+        <div className="absolute -top-2 right-0 ">
           <CreatingPlanButton />
         </div>
         <MyPlans />

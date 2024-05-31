@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const places = [
@@ -11,8 +12,9 @@ export default function PlacesList() {
   return (
     <div className="space-y-4">
       {places.map((place) => (
-        <div
+        <Link
           key={place.id}
+          href="/place-info"
           className="flex h-52 w-full border-t border-gray-200"
         >
           <div className="m-4 h-44 w-44 bg-gray-300" />
@@ -20,7 +22,7 @@ export default function PlacesList() {
             <div className="text-xl font-bold">{place.name}</div>
             <div className="text-lg font-normal">{place.description}</div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

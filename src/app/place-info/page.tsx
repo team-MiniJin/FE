@@ -1,9 +1,9 @@
 import React from 'react';
 import FilterArea from '@/features/TravelInfo/components/FilterArea';
-import PlacesList from '@/features/TravelInfo/components/PlacesList';
+import DetailSection from '@/features/TravelInfo/components/DetailSection';
 import Map from '@/features/TravelInfo/components/Map';
 
-export default function TravelInfo() {
+export default function PlaceInfo() {
   return (
     <div className="relative h-full w-full">
       <div className="sticky top-0 z-10 w-full border-y border-gray-200 bg-white">
@@ -11,7 +11,7 @@ export default function TravelInfo() {
       </div>
       <div className="flex w-full">
         <div className="w-1/2">
-          <PlacesList />
+          <DetailSection />
         </div>
         <div className="fixed left-[50%] top-20 w-[calc(50%-2rem)]">
           <Map />

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Map() {
   return (
-    <div className="flex h-[calc(100vh-9rem)] w-full max-w-[calc(512px-2rem)] items-center justify-center bg-gray-300">
+    <div className="flex h-[calc(100vh-5rem)] max-w-[calc(512px-2rem)] items-center justify-center bg-gray-300">
       <div className="text-lg text-black">지도</div>
     </div>
   );

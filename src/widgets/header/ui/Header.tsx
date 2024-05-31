@@ -27,7 +27,7 @@ export default function Header() {
       <div className="flex items-center  space-x-8">
         <h1 className="text-2xl font-bold">Travel</h1>
         <div
-          className="absolute	 -right-full top-0 z-50 h-full  w-full bg-white transition-all md:static md:block"
+          className="absolute	 -right-full top-0 z-50 h-full w-full bg-white transition-all md:static md:block"
           ref={navDivRef}
         >
           <button

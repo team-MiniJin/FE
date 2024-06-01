@@ -1,3 +1,4 @@
+
 import React from 'react';
 import FilterArea from '@/features/TravelInfo/components/FilterArea';
 import PlacesList from '@/features/TravelInfo/components/PlacesList';
@@ -19,4 +20,4 @@ export default function TravelInfo() {
       </div>
     </div>
   );
-}
+

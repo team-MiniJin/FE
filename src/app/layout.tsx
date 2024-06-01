@@ -21,10 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={notoSansKR.className}>
+    <html lang="ko" className="min-h-svh">
+      <body className={`${notoSansKR.className} min-h-svh`}>
         <ReactQueryProvider>
-          <div className="mx-auto min-w-[360px] max-w-[1024px] space-y-6 px-8 text-[text-default-color]">
+          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] space-y-6 overflow-hidden px-8 text-[text-default-color]">
             <Header />
             <main>{children}</main>
           </div>

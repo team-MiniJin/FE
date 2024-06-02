@@ -3,7 +3,7 @@ interface InputProps {
   type?: string;
 }
 
-function Input({ placeholder, type }: InputProps) {
+function Input({ placeholder, type = 'text' }: InputProps) {
   return (
     <input
       type={type}
@@ -12,9 +12,5 @@ function Input({ placeholder, type }: InputProps) {
     />
   );
 }
-
-Input.defaultProps = {
-  type: 'text',
-};
 
 export default Input;

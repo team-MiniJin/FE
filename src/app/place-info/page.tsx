@@ -1,4 +1,3 @@
-import React from 'react';
 import { FilterArea, DetailSection, Map } from '@/widgets';
 
 export default function PlaceInfo() {

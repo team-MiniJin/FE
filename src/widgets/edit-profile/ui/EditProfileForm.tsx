@@ -51,7 +51,7 @@ export default function EditProfileForm() {
           />
         </div>
         <div className="w-full">
-          <Link href="/change-password" className="hover:text-gray-500">
+          <Link href="/change-password" className="hover:text-[#3666FF]">
             비밀번호 변경하기
           </Link>
         </div>

@@ -11,10 +11,10 @@ export default function LogInForm() {
           <Input placeholder="비밀번호" type="password" />
           <Button text="로그인" />
           <div className="flex justify-between text-sm">
-            <Link href="/join" className="hover:text-gray-500">
+            <Link href="/join" className="hover:text-[#3666FF]">
               회원가입
             </Link>
-            <Link href="/find-password" className="hover:text-gray-500">
+            <Link href="/find-password" className="hover:text-[#3666FF]">
               비밀번호 찾기
             </Link>
           </div>

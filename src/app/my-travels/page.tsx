@@ -1,16 +1,18 @@
-import { UpcomingPlans } from '@/widgets';
+import { MyPlans, UpcomingPlans, CreatingPlanButton } from '@/widgets';
 
-export default function MyTravels() {
+export default function Page() {
   return (
-    <div className="mt-10">
+    <div>
       <div>
         <UpcomingPlans />
       </div>
       <div className="my-10 h-[1px] w-full border-t" />
-      <div>
-        <h2 className="text-xl font-bold">나의 여행 일정</h2>
+      <div className="relative">
+        <div className="absolute -top-2 right-0 ">
+          <CreatingPlanButton />
+        </div>
+        <MyPlans />
       </div>
-      <div>무한스크롤 리스트</div>
     </div>
   );
 }

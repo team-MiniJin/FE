@@ -10,3 +10,5 @@ export { default as Map } from './travel-info/components/Map';
 export { default as PlacesList } from './travel-info/components/PlacesList';
 export { default as JoinForm } from './join/ui/JoinForm';
 export { default as LogInForm } from './login/ui/LogInForm';
+export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
+export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';

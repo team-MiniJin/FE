@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import EditableField from '@/shared/ui/EditableField';
-import ImageUploader from '@/shared/ui/ImageUploader';
-import { useProfile } from '@/features/editProfile/model/hooks';
+import { EditableField, ImageUploader } from '@/shared';
+import { useProfile } from '@/widgets/edit-profile/model/hooks';
 
 export default function EditProfileForm() {
   const {
@@ -52,7 +51,7 @@ export default function EditProfileForm() {
           />
         </div>
         <div className="w-full">
-          <Link href="/changePassword" className="hover:text-gray-500">
+          <Link href="/change-password" className="hover:text-gray-500">
             비밀번호 변경하기
           </Link>
         </div>

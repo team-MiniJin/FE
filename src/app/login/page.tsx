@@ -14,7 +14,7 @@ export default function LogIn() {
             <Link href="/join" className="hover:text-gray-500">
               회원가입
             </Link>
-            <Link href="/findPassword" className="hover:text-gray-500">
+            <Link href="/find-password" className="hover:text-gray-500">
               비밀번호 찾기
             </Link>
           </div>

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 
 const places = [
   { id: 1, name: '장소명1', description: '설명1' },

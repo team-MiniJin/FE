@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function FilterArea() {
   return (
     <div className="mx-auto flex h-16 max-w-[calc(1024px-4rem)] items-center">

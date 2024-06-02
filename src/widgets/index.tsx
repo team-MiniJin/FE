@@ -3,3 +3,8 @@ export { default as UpcomingPlans } from './upcomingPlans/ui/UpcomingPlans';
 export { default as MyPlans } from './myPlans/ui/MyPlans';
 export { default as CreatingPlan } from './creatingPlan/ui/CreatingPlan';
 export { default as CreatingPlanButton } from './plan/ui/CreatingPlanButton';
+export { default as EditProfileForm } from './edit-profile/ui/EditProfileForm';
+export { default as DetailSection } from './travel-info/components/DetailSection';
+export { default as FilterArea } from './travel-info/components/FilterArea';
+export { default as Map } from './travel-info/components/Map';
+export { default as PlacesList } from './travel-info/components/PlacesList';

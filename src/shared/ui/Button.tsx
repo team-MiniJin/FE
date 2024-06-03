@@ -8,7 +8,11 @@ interface ButtonProps {
   styleType?: 'blue' | 'kakao' | 'sky' | 'disabled';
 }
 
-function Button({ text, onClick = () => {}, styleType = 'blue' }: ButtonProps) {
+export default function Button({
+  text,
+  onClick = () => {},
+  styleType = 'blue',
+}: ButtonProps) {
   const buttonStyle = clsx(
     'w-full h-12 rounded-md flex items-center justify-center',
     {
@@ -21,10 +25,8 @@ function Button({ text, onClick = () => {}, styleType = 'blue' }: ButtonProps) {
   );
 
   return (
-    <button type="button" className={buttonStyle} onClick={onClick}>
+    <button type="submit" className={buttonStyle} onClick={onClick}>
       {text}
     </button>
   );
 }
-
-export default Button;

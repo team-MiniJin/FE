@@ -4,7 +4,7 @@ import { calculateStayDuration } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { IoBookmarkOutline } from 'react-icons/io5';
 
-import { MyPlanT } from '@/widgets/myPlans/types/myPlans';
+import { MyPlanT } from '@/widgets/my-plan-list/types/myPlans';
 import { GoHeart } from 'react-icons/go';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {

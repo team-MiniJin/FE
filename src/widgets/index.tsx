@@ -1,7 +1,7 @@
 export { default as Header } from './header/ui/Header';
-export { default as UpcomingPlans } from './upcomingPlans/ui/UpcomingPlans';
-export { default as MyPlans } from './myPlans/ui/MyPlans';
-export { default as CreatingPlan } from './creatingPlan/ui/CreatingPlan';
+export { default as UpcomingPlans } from './upcoming-plan-list/ui/UpcomingPlans';
+export { default as MyPlans } from './my-plan-list/ui/MyPlans';
+export { default as CreatingPlan } from './create-plan/ui/CreatingPlan';
 export { default as CreatingPlanButton } from './plan/ui/CreatingPlanButton';
 export { default as EditProfileForm } from './edit-profile/ui/EditProfileForm';
 export { default as DetailSection } from './travel-info/components/DetailSection';

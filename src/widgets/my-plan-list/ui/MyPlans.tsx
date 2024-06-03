@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteScroll } from '@/shared';
-import useMyPlans from '@/widgets/myPlans/model/useMyPlans';
+import useMyPlans from '@/widgets/my-plan-list/model/useMyPlans';
 import MyPlan from './MyPlan';
 
 export default function MyPlans() {

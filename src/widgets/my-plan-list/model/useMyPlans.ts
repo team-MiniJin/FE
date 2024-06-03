@@ -2,8 +2,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import {
   FetchMyPlanErrorT,
   FetchMyPlanSuccessT,
-} from '@/widgets/myPlans/types/myPlans';
-import fetchMyPlans from '@/widgets/myPlans/api/fetchMyPlans';
+} from '@/widgets/my-plan-list/types/myPlans';
+import fetchMyPlans from '@/widgets/my-plan-list/api/fetchMyPlans';
 
 const useMyPlans = () => {
   return useInfiniteQuery<FetchMyPlanSuccessT | FetchMyPlanErrorT | Error>({

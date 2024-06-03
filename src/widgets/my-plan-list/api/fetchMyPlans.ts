@@ -1,7 +1,7 @@
 import {
   FetchMyPlanErrorT,
   FetchMyPlanSuccessT,
-} from '@/widgets/myPlans/types/myPlans';
+} from '@/widgets/my-plan-list/types/myPlans';
 
 const fetchMyPlans = async (
   pageParam: number

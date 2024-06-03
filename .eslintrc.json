@@ -18,8 +18,16 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "no-relative-import-paths", "import"],
+  "plugins": [
+    "@typescript-eslint",
+    "no-relative-import-paths",
+    "import",
+    "react"
+  ],
   "rules": {
+    "eslint-disable-next-line no-param-reassign": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/no-extraneous-dependencies": "off",
     "react/require-default-props": "off",
     "prettier/prettier": [
       "error",

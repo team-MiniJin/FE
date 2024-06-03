@@ -1,24 +1,17 @@
-import {
-  FetchMyPlanErrorT,
-  FetchMyPlanSuccessT,
-} from '@/widgets/my-plan-list/types/myPlans';
+import fetcher from '@/shared/utils/fetcher';
+import { FetchMyPlanSuccessT } from '@/widgets/my-plan-list/types/myPlans';
+import { AxiosResponse } from 'axios';
 
 const fetchMyPlans = async (
   pageParam: number
-): Promise<FetchMyPlanSuccessT | FetchMyPlanErrorT> => {
+): Promise<FetchMyPlanSuccessT> => {
   try {
-    const res = await fetch(`/api/plans?cursor=${pageParam}`);
-    if (!res.ok) {
-      throw new Error(`Error: ${res.status} ${res.statusText}`);
-    }
-    const result = await res.json();
-    return result;
+    const result: AxiosResponse = await fetcher('/plans', 'get', {
+      cursor: pageParam,
+    });
+    return result.data as FetchMyPlanSuccessT;
   } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error ? error.message : 'An unknown error occurred',
-    };
+    throw new Error('Failed to fetch my plans');
   }
 };
 

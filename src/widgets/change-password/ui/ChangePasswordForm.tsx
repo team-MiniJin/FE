@@ -1,6 +1,6 @@
 import { Logo, Input, Button } from '@/shared';
 
-export default function FindPassword() {
+export default function ChangePasswordForm() {
   return (
     <div className="flex h-[calc(100vh-5rem)] flex-col items-center justify-center bg-white">
       <div className="flex w-full max-w-80 flex-col items-center px-4">

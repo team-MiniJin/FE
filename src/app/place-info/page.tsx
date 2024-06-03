@@ -1,7 +1,4 @@
-import React from 'react';
-import FilterArea from '@/features/TravelInfo/components/FilterArea';
-import DetailSection from '@/features/TravelInfo/components/DetailSection';
-import Map from '@/features/TravelInfo/components/Map';
+import { FilterArea, DetailSection, Map } from '@/widgets';
 
 export default function PlaceInfo() {
   return (

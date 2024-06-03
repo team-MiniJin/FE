@@ -1,5 +1,4 @@
-import { CreatingPlanButton } from '@/features';
-import { MyPlans, UpcomingPlans } from '@/widgets';
+import { MyPlans, UpcomingPlans, CreatingPlanButton } from '@/widgets';
 
 export default function Page() {
   return (

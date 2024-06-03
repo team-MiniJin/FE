@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface EditableFieldProps {
   label?: string;
@@ -51,7 +51,7 @@ export default function EditableField({
         )}
         <button
           type="button"
-          className="absolute -right-8 ml-2 text-sm text-blue-600 hover:text-blue-800"
+          className="absolute -right-8 ml-2 text-sm text-[#3666FF] hover:text-blue-800"
           onClick={editable ? handleSaveInfo : handleEditInfo}
         >
           {editable ? '저장' : '수정'}

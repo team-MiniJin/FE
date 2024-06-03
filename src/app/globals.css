@@ -4,6 +4,12 @@
 
 :root {
   --brand-color: #3666ff;
+  --brand-color-hover: #3666ffb3;
+  --skyblue: #3666ff40;
+  --skyblue-hover: #3666ff59;
   --text-default-color: #2f3438;
   --deactived-color: #c1c1c1;
+  --deactived-text-color: #868686;
+  --kakao-color: #fae100;
+  --kakao-color-hover: #fae10080;
 }

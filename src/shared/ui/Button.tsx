@@ -16,11 +16,14 @@ export default function Button({
   const buttonStyle = clsx(
     'w-full h-12 rounded-md flex items-center justify-center',
     {
-      'bg-[#3666FF] text-white hover:bg-[#3666FF]/70': styleType === 'blue',
-      'bg-[#FAE100] text-black hover:bg-[#FAE100]/50': styleType === 'kakao',
-      'bg-[#3666FF]/25 text-[#3666FF] hover:bg-[#3666FF]/35':
+      'bg-[--brand-color] text-white hover:bg-[--brand-color-hover]':
+        styleType === 'blue',
+      'bg-[--kakao-color] text-black hover:bg-[--kakao-color-hover]':
+        styleType === 'kakao',
+      'bg-[--brand-color]/25 text-[--brand-color] hover:bg-[--brand-color]/35':
         styleType === 'sky',
-      'bg-[#C1C1C1] text-[#868686]': styleType === 'disabled',
+      'bg-[--deactived-color] text-[--deactived-text-color]':
+        styleType === 'disabled',
     }
   );
 

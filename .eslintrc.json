@@ -18,7 +18,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "no-relative-import-paths"],
+  "plugins": ["@typescript-eslint", "no-relative-import-paths", "import"],
   "rules": {
     "react/require-default-props": "off",
     "prettier/prettier": [

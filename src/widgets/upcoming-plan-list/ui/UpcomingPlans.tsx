@@ -1,6 +1,3 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable import/no-extraneous-dependencies */
-
 'use client';
 
 import { useCarousel } from '@/shared';

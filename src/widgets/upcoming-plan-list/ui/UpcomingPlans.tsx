@@ -18,7 +18,7 @@ const BREAK_POINTS: { [key: number]: number } = {
 };
 
 export default function UpcomingPlans() {
-  const { data } = useUpcomingPlans();
+  const { data, isFetching, isLoading } = useUpcomingPlans();
   const { carouselStartIndex, visibleSlides, nextItem, prevItem } = useCarousel(
     BREAK_POINTS,
     data ? data.length : 0,
@@ -33,7 +33,7 @@ export default function UpcomingPlans() {
       </div>
 
       <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
-        {data ? (
+        {data && (
           <ul className=" flex w-full justify-between overflow-hidden">
             <button
               type="button"
@@ -65,9 +65,9 @@ export default function UpcomingPlans() {
               <MdOutlineKeyboardArrowRight />
             </button>
           </ul>
-        ) : (
-          <div className="h-[200px]">일정 만들러 가기(버튼 추가 예정)</div>
         )}
+        {isFetching && '데이터 가져오는 중'}
+        {!data && !isLoading && !isFetching && '가져올 데이터가 없어요'}
       </div>
     </div>
   );

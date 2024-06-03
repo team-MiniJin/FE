@@ -1,31 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { UpcomingPlanT } from '@/widgets/upcoming-plan-list/types/upcomingplan';
 import fetchUpcomingPlans from '@/widgets/upcoming-plan-list/api/fetchUpcomingPlans';
+import { useQuery } from '@tanstack/react-query';
 
 const useUpcomingPlans = () => {
-  const [data, setData] = useState<UpcomingPlanT[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { data, isFetching, isLoading } = useQuery<UpcomingPlanT[]>({
+    queryKey: ['upcomingPlans'],
+    queryFn: fetchUpcomingPlans,
+  });
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await fetchUpcomingPlans();
-        if (result.success === false) {
-          setError(result.message || 'Error fetching data');
-        } else {
-          setData(result);
-        }
-      } catch (err) {
-        setError('Network error');
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  return { data, error };
+  return { data, isLoading, isFetching };
 };
 
 export default useUpcomingPlans;

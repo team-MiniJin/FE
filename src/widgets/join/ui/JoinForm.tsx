@@ -1,14 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Logo, Input, Button } from '@/shared';
-import {
-  validateName,
-  validateEmail,
-  validateUsername,
-  validatePassword,
-} from '@/widgets/join/utils/validators';
+import { Logo, Button, Input, submitForm } from '@/shared';
 
 export default function JoinForm() {
   const [formValues, setFormValues] = useState({
@@ -21,67 +15,32 @@ export default function JoinForm() {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const router = useRouter();
-  const validateField = (
-    name: string,
-    value: string,
-    values: typeof formValues
-  ) => {
-    switch (name) {
-      case 'name':
-        return validateName(value) ? '' : '2~50자의 한글, 영문만 가능합니다.';
-      case 'email':
-        return validateEmail(value) ? '' : '올바른 이메일 형식이 아닙니다.';
-      case 'username':
-        return validateUsername(value)
-          ? ''
-          : '6~20자의 영문, 숫자만 가능합니다.';
-      case 'password':
-        return validatePassword(value)
-          ? ''
-          : '8~20자의 영문, 숫자, 특수문자 조합이어야 합니다.';
-      case 'confirmPassword':
-        return value === values.password ? '' : '비밀번호가 일치하지 않습니다.';
-      default:
-        return '';
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const updatedFormValues = {
-      ...formValues,
+    setFormValues((prevValues) => ({
+      ...prevValues,
       [name]: value,
-    };
-    setFormValues(updatedFormValues);
-    const fieldError = validateField(name, value, updatedFormValues);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: fieldError,
     }));
   };
 
-  const validateForm = (values: typeof formValues) => {
-    return Object.entries(values).reduce(
-      (acc, [name, value]) => {
-        const error = validateField(name, value, values);
-        if (error) acc[name] = error;
-        return acc;
-      },
-      {} as { [key: string]: string }
-    );
-  };
+  const handleError = useCallback((name: string, error: string) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors = validateForm(formValues);
-    if (Object.keys(newErrors).length === 0) {
-      setErrors({});
-      setIsSubmitted(true);
-      const { confirmPassword, ...userData } = formValues;
-      console.log('Form Data:', userData);
-    } else {
+    const { isFormValid, newErrors } = submitForm(formValues, errors);
+    if (!isFormValid) {
       setErrors(newErrors);
+      return;
     }
+    const { confirmPassword, ...userData } = formValues;
+    setIsSubmitted(true);
+    console.log('Form Data:', userData);
   };
 
   useEffect(() => {
@@ -104,21 +63,21 @@ export default function JoinForm() {
             placeholder="이름"
             value={formValues.name}
             onChange={handleChange}
-            error={errors.name}
+            onError={handleError}
           />
           <Input
             name="email"
             placeholder="이메일"
             value={formValues.email}
             onChange={handleChange}
-            error={errors.email}
+            onError={handleError}
           />
           <Input
             name="username"
             placeholder="아이디"
             value={formValues.username}
             onChange={handleChange}
-            error={errors.username}
+            onError={handleError}
           />
           <Input
             name="password"
@@ -126,7 +85,7 @@ export default function JoinForm() {
             type="password"
             value={formValues.password}
             onChange={handleChange}
-            error={errors.password}
+            onError={handleError}
           />
           <Input
             name="confirmPassword"
@@ -134,7 +93,8 @@ export default function JoinForm() {
             type="password"
             value={formValues.confirmPassword}
             onChange={handleChange}
-            error={errors.confirmPassword}
+            onError={handleError}
+            confirmPassword={formValues.password}
           />
           <Button text="가입하기" />
         </form>

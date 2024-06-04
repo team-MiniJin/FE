@@ -25,6 +25,8 @@
     "react"
   ],
   "rules": {
+    "no-restricted-globals": "off",
+    "no-case-declarations": "off",
     "react/no-array-index-key": "off",
     "react/no-children-prop": "off",
     "react/no-unstable-nested-components": "off",

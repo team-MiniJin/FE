@@ -174,16 +174,23 @@ export default function CreatePlanForm() {
 
         <div>
           <div className="border">
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="여행 일정 이름을 입력해 주세요."
-                  {...field}
-                />
-              </FormControl>
+            <FormField
+              control={form.control}
+              name="plan_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>여행 일정 이름</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="여행 일정 이름을 입력해 주세요."
+                      {...field}
+                    />
+                  </FormControl>
 
-              <FormMessage />
-            </FormItem>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <AddPlaceButton />
         </div>

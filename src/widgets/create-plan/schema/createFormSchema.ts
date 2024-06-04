@@ -20,20 +20,23 @@ const scheduleSchema = z.object({
   place: z.array(placeSchema),
 });
 
-const formSchema = z.object({
+const createFormSchema = z.object({
   user_id: z.number().int().nonnegative(),
   plan_name: z.string(),
   theme: z.string(),
-  start_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected yyyy-MM-dd'),
-  end_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected yyyy-MM-dd'),
+  travel_period: z.object(
+    {
+      start_date: z.date(),
+      end_date: z.date(),
+    },
+    {
+      required_error: 'Please select a date range',
+    }
+  ),
   plan_budget: z.number().int(),
   scope: z.boolean(),
   number_of_members: z.number().int().nonnegative(),
   schedule: z.array(scheduleSchema),
 });
 
-export { formSchema };
+export { createFormSchema };

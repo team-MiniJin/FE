@@ -25,7 +25,7 @@ export default function UpcomingPlan({
     >
       <Link
         href="/"
-        className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-color] p-4"
+        className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4"
       >
         <div>
           <p className="font-bold">{plan.plan_name}</p>
@@ -40,7 +40,7 @@ export default function UpcomingPlan({
           <p className="flex">{plan.number_of_members}명</p>
         </div>
         <div
-          className="absolute bottom-6 left-4 inline-block rounded bg-white p-2 text-xs font-bold text-[--brand-color]"
+          className="absolute bottom-6 left-4 inline-block rounded bg-white p-2 text-xs font-bold text-[--brand-main-color]"
           aria-label={plan.theme}
         >
           <p>{plan.theme}</p>

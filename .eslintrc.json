@@ -25,6 +25,13 @@
     "react"
   ],
   "rules": {
+    "react/no-array-index-key": "off",
+    "react/no-children-prop": "off",
+    "react/no-unstable-nested-components": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/jsx-no-constructed-context-values": "off",
+    "react/self-closing-comp": "off",
+    "react/jsx-props-no-spreading": "off",
     "eslint-disable-next-line no-param-reassign": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "import/no-extraneous-dependencies": "off",
@@ -75,33 +82,6 @@
       {
         "selector": "typeLike",
         "format": ["PascalCase"]
-      },
-      // interface 앞에 I 사용 불가
-      {
-        "selector": "interface",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^I[A-Z]",
-          "match": false
-        }
-      },
-      // typeAlias 앞에 T 사용 불가
-      {
-        "selector": "typeAlias",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^T[A-Z]",
-          "match": false
-        }
-      },
-      // typeParameter 앞에 T 사용 불가
-      {
-        "selector": "typeParameter",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^T[A-Z]",
-          "match": false
-        }
       }
     ]
   }

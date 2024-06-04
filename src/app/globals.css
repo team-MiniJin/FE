@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --brand-color: #3666ff;
+  --brand-main-color: #3666ff;
+  --brand-sub-color: rgba(54, 102, 255, 0.3);
   --text-default-color: #2f3438;
   --deactived-color: #c1c1c1;
 }

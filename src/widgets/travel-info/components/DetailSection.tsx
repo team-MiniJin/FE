@@ -2,7 +2,7 @@ export default function DetailSection() {
   return (
     <>
       <div className="flex h-52 w-full">
-        <div className="relative m-4 h-44 w-44 bg-gray-300">
+        <div className="relative m-4 h-44 w-44 bg-slate-300">
           <div className="absolute left-1 top-1/2 -translate-y-1/2 transform">
             &lt;
           </div>

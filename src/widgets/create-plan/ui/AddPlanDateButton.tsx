@@ -1,9 +1,13 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 
-export default function AddPlanDateButton({ addDay }: { addDay: () => void }) {
+export default function AddPlanDateButton({
+  addDays,
+}: {
+  addDays: () => void;
+}) {
   return (
     <button
-      onClick={addDay}
+      onClick={addDays}
       type="button"
       className="flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-slate-100"
       aria-label="date card"

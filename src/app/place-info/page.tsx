@@ -10,7 +10,7 @@ export default function PlaceInfo() {
         <div className="w-1/2">
           <DetailSection />
         </div>
-        <div className="fixed left-[50%] top-20 w-[calc(50%-2rem)]">
+        <div className="fixed left-[50%] top-24 w-[calc(50%-2rem)]">
           <Map />
         </div>
       </div>

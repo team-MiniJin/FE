@@ -52,7 +52,7 @@ export default function TravelInfo() {
         <div className="w-1/2 overflow-y-auto">
           <PlacesList apiData={apiData} />
         </div>
-        <div className="fixed right-0 top-20 h-[calc(100%-5rem)] w-1/2 overflow-y-auto">
+        <div className="fixed right-0 top-24 h-[calc(100%-5rem)] w-1/2">
           <Map />
         </div>
       </div>
@@ -101,7 +101,7 @@ export default function TravelInfo() {
 
 //   return (
 //     <div className="relative h-full w-full">
-//       <div className="sticky top-10 z-10 w-full border-y border-gray-200 bg-white">
+//       <div className="sticky top-0 z-10 w-full border-y border-gray-200 bg-white">
 //         <FilterArea
 //           keyword={keyword}
 //           setKeyword={setKeyword}
@@ -110,11 +110,11 @@ export default function TravelInfo() {
 //           onSearch={handleSearch}
 //         />
 //       </div>
-//       <div className="flex w-full">
-//         <div className="w-1/2">
+//       <div className="flex h-full w-full">
+//         <div className="w-1/2 overflow-y-auto">
 //           <PlacesList apiData={apiData} />
 //         </div>
-//         <div className="fixed left-[50%] top-20 w-[calc(50%-2rem)]">
+//         <div className="fixed right-0 top-20 h-[calc(100%-5rem)] w-1/2 overflow-y-auto">
 //           <Map />
 //         </div>
 //       </div>

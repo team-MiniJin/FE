@@ -29,4 +29,3 @@ export interface MyPlanT {
 }
 
 export type FetchMyPlanSuccessT = { data: MyPlanT[]; nextCursor?: number };
-export type FetchMyPlanErrorT = { success: false; message: string };

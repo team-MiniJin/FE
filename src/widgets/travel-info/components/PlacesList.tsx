@@ -16,7 +16,7 @@ export default function PlacesList() {
           href="/place-info"
           className="flex h-52 w-full border-t border-gray-200"
         >
-          <figure className="m-4 h-44 w-44 bg-gray-300" />
+          <figure className="m-4 h-44 w-44 bg-slate-300" />
           <article className="m-4 flex flex-col">
             <header className="text-xl font-bold">{place.name}</header>
             <p className="text-lg font-normal">{place.description}</p>
@@ -45,7 +45,7 @@ export default function PlacesList() {
 //           href="/place-info"
 //           className="flex h-52 w-full border-t border-gray-200"
 //         >
-//           <div className="m-4 h-44 w-44 bg-gray-300" />
+//           <div className="m-4 h-44 w-44 bg-slate-300" />
 //           <div className="m-4 flex flex-col">
 //             <div className="text-xl font-bold">{place.name}</div>
 //             <div className="text-lg font-normal">{place.description}</div>

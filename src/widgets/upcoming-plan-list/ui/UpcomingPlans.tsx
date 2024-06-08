@@ -1,6 +1,3 @@
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable import/no-extraneous-dependencies */
-
 'use client';
 
 import { useCarousel } from '@/shared';
@@ -25,13 +22,11 @@ export default function UpcomingPlans() {
     false,
     0
   );
-
   return (
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold">다가오는 여행 일정</h2>
       </div>
-
       <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
         {data && (
           <ul className=" flex w-full justify-between overflow-hidden">
@@ -44,7 +39,6 @@ export default function UpcomingPlans() {
             >
               <MdOutlineKeyboardArrowLeft />
             </button>
-
             {data?.map((plan) => (
               <UpcomingPlan
                 key={plan.plan_id}

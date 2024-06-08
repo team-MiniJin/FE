@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-no-constructed-context-values */
 import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
@@ -41,6 +37,10 @@ function FormField<
   );
 }
 
+const FormItemContext = React.createContext<FormItemContextValue>(
+  {} as FormItemContextValue
+);
+
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
@@ -68,10 +68,6 @@ type FormItemContextValue = {
   id: string;
 };
 
-const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
-);
-
 const FormItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -95,7 +91,10 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && 'text-red-500 dark:text-red-900', className)}
+      className={cn(
+        error && 'font-bold text-red-500 dark:text-red-900',
+        className
+      )}
       htmlFor={formItemId}
       {...props}
     />

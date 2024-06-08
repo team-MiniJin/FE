@@ -10,7 +10,7 @@ export default function ImageUploader({
   handleProfileImageChange,
 }: ImageUploaderProps) {
   return (
-    <div className="relative h-48 w-48 overflow-hidden rounded-full bg-gray-400 hover:bg-gray-500">
+    <div className="relative h-48 w-48 overflow-hidden rounded-full bg-slate-400 hover:bg-slate-500">
       <label
         htmlFor="profileImageInput"
         className="absolute inset-0 flex cursor-pointer items-center justify-center"

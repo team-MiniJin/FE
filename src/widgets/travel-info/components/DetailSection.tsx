@@ -1,29 +1,53 @@
-export default function DetailSection() {
+import { PlaceDetailT } from '@/widgets/travel-info/types/Place';
+import Image from 'next/image';
+
+interface DetailSectionProps {
+  data: PlaceDetailT | null;
+}
+
+export default function DetailSection({ data }: DetailSectionProps) {
+  if (!data) {
+    return <div>No data available</div>;
+  }
+  const homepageURL = data.homepage.split('"')[1];
+
   return (
-    <>
-      <div className="flex h-52 w-full">
-        <div className="relative m-4 h-44 w-44 bg-slate-300">
-          <div className="absolute left-1 top-1/2 -translate-y-1/2 transform">
-            &lt;
-          </div>
-          <div className="absolute right-1 top-1/2 -translate-y-1/2 transform">
-            &gt;
-          </div>
-        </div>
-        <div className="m-4 flex flex-col">
-          <div className="text-xl font-bold">장소명</div>
-          <div className="mt-2">OO도 OO시 OOO로</div>
-          <div className="mt-2">000-000-0000</div>
-        </div>
+    <div className="space-y-4 p-6">
+      <div className="relative h-52 w-full">
+        <Image
+          className="h-full w-full object-contain"
+          src={data.firstimage}
+          alt={data.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{
+            transition: 'transform 0.3s ease',
+          }}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+        />
       </div>
-      <div className="m-4">
-        <div className="text-lg font-bold">상세정보</div>
-        <p className="mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-          doloremque minus aperiam libero eos enim esse optio modi mollitia.
-          Natus sit temporibus sequi rerum, et cumque facilis maxime aut labore.
-        </p>
+      <h2 className="w-full text-xl font-bold">{data.title}</h2>
+      <div className="w-full">
+        <h3 className="text-base font-bold">주소</h3>
+        <div>{data.addr1}</div>
+        <div>{data.addr2}</div>
       </div>
-    </>
+      <a
+        href={homepageURL}
+        target="_blank"
+        className="mt-2 block w-full underline hover:text-[#3666FF]"
+      >
+        홈페이지
+      </a>
+      <div className="w-full">
+        <h3 className="text-base font-bold">{data.telname}</h3>
+        <div className="mt-2">{data.tel}</div>
+      </div>
+      <div className="w-full">
+        <h3 className="text-base font-bold">상세정보</h3>
+        <p className="mt-2">{data.overview}</p>
+      </div>
+    </div>
   );
 }

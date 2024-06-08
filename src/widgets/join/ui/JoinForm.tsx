@@ -53,7 +53,7 @@ export default function JoinForm() {
   }, [isSubmitted, router]);
 
   return (
-    <div className="flex h-[calc(100vh-5rem)] flex-col items-center justify-center bg-white">
+    <div className="flex h-[calc(100vh-6rem)] flex-col items-center justify-center bg-white">
       <div className="flex w-full max-w-80 flex-col items-center px-4">
         <Logo />
         <form onSubmit={handleSubmit} className="mt-8 w-full space-y-4">

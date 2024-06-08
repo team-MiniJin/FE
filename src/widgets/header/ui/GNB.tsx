@@ -1,6 +1,6 @@
 'use client';
 
-import { GNB_CATEGORIES } from '@/widgets/header/consts/gnb';
+import { GNB_CATEGORIES } from '@/widgets/header/constants/gnb';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import GNBCategory from './GNBCategory';

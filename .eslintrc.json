@@ -18,8 +18,27 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "no-relative-import-paths"],
+  "plugins": [
+    "@typescript-eslint",
+    "no-relative-import-paths",
+    "import",
+    "react"
+  ],
   "rules": {
+    "react/jsx-no-useless-fragment": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-restricted-globals": "off",
+    "no-case-declarations": "off",
+    "react/no-array-index-key": "off",
+    "react/no-children-prop": "off",
+    "react/no-unstable-nested-components": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/jsx-no-constructed-context-values": "off",
+    "react/self-closing-comp": "off",
+    "react/jsx-props-no-spreading": "off",
+    "eslint-disable-next-line no-param-reassign": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/no-extraneous-dependencies": "off",
     "react/require-default-props": "off",
     "prettier/prettier": [
       "error",
@@ -46,11 +65,9 @@
         }
       }
     ],
-    // 같은 폴더인 경우를 제외하고 import 경로는 항상 절대 경로를 사용
-    "no-relative-import-paths/no-relative-import-paths": [
-      "warn",
-      { "allowSameFolder": true, "rootDir": "src", "prefix": "@" }
-    ],
+    "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": "off",
+    "no-relative-import-paths/no-relative-import-paths": "off",
     "@typescript-eslint/naming-convention": [
       "warn",
       // camelCase 변수, PascalCase 변수, UPPER_CASE 변수 허용
@@ -67,33 +84,6 @@
       {
         "selector": "typeLike",
         "format": ["PascalCase"]
-      },
-      // interface 앞에 I 사용 불가
-      {
-        "selector": "interface",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^I[A-Z]",
-          "match": false
-        }
-      },
-      // typeAlias 앞에 T 사용 불가
-      {
-        "selector": "typeAlias",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^T[A-Z]",
-          "match": false
-        }
-      },
-      // typeParameter 앞에 T 사용 불가
-      {
-        "selector": "typeParameter",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^T[A-Z]",
-          "match": false
-        }
       }
     ]
   }

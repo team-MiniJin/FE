@@ -1,17 +1,19 @@
-const fetchUpcomingPlans = async () => {
+import fetcher from '@/shared/utils/fetcher';
+import { AxiosResponse } from 'axios';
+import { UpcomingPlanT } from '@/widgets/upcoming-plan-list/types/upcomingPlan';
+import { MOCK_SERVER_URL } from '@/shared/constants/api';
+
+const fetchUpcomingPlans = async (): Promise<UpcomingPlanT[]> => {
   try {
-    const res = await fetch(`/api/plans/upcoming`);
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
-    const result = await res.json();
-    return result;
+    const result: AxiosResponse = await fetcher(
+      MOCK_SERVER_URL,
+      '/plans/upcoming',
+      'get'
+    );
+    return result.data as UpcomingPlanT[];
   } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error ? error.message : 'An unknown error occurred',
-    };
+    throw new Error('Failed to fetch upcoming plans');
   }
 };
+
 export default fetchUpcomingPlans;

@@ -12,4 +12,11 @@
   --deactived-text-color: #868686;
   --kakao-color: #fae100;
   --kakao-color-hover: #fae10080;
+  --brand-main-color: #3666ff;
+  --brand-sub-color: rgba(54, 102, 255, 0.3);
+  --placeholder-color: #94a3b8;
+}
+
+*::placeholder {
+  color: var(--placeholder-color) !important;
 }

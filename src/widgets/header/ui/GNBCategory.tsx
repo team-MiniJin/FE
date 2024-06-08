@@ -20,7 +20,7 @@ export default function GNBCategory({
     <Link
       id={categoryKey}
       href={`/${categoryKey}`}
-      className={`${activedCategory === categoryKey ? 'text-[--brand-color]' : 'text-[--deactived-color]'} inline-block  px-1 py-3 font-bold hover:text-[--brand-color]`}
+      className={`${activedCategory === categoryKey ? 'text-[--brand-main-color]' : 'text-[--deactived-color]'} inline-block  px-1 py-3 font-bold hover:text-[--brand-main-color]`}
       onClick={() => {
         setActivedCatogory(categoryKey);
         closeNav();

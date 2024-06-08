@@ -8,8 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
-import { PlanT } from '@/widgets/create-plan/types/createPlan';
-import { format } from 'date-fns';
+import { eachDayOfInterval, format } from 'date-fns';
 import {
   FormControl,
   FormField,
@@ -18,11 +17,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { CalendarIcon } from 'lucide-react';
+import { PlanT } from '@/widgets/create-plan/types/create-plan';
 
 export default function EndDate({
   form,
+  setDateOfDays,
 }: {
   form: UseFormReturn<PlanT, any, undefined>;
+  setDateOfDays: React.Dispatch<React.SetStateAction<Date[]>>;
 }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -58,10 +60,18 @@ export default function EndDate({
                   mode="single"
                   selected={field.value ? new Date(field.value) : undefined}
                   onSelect={(date) => {
-                    if (date !== undefined)
+                    if (date && date < form.getValues().start_date) return;
+                    if (date !== undefined) {
                       field.onChange(format(date, 'yyyy-MM-dd'));
+                      form.setValue('end_date', date);
+                      const days = eachDayOfInterval({
+                        start: form.getValues().start_date,
+                        end: date,
+                      });
+                      setDateOfDays(days);
+                    }
                   }}
-                  disabled={(date) => date < today}
+                  disabled={(date) => date < form.getValues().start_date}
                   initialFocus
                   locale={ko}
                 />

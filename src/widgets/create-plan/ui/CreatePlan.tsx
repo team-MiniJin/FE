@@ -8,6 +8,7 @@ export default function CreatePlan() {
       <div>
         <h2 className="text-xl font-bold">새 여행 일정 만들기</h2>
       </div>
+      <div className=" h-[1px] w-full border-b" />
       <div>
         <CreatePlanForm />
       </div>

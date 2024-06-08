@@ -1,13 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { MOCK_SERVER_URL } from '@/shared/types/api';
 
-const axiosInstance = axios.create({
-  baseURL: MOCK_SERVER_URL,
-});
+const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // 추후 액세스 토큰 추가 예정
     return config;
   },
   (error) => {
@@ -26,17 +22,22 @@ axiosInstance.interceptors.response.use(
 );
 
 const fetcher = async <T>(
+  baseurl: string,
   url: string,
   method: 'get' | 'post' | 'put' | 'delete',
+  headers?: Record<string, string>,
   params?: Record<string, any>,
   data?: any
 ): Promise<T> => {
+  const fullUrl = baseurl.concat(url);
   const config: AxiosRequestConfig = {
     method,
-    url,
-    params,
+    url: fullUrl,
+    headers: headers || {},
+    params: params || {},
     ...(method !== 'get' && data && { data }),
   };
   return axiosInstance(config);
 };
+
 export default fetcher;

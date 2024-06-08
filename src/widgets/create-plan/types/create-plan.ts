@@ -1,19 +1,20 @@
 export interface BudgetT {
   budget_category: string;
   cost: number;
-  budget_memo: string;
 }
 
 export interface ScheduleT {
-  schedule_date: string; // yyyy-MM-dd
+  id?: string;
+  schedule_day: number;
   place_category: string;
   place_name: string;
+  place_address: string;
   region: string;
-  place_memo: string;
-  arrival_time: string; // HH:mm:ss
+  arrival_time: string; // HH:mm
   budget: BudgetT[];
   x: number;
   y: number;
+  place_memo: string;
 }
 
 export interface PlanT {

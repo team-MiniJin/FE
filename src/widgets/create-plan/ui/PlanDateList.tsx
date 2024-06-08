@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import useCreatePlanStore from '../store/createPlanStore';
 import DateCard from './DateCard';
 
 export default function PlanDateList({ dateOfDays }: { dateOfDays: Date[] }) {
-  const [activedDateCardIndex, setActivedDateCardIndex] = useState<number>(0);
-
+  const { activedDateCardIndex } = useCreatePlanStore();
   return (
     <ul className="flex space-x-2 ">
       {dateOfDays.map((date, idx) => (
@@ -14,7 +13,6 @@ export default function PlanDateList({ dateOfDays }: { dateOfDays: Date[] }) {
             date={date}
             idx={idx}
             isActived={activedDateCardIndex === idx}
-            setIndextOfActivedDateCard={setActivedDateCardIndex}
           />
         </li>
       ))}

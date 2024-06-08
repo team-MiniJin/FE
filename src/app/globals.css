@@ -7,4 +7,9 @@
   --brand-sub-color: rgba(54, 102, 255, 0.3);
   --text-default-color: #2f3438;
   --deactived-color: #c1c1c1;
+  --placeholder-color: #94a3b8;
+}
+
+*::placeholder {
+  color: var(--placeholder-color) !important;
 }

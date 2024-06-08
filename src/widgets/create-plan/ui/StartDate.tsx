@@ -8,8 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
-import { PlanT } from '@/widgets/create-plan/types/createPlan';
-import { format } from 'date-fns';
+import { addDays, eachDayOfInterval, format } from 'date-fns';
 import {
   FormControl,
   FormField,
@@ -18,11 +17,16 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { CalendarIcon } from 'lucide-react';
+import { PlanT } from '@/widgets/create-plan/types/create-plan';
 
 export default function StartDate({
   form,
+  setDateOfDays,
+  dateOfDays,
 }: {
   form: UseFormReturn<PlanT, any, undefined>;
+  setDateOfDays: React.Dispatch<React.SetStateAction<Date[]>>;
+  dateOfDays: Date[];
 }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -58,8 +62,20 @@ export default function StartDate({
                   mode="single"
                   selected={field.value ? new Date(field.value) : undefined}
                   onSelect={(date) => {
-                    if (date !== undefined)
+                    if (date !== undefined) {
+                      const nextEndDate = new Date(date);
+                      form.setValue(
+                        'end_date',
+                        addDays(nextEndDate, dateOfDays.length - 1)
+                      );
                       field.onChange(format(date, 'yyyy-MM-dd'));
+                      form.setValue('start_date', date);
+                      const days = eachDayOfInterval({
+                        start: date,
+                        end: form.getValues().end_date,
+                      });
+                      setDateOfDays(days);
+                    }
                   }}
                   disabled={(date) => date < today}
                   initialFocus

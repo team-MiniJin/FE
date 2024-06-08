@@ -1,19 +1,20 @@
 import clsx from 'clsx';
+import useCreatePlanStore from '../store/createPlanStore';
 
 export default function DateCard({
   idx,
   date,
   isActived,
-  setIndextOfActivedDateCard,
 }: {
   idx: number;
   date: Date;
   isActived: boolean;
-  setIndextOfActivedDateCard: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const { setActivedDateCardIndex } = useCreatePlanStore();
+
   return (
     <button
-      onClick={() => setIndextOfActivedDateCard(idx)}
+      onClick={() => setActivedDateCardIndex(idx)}
       type="button"
       className={clsx(
         'flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm text-[--brand-main-color] hover:bg-[--brand-sub-color] hover:text-white',

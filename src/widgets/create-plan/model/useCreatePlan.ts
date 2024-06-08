@@ -1,11 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { createPlanFormSchema } from '@/widgets/create-plan/schema/createPlanFormSchema';
-import { eachDayOfInterval } from 'date-fns';
 import { useState } from 'react';
+import { ScheduleT } from '@/widgets/create-plan/types/create-plan';
+import { createPlanFormSchema } from '@/widgets/create-plan/schema/create-plan-form-schema';
 
 export const useCreatePlan = () => {
+  const [schedules, setSchedules] = useState<ScheduleT[][]>(
+    Array.from(new Array(30), () => [])
+  );
   const [dateOfDays, setDateOfDays] = useState<Date[]>([new Date()]);
 
   const form = useForm<z.infer<typeof createPlanFormSchema>>({
@@ -18,43 +21,23 @@ export const useCreatePlan = () => {
       end_date: new Date(),
       scope: true,
       number_of_members: 0,
-      schedule: [
-        {
-          schedule_date: '', // yyyy-MM-dd 형식의 빈 문자열
-          place_category: '',
-          place_name: '',
-          region: '',
-          place_memo: '',
-          arrival_time: '', // HH:mm:ss 형식의 빈 문자열
-          budget: [
-            {
-              budget_category: '',
-              cost: 0,
-              budget_memo: '',
-            },
-          ],
-          x: 0,
-          y: 0,
-        },
-      ],
+      schedule: [],
     },
   });
+  const { control } = form;
+
+  const {
+    fields: scheduleFields,
+    append: appendSchedule,
+    remove: removeSchedule,
+    update: updateSchedule,
+  } = useFieldArray({
+    control,
+    name: 'schedule',
+  });
+
   const onSubmit = (values: z.infer<typeof createPlanFormSchema>) => {
-    console.log(values);
-  };
-
-  const addDays = () => {
-    const endDate = form.getValues().end_date;
-    const startDate = form.getValues().start_date;
-    if (!startDate || !endDate) return;
-
-    const nextEndDate = new Date(endDate.setDate(endDate.getDate() + 1));
-    form.setValue('end_date', nextEndDate);
-    const days = eachDayOfInterval({
-      start: startDate,
-      end: nextEndDate,
-    });
-    setDateOfDays(days);
+    // console.log(values);
   };
 
   // const queryClient = useQueryClient();
@@ -68,5 +51,16 @@ export const useCreatePlan = () => {
   //   },
   // });
   // return { data, status };
-  return { form, onSubmit, addDays, dateOfDays, setDateOfDays };
+  return {
+    form,
+    onSubmit,
+    dateOfDays,
+    setDateOfDays,
+    schedules,
+    setSchedules,
+    scheduleFields,
+    appendSchedule,
+    removeSchedule,
+    updateSchedule,
+  };
 };

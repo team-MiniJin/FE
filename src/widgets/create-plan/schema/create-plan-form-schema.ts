@@ -2,24 +2,23 @@ import { z } from 'zod';
 
 const budgetSchema = z.object({
   budget_category: z.string(),
-  cost: z.number().int(),
-  budget_memo: z.string(),
+  cost: z.number().nonnegative(),
 });
 
 const scheduleSchema = z.object({
-  schedule_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format, expected yyyy-MM-dd'),
-  place_category: z.string(),
-  place_name: z.string(),
+  schedule_day: z.number().nonnegative(),
+  place_category: z.string().min(1, '장소 유형을 입력해 주세요.'),
+  place_name: z.string().min(1, '검색을 통해 장소 이름을 넣어주세요.'),
+  place_address: z.string().min(1, '검색을 통해 주소를 넣어주세요.'),
   region: z.string(),
-  place_memo: z.string(),
   arrival_time: z
     .string()
-    .regex(/^\d{2}:\d{2}:\d{2}$/, 'Invalid time format, expected HH:mm:ss'),
+    .min(3, '도착 시간을 입력해 주세요.')
+    .regex(/^\d{2}:\d{2}$/, '입력 형식에 맞게 입력해 주세요. (ex: 8:10)'),
   budget: z.array(budgetSchema),
   x: z.number(),
   y: z.number(),
+  place_memo: z.string(),
 });
 
 const createPlanFormSchema = z.object({

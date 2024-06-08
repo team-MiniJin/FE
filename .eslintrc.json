@@ -25,6 +25,8 @@
     "react"
   ],
   "rules": {
+    "react/jsx-no-useless-fragment": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "no-restricted-globals": "off",
     "no-case-declarations": "off",
     "react/no-array-index-key": "off",
@@ -63,11 +65,9 @@
         }
       }
     ],
-    // 같은 폴더인 경우를 제외하고 import 경로는 항상 절대 경로를 사용
-    "no-relative-import-paths/no-relative-import-paths": [
-      "warn",
-      { "allowSameFolder": true, "rootDir": "src", "prefix": "@" }
-    ],
+    "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": "off",
+    "no-relative-import-paths/no-relative-import-paths": "off",
     "@typescript-eslint/naming-convention": [
       "warn",
       // camelCase 변수, PascalCase 변수, UPPER_CASE 변수 허용

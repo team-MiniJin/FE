@@ -1,4 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
+import { PlanT } from '@/widgets/create-plan/types/create-plan';
 import {
   FormControl,
   FormField,
@@ -7,22 +8,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { PlanT } from '../types/create-plan';
 
-export default function TitleInput({
+export default function PlaceTypeInput({
   form,
+  lastIndex,
 }: {
   form: UseFormReturn<PlanT, any, undefined>;
+  lastIndex: number;
 }) {
   return (
     <FormField
       control={form.control}
-      name="plan_name"
+      name={`schedule.${lastIndex}.place_category`}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>여행 일정 이름</FormLabel>
+          <FormLabel>장소 유형</FormLabel>
           <FormControl>
-            <Input placeholder="여행 일정 이름을 입력해 주세요." {...field} />
+            <Input
+              {...field}
+              type="text"
+              placeholder="어떤 장소인가요? (예: 집, 음식점)"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

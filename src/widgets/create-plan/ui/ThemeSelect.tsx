@@ -1,14 +1,11 @@
-import Link from 'next/link';
 import { UseFormReturn } from 'react-hook-form';
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { PlanT } from '@/widgets/create-plan/types/createPlan';
 import {
   Select,
   SelectContent,
@@ -16,6 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { THEMES } from '@/widgets/create-plan/constants/create-plan';
+import { PlanT } from '@/widgets/create-plan/types/create-plan';
 
 export default function ThemeSelect({
   form,
@@ -28,23 +27,21 @@ export default function ThemeSelect({
       name="theme"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Email</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <FormLabel>여행 테마</FormLabel>
+          <Select onValueChange={field.onChange}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder="여행 테마를 선택해 주세요." />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="m@example.com">m@example.com</SelectItem>
-              <SelectItem value="m@google.com">m@google.com</SelectItem>
-              <SelectItem value="m@support.com">m@support.com</SelectItem>
+              {Object.keys(THEMES).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {THEMES[key]}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <FormDescription>
-            You can manage email addresses in your{' '}
-            <Link href="/examples/forms">email settings</Link>.
-          </FormDescription>
           <FormMessage />
         </FormItem>
       )}

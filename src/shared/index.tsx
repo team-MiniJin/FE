@@ -7,5 +7,6 @@ export { default as SearchBar } from './ui/SearchBar';
 export { default as useInfiniteScroll } from './hooks/useInfiniteScroll';
 export { default as useCarousel } from './hooks/useCarousel';
 export { default as calculateStayDuration } from './utils/calculateStayDuration';
+export { default as submitForm } from './utils/submitForm';
 export { default as fetcher } from './utils/fetcher';
 export { KAKAO_LOCAL_URL, MOCK_SERVER_URL } from './constants/api';

@@ -1,10 +1,10 @@
 const formatTime = (hours: string, minutes: string, type: string = ':') => {
   let newHours = hours;
-  if (Number(newHours) < 10) {
+  if (newHours !== '00' && Number(newHours) < 10) {
     newHours = '0'.concat(newHours);
   }
   let newMinutes = minutes;
-  if (Number(newMinutes) < 10) {
+  if (newMinutes !== '00' && Number(newMinutes) < 10) {
     newMinutes = '0'.concat(newMinutes);
   }
   return type === ':'

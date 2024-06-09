@@ -53,7 +53,6 @@ export default function SearchPlaceBar({
                   curScheduleIndex={curScheduleIndex}
                   placeNameRef={placeNameRef}
                   scheduleFields={scheduleFields}
-                  updateSchedule={updateSchedule}
                   setQueryText={setQueryText}
                 />
               ))}
@@ -70,11 +69,11 @@ export default function SearchPlaceBar({
                   doc.address_name && (
                     <SearchedAddressItem
                       key={`${doc.x}-${doc.y}`}
+                      form={form}
                       doc={doc}
                       curScheduleIndex={curScheduleIndex}
                       placeNameRef={placeNameRef}
                       scheduleFields={scheduleFields}
-                      updateSchedule={updateSchedule}
                       setQueryText={setQueryText}
                     />
                   )

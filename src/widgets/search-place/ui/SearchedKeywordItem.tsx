@@ -12,7 +12,6 @@ export default function SearchedKeywordItem({
   form,
   curScheduleIndex,
   scheduleFields,
-  updateSchedule,
   setQueryText,
   placeNameRef,
 }: {
@@ -20,7 +19,6 @@ export default function SearchedKeywordItem({
   form: UseFormReturn<PlanT, any, undefined>;
   curScheduleIndex: number;
   scheduleFields: FieldArrayWithId<PlanT, 'schedule', 'id'>[];
-  updateSchedule: UseFieldArrayUpdate<PlanT, 'schedule'>;
   setQueryText: React.Dispatch<React.SetStateAction<string>>;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {

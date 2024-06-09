@@ -4,9 +4,9 @@ import {
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
-import { PlanT } from '../types/create-plan';
+import { PlanT } from '../../types/create-plan';
 import ScheduleByDayCard from './ScheduleByDayCard';
-import useCreatePlanStore from '../store/createPlanStore';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function ScheduleByDayList({
   form,

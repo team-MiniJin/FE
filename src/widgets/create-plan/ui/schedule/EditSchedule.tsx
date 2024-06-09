@@ -4,11 +4,11 @@ import {
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
-import PlaceRegistration from './PlaceRegistration';
-import { PlanT } from '../types/create-plan';
-import useCreatePlanStore from '../store/createPlanStore';
+import PlaceRegistration from './ScheduleRegistration';
+import { PlanT } from '../../types/create-plan';
+import useCreatePlanStore from '../../store/createPlanStore';
 
-export default function EditPlace({
+export default function EditSchedule({
   form,
   scheduleFields,
   updateSchedule,

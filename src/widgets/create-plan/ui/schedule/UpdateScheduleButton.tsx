@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { UseFieldArrayUpdate, UseFormReturn } from 'react-hook-form';
 import { PlanT } from '@/widgets/create-plan/types/create-plan';
-import useCreatePlanStore from '../store/createPlanStore';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function UpdateScheduleButton({
   form,

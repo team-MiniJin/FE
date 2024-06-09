@@ -5,10 +5,10 @@ import {
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
-import { BudgetT, PlanT, ScheduleT } from '../types/create-plan';
-import useCreatePlanStore from '../store/createPlanStore';
-import EditPlace from './EditPlace';
-import formatTime from '../util/formatTime';
+import { BudgetT, PlanT, ScheduleT } from '../../types/create-plan';
+import useCreatePlanStore from '../../store/createPlanStore';
+import formatTime from '../../util/formatTime';
+import EditPlace from './EditSchedule';
 
 export default function ScheduleByDayCard({
   form,

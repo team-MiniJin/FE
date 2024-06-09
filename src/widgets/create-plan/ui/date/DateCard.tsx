@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import useCreatePlanStore from '../store/createPlanStore';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function DateCard({
   idx,

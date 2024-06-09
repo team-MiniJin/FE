@@ -2,17 +2,17 @@
 
 import { useCreatePlan } from '@/widgets/create-plan/model/useCreatePlan';
 import { Form } from '@/components/ui/form';
-import PlanDateList from './PlanDateList';
-import AddPlanDateButton from './AddPlanDateButton';
+import PlanDateList from './date/DateList';
+import AddPlanDateButton from './date/AddPlanDateButton';
 import ThemeSelect from './ThemeSelect';
 import TitleInput from './TitleInput';
-import StartDate from './StartDate';
-import EndDate from './EndDate';
-import PlaceRegistration from './PlaceRegistration';
-import ScheduleByDayList from './ScheduleByDayList';
+import StartDate from './datepicker/StartDate';
+import EndDate from './datepicker/EndDate';
+import PlaceRegistration from './schedule/ScheduleRegistration';
+import ScheduleByDayList from './schedule/ScheduleByDayList';
 import CreatePlanCancelButton from './CreatePlanCancelButton';
 import SubmitButton from './SubmitButton';
-import AddPlaceButton from './AddPlaceButton';
+import AddPlaceButton from './schedule/AddScheduleButton';
 import useCreatePlanStore from '../store/createPlanStore';
 
 export default function CreatePlanForm() {

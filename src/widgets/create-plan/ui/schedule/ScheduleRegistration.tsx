@@ -6,12 +6,12 @@ import {
 } from 'react-hook-form';
 import { PlanT } from '@/widgets/create-plan/types/create-plan';
 import { useRef } from 'react';
-import PlaceTypeInput from './PlaceTypeInput';
+import PlaceTypeInput from './ScheduleTypeInput';
 import HiddenScheduleInputs from './HiddenScheduleInputs';
-import PlaceNameAndAddressInput from './PlaceNameAndAddressInput';
-import PlaceArrivalTimeInput from './PlaceArrivalTimeInput';
-import PlaceBudgetList from './PlaceBudgetList';
-import PlaceMemoInput from './PlaceMemoInput';
+import PlaceNameAndAddressInput from './ScheduleNameAndAddressInput';
+import PlaceArrivalTimeInput from './ScheduleArrivalTimeInput';
+import PlaceBudgetList from './ScheduleBudgetList';
+import PlaceMemoInput from './ScheduleMemoInput';
 import CancelScheduleButton from './CancelScheduleButton';
 import UpdateScheduleButton from './UpdateScheduleButton';
 

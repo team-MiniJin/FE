@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { UseFieldArrayRemove, UseFormReturn } from 'react-hook-form';
-import { PlanT } from '../types/create-plan';
-import useCreatePlanStore from '../store/createPlanStore';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function CancelScheduleButton({
   lastIndex,

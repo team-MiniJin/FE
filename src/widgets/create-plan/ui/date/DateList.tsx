@@ -1,6 +1,6 @@
 'use client';
 
-import useCreatePlanStore from '../store/createPlanStore';
+import useCreatePlanStore from '../../store/createPlanStore';
 import DateCard from './DateCard';
 
 export default function PlanDateList({ dateOfDays }: { dateOfDays: Date[] }) {

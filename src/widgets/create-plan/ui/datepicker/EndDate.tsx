@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { CalendarIcon } from 'lucide-react';
 import { PlanT } from '@/widgets/create-plan/types/create-plan';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function EndDate({
   form,
@@ -28,6 +29,7 @@ export default function EndDate({
 }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const { isEditing, isRegistration } = useCreatePlanStore();
   return (
     <div className="flex flex-col">
       <FormField
@@ -40,6 +42,7 @@ export default function EndDate({
               <PopoverTrigger asChild>
                 <FormControl>
                   <Button
+                    disabled={isEditing || isRegistration}
                     variant="outline"
                     className={cn(
                       'w-[150px] pl-3 text-left font-normal',

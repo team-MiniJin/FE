@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form';
 import { CalendarIcon } from 'lucide-react';
 import { PlanT } from '@/widgets/create-plan/types/create-plan';
+import useCreatePlanStore from '../../store/createPlanStore';
 
 export default function StartDate({
   form,
@@ -28,6 +29,8 @@ export default function StartDate({
   setDateOfDays: React.Dispatch<React.SetStateAction<Date[]>>;
   dateOfDays: Date[];
 }) {
+  const { isEditing, isRegistration } = useCreatePlanStore();
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return (
@@ -43,6 +46,7 @@ export default function StartDate({
                 <FormControl>
                   <Button
                     variant="outline"
+                    disabled={isEditing || isRegistration}
                     className={cn(
                       'w-[150px] pl-3 text-left font-normal',
                       !field.value && 'text-muted-foreground'

@@ -1,3 +1,3 @@
 export const MOCK_SERVER_URL =
-  'https://de0eeb92-8eae-4a89-9bb3-fa680881479c.mock.pstmn.io';
+  'https://ffa47e06-d63c-43a0-ac82-e53a67f0294e.mock.pstmn.io';
 export const KAKAO_LOCAL_URL = 'https://dapi.kakao.com/v2/local/search';

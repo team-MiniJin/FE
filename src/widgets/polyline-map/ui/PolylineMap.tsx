@@ -1,14 +1,18 @@
 'use client';
 
+import { MyPlanScheduleT } from '@/widgets/my-plan-list/types/myPlans';
 import { useEffect, useRef } from 'react';
 
 export default function PolylineMap({
   coordinates,
+  schedules,
 }: {
   coordinates: [number, number][];
+  schedules: MyPlanScheduleT[];
 }) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   let map: any;
+
   useEffect(() => {
     const mapScript = document.getElementById('kakao-map-script');
     const onLoadKakaoMap = () => {
@@ -24,6 +28,7 @@ export default function PolylineMap({
           const linePath = coordinates.map(
             (coord) => new window.kakao.maps.LatLng(coord[0], coord[1])
           );
+
           const polyline = new window.kakao.maps.Polyline({
             path: linePath,
             strokeWeight: 5, // 선의 두께
@@ -35,7 +40,23 @@ export default function PolylineMap({
 
           // 지도의 범위를 폴리라인의 범위에 맞게 설정
           const bounds = new window.kakao.maps.LatLngBounds();
-          linePath.forEach((point) => bounds.extend(point));
+          linePath.forEach((point, idx) => {
+            bounds.extend(point);
+
+            // 마커 추가
+            const marker = new window.kakao.maps.Marker({
+              position: point,
+            });
+            marker.setMap(map);
+
+            // 인포윈도우 추가
+            const infowindow = new window.kakao.maps.InfoWindow({
+              content: `<div style="padding:5px; font-size:12px; height:80px;"><div>${schedules[idx].place_name} (${schedules[idx].schedule_date} ${schedules[idx].arrival_time})</div> <div>${schedules[idx].place_addr}</div></div>`,
+            });
+
+            // 인포윈도우 표시
+            infowindow.open(map, marker);
+          });
           map.setBounds(bounds);
         });
       }

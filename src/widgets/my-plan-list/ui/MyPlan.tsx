@@ -106,7 +106,10 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
         className="relative mt-2 h-0 overflow-hidden rounded-md transition-[height]"
         ref={planSimpleViewRef}
       >
-        <PlanSimpleView coordinates={getCoordinates(plan.schedule)} />
+        <PlanSimpleView
+          coordinates={getCoordinates(plan.schedule)}
+          schedules={plan.schedule}
+        />
       </div>
       <div className="my-4 h-[1px] w-full border-b" />
     </>

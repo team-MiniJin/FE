@@ -5,6 +5,8 @@ export interface MyPlanScheduleT {
   arrival_time: string; // "HH:mm:ss"
   x: number; // double
   y: number; // double
+  place_addr: string;
+  place_categeory: string;
 }
 
 export interface MyPlanT {

@@ -7,7 +7,7 @@ import {
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
-import { PlanT } from '@/widgets/create-plan/types/create-plan';
+import { EditorPlanT } from '@/widgets/plan-editor/types/plan-editor-type';
 import SearchedKeywordItem from './SearchedKeywordItem';
 import SearchedAddressItem from './SearchedAddressItem';
 import { useSearchPlace } from '../model/useSearchPlace';
@@ -19,9 +19,9 @@ export default function SearchPlaceBar({
   curScheduleIndex,
   placeNameRef,
 }: {
-  form: UseFormReturn<PlanT, any, undefined>;
-  updateSchedule: UseFieldArrayUpdate<PlanT, 'schedule'>;
-  scheduleFields: FieldArrayWithId<PlanT, 'schedule', 'id'>[];
+  form: UseFormReturn<EditorPlanT, any, undefined>;
+  updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
+  scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   curScheduleIndex: number;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {
@@ -36,7 +36,7 @@ export default function SearchPlaceBar({
       debouncedMutate(e.target.value);
     },
   };
-
+  console.log(keywordQMutate.data, addressQMutate.data);
   return (
     <div className="relative">
       <SearchBar {...properties} />
@@ -45,17 +45,22 @@ export default function SearchPlaceBar({
           <span className="inline-block py-1 font-bold">장소</span>
           {keywordQMutate.data && keywordQMutate.data?.documents.length > 0 ? (
             <ul className="space-y-1 ">
-              {keywordQMutate.data?.documents.map((doc) => (
-                <SearchedKeywordItem
-                  key={doc.id}
-                  doc={doc}
-                  form={form}
-                  curScheduleIndex={curScheduleIndex}
-                  placeNameRef={placeNameRef}
-                  scheduleFields={scheduleFields}
-                  setQueryText={setQueryText}
-                />
-              ))}
+              {keywordQMutate.data?.documents.map((doc) => {
+                if (doc.address_name || doc.road_address_name) {
+                  return (
+                    <SearchedKeywordItem
+                      key={doc.id}
+                      doc={doc}
+                      form={form}
+                      curScheduleIndex={curScheduleIndex}
+                      placeNameRef={placeNameRef}
+                      scheduleFields={scheduleFields}
+                      setQueryText={setQueryText}
+                    />
+                  );
+                }
+                return null;
+              })}
             </ul>
           ) : (
             <div className="py-1">검색된 장소가 없습니다.</div>

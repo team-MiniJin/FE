@@ -1,10 +1,6 @@
-import { PlanT, ScheduleT } from '@/widgets/create-plan/types/create-plan';
-import {
-  FieldArrayWithId,
-  UseFieldArrayUpdate,
-  UseFormReturn,
-} from 'react-hook-form';
+import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import { MutableRefObject } from 'react';
+import { EditorPlanT } from '@/widgets/plan-editor/types/plan-editor-type';
 import { DocumentT } from '../types/address';
 
 export default function SearchedAddressItem({
@@ -15,20 +11,18 @@ export default function SearchedAddressItem({
   setQueryText,
   placeNameRef,
 }: {
-  form: UseFormReturn<PlanT, any, undefined>;
+  form: UseFormReturn<EditorPlanT, any, undefined>;
   doc: DocumentT;
   curScheduleIndex: number;
-  scheduleFields: FieldArrayWithId<PlanT, 'schedule', 'id'>[];
+  scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   setQueryText: React.Dispatch<React.SetStateAction<string>>;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {
   const handleClickAddress = (address: string) => {
-    console.log(address);
     if (curScheduleIndex < 0 || curScheduleIndex >= scheduleFields.length) {
-      // console.error('Invalid schedule index');
       return;
     }
-    form.setValue(`schedule.${curScheduleIndex}.place_address`, address);
+    form.setValue(`schedules.${curScheduleIndex}.place_addr`, address);
     setQueryText('');
     if (placeNameRef.current) {
       placeNameRef.current.value = '';
@@ -50,7 +44,7 @@ export default function SearchedAddressItem({
           }
         }}
       >
-        {doc.address && doc.road_address ? (
+        {doc.road_address ? (
           <>
             <div>{doc.road_address.address_name}</div>
             <div className="text-xs">

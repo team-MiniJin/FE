@@ -21,24 +21,25 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-const fetcher = async <T>(
+const fetcher = async (
   baseurl: string,
   url: string,
   method: 'get' | 'post' | 'put' | 'delete',
   headers?: Record<string, string>,
   params?: Record<string, any>,
   data?: any
-): Promise<T> => {
+) => {
   const fullUrl = baseurl.concat(url);
   const config: AxiosRequestConfig = {
     method,
     url: fullUrl,
-    headers:
-      { ...headers, 'Cache-Control': 'max-age=31536000, immutable' } || {},
+    headers: headers || {},
     params: params || {},
     ...(method !== 'get' && data && { data }),
   };
-  return axiosInstance(config);
+
+  const response = await axiosInstance(config);
+  return response;
 };
 
 export default fetcher;

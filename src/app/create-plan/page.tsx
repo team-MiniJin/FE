@@ -1,9 +1,9 @@
-import { CreatePlan } from '@/widgets';
+import { PlanEditor } from '@/widgets';
 
 export default function Page() {
   return (
     <div>
-      <CreatePlan />
+      <PlanEditor mode="create" />
     </div>
   );
 }

@@ -12,6 +12,6 @@ export interface PlanDetailT {
   number_of_likes: number;
   number_of_scraps: number;
   waypoints: string[];
-  schedule: ScheduleT[];
+  schedules: ScheduleT[];
   plan_budget: number;
 }

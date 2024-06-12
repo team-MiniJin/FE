@@ -1,6 +1,5 @@
 import { fetcher, KAKAO_LOCAL_URL } from '@/shared';
 import { AxiosResponse } from 'axios';
-import { size } from 'lodash';
 
 const getPlacesByAddress = async (queryText: string) => {
   try {

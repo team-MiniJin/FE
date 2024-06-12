@@ -25,5 +25,5 @@ export interface PlanT {
   end_date: Date; // yyyy-MM-dd
   scope: boolean;
   number_of_members: number;
-  schedule: ScheduleT[];
+  schedules: ScheduleT[];
 }

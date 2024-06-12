@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/users/route.js",
-    "src/shared/types"
+    "src/shared/types",
+    "src/widgets/plan-editor"
   ],
   "exclude": ["node_modules"]
 }

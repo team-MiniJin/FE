@@ -1,13 +1,13 @@
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import {
   FieldArrayWithId,
   UseFieldArrayRemove,
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
+import formatTime from '@/shared/utils/formatTime';
+import { EditScheduleButton, RemoveScheduleButton } from '@/shared';
 import { BudgetT, PlanT, ScheduleT } from '../../types/create-plan';
 import useCreatePlanStore from '../../store/createPlanStore';
-import formatTime from '../../util/formatTime';
 import EditPlace from './EditSchedule';
 
 export default function ScheduleByDayCard({
@@ -59,27 +59,19 @@ export default function ScheduleByDayCard({
         </div>
       </div>
       <div className="mr-6 flex space-x-4">
-        <button
-          type="button"
-          aria-label="장소 삭제"
-          onClick={() =>
+        <RemoveScheduleButton
+          onClickHandler={() => {
             removeSchedule(
               scheduleFields.findIndex((item) => item.id === schedule.id)
-            )
-          }
-        >
-          <AiOutlineDelete className="text-xl" />
-        </button>
-        <button
-          type="button"
-          aria-label="장소 수정"
-          onClick={() => {
+            );
+          }}
+        />
+        <EditScheduleButton
+          onClickHandler={() => {
             setIsEditing(true);
             setEditingScheduleId(schedule.id as string);
           }}
-        >
-          <AiOutlineEdit className="text-xl" />
-        </button>
+        />
       </div>
     </li>
   );

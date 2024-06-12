@@ -2,7 +2,8 @@
 
 import { useCreatePlan } from '@/widgets/create-plan/model/useCreatePlan';
 import { Form } from '@/components/ui/form';
-import PlanDateList from './date/DateList';
+import { DateCards } from '@/shared';
+import { format } from 'date-fns';
 import AddPlanDateButton from './date/AddPlanDateButton';
 import ThemeSelect from './ThemeSelect';
 import TitleInput from './TitleInput';
@@ -16,7 +17,12 @@ import AddPlaceButton from './schedule/AddScheduleButton';
 import useCreatePlanStore from '../store/createPlanStore';
 
 export default function CreatePlanForm() {
-  const { isRegistration, isEditing } = useCreatePlanStore();
+  const {
+    isRegistration,
+    isEditing,
+    activedDateCardIndex,
+    setActivedDateCardIndex,
+  } = useCreatePlanStore();
   const {
     form,
     onSubmit,
@@ -29,6 +35,7 @@ export default function CreatePlanForm() {
   } = useCreatePlan();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const dates = dateOfDays.map((date) => format(date, 'yyyy-MM-dd'));
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -44,7 +51,12 @@ export default function CreatePlanForm() {
           <EndDate form={form} setDateOfDays={setDateOfDays} />
         </div>
         <div className="flex space-x-2 overflow-hidden">
-          <PlanDateList dateOfDays={dateOfDays} />
+          <DateCards
+            dates={dates}
+            activedCardIndex={activedDateCardIndex}
+            disabled={isRegistration || isEditing}
+            onClickHandler={setActivedDateCardIndex}
+          />
           <AddPlanDateButton form={form} setDateOfDays={setDateOfDays} />
         </div>
         <div>

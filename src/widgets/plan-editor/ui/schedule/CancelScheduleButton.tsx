@@ -3,10 +3,10 @@ import { UseFieldArrayRemove } from 'react-hook-form';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 
 export default function CancelScheduleButton({
-  lastIndex,
+  curIndex,
   removeSchedule,
 }: {
-  lastIndex: number;
+  curIndex: number;
   removeSchedule: UseFieldArrayRemove;
 }) {
   const {
@@ -22,7 +22,7 @@ export default function CancelScheduleButton({
       setIsEditing(false);
       return;
     }
-    removeSchedule(lastIndex);
+    removeSchedule(curIndex);
     setIsRegistration(false);
   };
 

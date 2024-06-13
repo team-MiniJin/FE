@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import useCreatePlanStore from '../store/usePlanEditorStore';
+import useCreatePlanStore from '../../store/usePlanEditorStore';
 
 export default function SubmitButton({
   isEditMode = false,

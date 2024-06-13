@@ -18,13 +18,13 @@ import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceNameAndAddressInput({
   form,
-  lastIndex,
+  curIndex,
   placeNameRef,
   scheduleFields,
   updateSchedule,
 }: {
   form: UseFormReturn<EditorPlanT>;
-  lastIndex: number;
+  curIndex: number;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
   scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
@@ -38,12 +38,12 @@ export default function PlaceNameAndAddressInput({
         form={form}
         updateSchedule={updateSchedule}
         scheduleFields={scheduleFields}
-        curScheduleIndex={lastIndex}
+        curScheduleIndex={curIndex}
         placeNameRef={placeNameRef}
       />
       <FormField
         control={form.control}
-        name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.place_name`}
+        name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_name`}
         render={({ field }) => (
           <FormItem>
             <FormControl>
@@ -62,7 +62,7 @@ export default function PlaceNameAndAddressInput({
       />
       <FormField
         control={form.control}
-        name={`schedules.${editingScheduleIndex ? editingScheduleIndex - 1 : lastIndex}.place_addr`}
+        name={`schedules.${editingScheduleIndex ? editingScheduleIndex - 1 : curIndex}.place_addr`}
         render={({ field }) => (
           <FormItem>
             <FormControl>

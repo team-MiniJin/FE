@@ -5,11 +5,11 @@ import { EditorPlanT } from '../../types/plan-editor-type';
 
 export default function UpdateScheduleButton({
   form,
-  lastIndex,
+  curIndex,
   updateSchedule,
 }: {
   form: UseFormReturn<EditorPlanT, any, undefined>;
-  lastIndex: number;
+  curIndex: number;
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
 }) {
   const {
@@ -22,18 +22,16 @@ export default function UpdateScheduleButton({
   const handleUpdateSchedule = async () => {
     const { trigger, setValue, getValues } = form;
     const isValid = await trigger(
-      `schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}`
+      `schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}`
     );
     if (!isValid) {
       return;
     }
     const values = getValues();
     const scheduleItem =
-      values.schedules[
-        isEditing ? (editingScheduleIndex as number) : lastIndex
-      ];
+      values.schedules[isEditing ? (editingScheduleIndex as number) : curIndex];
     updateSchedule(
-      isEditing ? (editingScheduleIndex as number) : lastIndex,
+      isEditing ? (editingScheduleIndex as number) : curIndex,
       scheduleItem
     );
 

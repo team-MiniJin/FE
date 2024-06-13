@@ -12,17 +12,17 @@ import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceMemoInput({
   form,
-  lastIndex,
+  curIndex,
 }: {
   form: UseFormReturn<EditorPlanT>;
-  lastIndex: number;
+  curIndex: number;
 }) {
   const { editingScheduleIndex, isEditing } = usePlanEditorStore();
 
   return (
     <FormField
       control={form.control}
-      name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.place_memo`}
+      name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_memo`}
       render={({ field }) => (
         <FormItem>
           <FormLabel>메모 (선택)</FormLabel>

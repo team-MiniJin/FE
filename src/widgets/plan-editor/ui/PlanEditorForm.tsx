@@ -4,23 +4,25 @@ import { Form } from '@/components/ui/form';
 import { DateCards } from '@/shared';
 import { format } from 'date-fns';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
-import AddPlanDateButton from './date/AddPlanDateButton';
-import ThemeSelect from './ThemeSelect';
-import TitleInput from './TitleInput';
-import StartDate from './datepicker/StartDate';
-import EndDate from './datepicker/EndDate';
-import PlaceRegistration from './schedule/ScheduleRegistration';
+import AddPlanDateButton from './days/AddPlanDateButton';
+import ThemeSelect from './plan/ThemeSelect';
+import TitleInput from './plan/TitleInput';
+import StartDate from './plan/StartDate';
+import EndDate from './plan/EndDate';
+import ScheduleRegistration from './schedule/ScheduleRegistration';
 import ScheduleByDayList from './schedule/ScheduleByDayList';
-import CreatePlanCancelButton from './EditorPlanCancelButton';
-import SubmitButton from './SubmitButton';
+import CreatePlanCancelButton from './plan/EditorPlanCancelButton';
+import SubmitButton from './plan/SubmitButton';
 import AddPlaceButton from './schedule/AddScheduleButton';
 import useCreatePlanStore from '../store/usePlanEditorStore';
 import { useForm } from '../model/useForm';
 
 export default function PlanEditorForm({
   plan = undefined,
+  setIsEditMode,
 }: {
   plan?: PlanDetailT | undefined;
+  setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
     dateOfDays,
@@ -70,7 +72,7 @@ export default function PlanEditorForm({
 
         <div>
           {isRegistration ? (
-            <PlaceRegistration
+            <ScheduleRegistration
               scheduleFields={scheduleFields}
               removeSchedule={removeSchedule}
               updateSchedule={updateSchedule}
@@ -82,7 +84,7 @@ export default function PlanEditorForm({
         </div>
         <div className="!mt-12 flex space-x-[4%] text-center">
           <div className="w-[48%]">
-            <CreatePlanCancelButton />
+            <CreatePlanCancelButton setIsEditMode={setIsEditMode} />
           </div>
           <div className="w-[48%]">
             <SubmitButton isEditMode={plan !== undefined} />

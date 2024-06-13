@@ -32,7 +32,7 @@ export default function PlanDetail({ plan_id }: { plan_id: number }) {
   return (
     <>
       {isEditMode ? (
-        <PlanEditor mode="edit" plan={data} />
+        <PlanEditor mode="edit" plan={data} setIsEditMode={setIsEditMode} />
       ) : (
         <>
           <div className="absolute -left-2 inline-block">

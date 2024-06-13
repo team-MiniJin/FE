@@ -4,9 +4,11 @@ import PlanEditorForm from './PlanEditorForm';
 export default function PlanEditor({
   mode,
   plan,
+  setIsEditMode,
 }: {
   mode: 'edit' | 'create';
   plan?: PlanDetailT;
+  setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
     <div className="space-y-4">
@@ -18,7 +20,7 @@ export default function PlanEditor({
       </div>
       <div className=" h-[1px] w-full border-b" />
       <div>
-        <PlanEditorForm plan={plan} />
+        <PlanEditorForm plan={plan} setIsEditMode={setIsEditMode} />
       </div>
     </div>
   );

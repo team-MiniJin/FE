@@ -31,7 +31,6 @@ export default function ScheduleByDayCard({
 }) {
   const { setIsEditing, setEditingScheduleIndex, editingScheduleIndex } =
     useCreatePlanStore();
-  console.log(editingScheduleIndex, '0111');
   return editingScheduleIndex === idx ? (
     <EditPlace
       form={form}
@@ -53,7 +52,7 @@ export default function ScheduleByDayCard({
           <div className="w-[90px] text-center">
             {schedule?.budgets
               ?.reduce((prev: number, cur: EditorBudgetT) => prev + cur.cost, 0)
-              .toLocaleString()}
+              .toLocaleString() || '0'}
             원
           </div>
         </div>

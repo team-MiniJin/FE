@@ -12,17 +12,17 @@ import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceArrivalTimeInput({
   form,
-  lastIndex,
+  curIndex,
 }: {
   form: UseFormReturn<EditorPlanT>;
-  lastIndex: number;
+  curIndex: number;
 }) {
   const { editingScheduleIndex, isEditing } = usePlanEditorStore();
 
   return (
     <FormField
       control={form.control}
-      name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.arrival_time`}
+      name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.arrival_time`}
       render={({ field }) => (
         <FormItem>
           <FormLabel>도착 시간</FormLabel>

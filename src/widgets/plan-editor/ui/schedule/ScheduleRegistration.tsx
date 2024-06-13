@@ -9,13 +9,13 @@ import PlaceTypeInput from './ScheduleTypeInput';
 import HiddenScheduleInputs from './HiddenScheduleInputs';
 import PlaceNameAndAddressInput from './ScheduleNameAndAddressInput';
 import PlaceArrivalTimeInput from './ScheduleArrivalTimeInput';
-import PlaceBudgetList from './ScheduleBudgetList';
+import PlaceBudgets from '../budget/ScheduleBudgets';
 import PlaceMemoInput from './ScheduleMemoInput';
 import CancelScheduleButton from './CancelScheduleButton';
 import UpdateScheduleButton from './UpdateScheduleButton';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
-export default function PlaceRegistration({
+export default function ScheduleRegistration({
   scheduleFields,
   updateSchedule,
   removeSchedule,
@@ -39,27 +39,27 @@ export default function PlaceRegistration({
         </h3>
       </div>
       <div className="flex flex-col space-y-4">
-        <HiddenScheduleInputs form={form} lastIndex={lastIndex} />
-        <PlaceTypeInput form={form} lastIndex={lastIndex} />
+        <HiddenScheduleInputs form={form} curIndex={lastIndex} />
+        <PlaceTypeInput form={form} curIndex={lastIndex} />
         <PlaceNameAndAddressInput
           form={form}
-          lastIndex={lastIndex}
+          curIndex={lastIndex}
           placeNameRef={placeNameRef}
           scheduleFields={scheduleFields}
           updateSchedule={updateSchedule}
         />
-        <PlaceArrivalTimeInput form={form} lastIndex={lastIndex} />
-        <PlaceBudgetList form={form} lastIndex={lastIndex} />
-        <PlaceMemoInput form={form} lastIndex={lastIndex} />
+        <PlaceArrivalTimeInput form={form} curIndex={lastIndex} />
+        <PlaceBudgets form={form} curIndex={lastIndex} />
+        <PlaceMemoInput form={form} curIndex={lastIndex} />
       </div>
       <div className="!mt-10 flex justify-center space-x-4">
         <CancelScheduleButton
-          lastIndex={lastIndex}
+          curIndex={lastIndex}
           removeSchedule={removeSchedule}
         />
         <UpdateScheduleButton
           form={form}
-          lastIndex={lastIndex}
+          curIndex={lastIndex}
           updateSchedule={updateSchedule}
         />
       </div>

@@ -13,7 +13,7 @@ export interface ScheduleT {
   region: string;
   place_memo: string;
   arrival_time: string;
-  budget: BudgetT[];
+  budgets: BudgetT[];
   x: number;
   y: number;
   place_addr: string;

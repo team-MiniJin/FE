@@ -14,6 +14,7 @@ import {
 import { MutableRefObject } from 'react';
 import SearchPlaceBar from '@/widgets/search-place/ui/SearchPlaceBar';
 import { EditorPlanT } from '../../types/plan-editor-type';
+import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceNameAndAddressInput({
   form,
@@ -28,6 +29,8 @@ export default function PlaceNameAndAddressInput({
   scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
 }) {
+  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
+
   return (
     <div className="space-y-2">
       <Label htmlFor="">이름 및 위치</Label>
@@ -40,7 +43,7 @@ export default function PlaceNameAndAddressInput({
       />
       <FormField
         control={form.control}
-        name={`schedules.${lastIndex}.place_name`}
+        name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.place_name`}
         render={({ field }) => (
           <FormItem>
             <FormControl>
@@ -59,7 +62,7 @@ export default function PlaceNameAndAddressInput({
       />
       <FormField
         control={form.control}
-        name={`schedules.${lastIndex}.place_addr`}
+        name={`schedules.${editingScheduleIndex ? editingScheduleIndex - 1 : lastIndex}.place_addr`}
         render={({ field }) => (
           <FormItem>
             <FormControl>

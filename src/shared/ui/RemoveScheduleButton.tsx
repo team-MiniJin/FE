@@ -18,7 +18,7 @@ export default function RemoveScheduleButton({
 }) {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <button
           type="button"
           aria-label="장소 삭제"

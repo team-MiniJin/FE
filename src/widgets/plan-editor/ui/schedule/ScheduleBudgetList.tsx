@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { IoMdRemove } from 'react-icons/io';
 import { GoPlus } from 'react-icons/go';
 import { EditorPlanT } from '../../types/plan-editor-type';
+import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceBudgetList({
   form,
@@ -28,6 +29,8 @@ export default function PlaceBudgetList({
     control,
     name: `schedules.${lastIndex}.budgets`,
   });
+  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
+
   return (
     <div className="space-y-2">
       <h4 className="text-sm font-medium">예산 (선택)</h4>
@@ -35,7 +38,7 @@ export default function PlaceBudgetList({
         <div key={budgetField.id} className="flex space-x-2">
           <FormField
             control={form.control}
-            name={`schedules.${lastIndex}.budgets.${budgetIndex}.budget_category`}
+            name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.budgets.${budgetIndex}.budget_category`}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -47,7 +50,7 @@ export default function PlaceBudgetList({
           />
           <FormField
             control={form.control}
-            name={`schedules.${lastIndex}.budgets.${budgetIndex}.cost`}
+            name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.budgets.${budgetIndex}.cost`}
             render={({ field }) => (
               <FormItem>
                 <FormControl>

@@ -85,7 +85,7 @@ export default function PlanEditorForm({
             <CreatePlanCancelButton />
           </div>
           <div className="w-[48%]">
-            <SubmitButton />
+            <SubmitButton isEditMode={plan !== undefined} />
           </div>
         </div>
       </form>

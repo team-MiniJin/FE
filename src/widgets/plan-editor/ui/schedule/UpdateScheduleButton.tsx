@@ -12,19 +12,34 @@ export default function UpdateScheduleButton({
   lastIndex: number;
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
 }) {
-  const { setIsRegistration, isEditing, setIsEditing } = useCreatePlanStore();
+  const {
+    setIsRegistration,
+    isEditing,
+    setIsEditing,
+    editingScheduleIndex,
+    setEditingScheduleIndex,
+  } = useCreatePlanStore();
   const handleUpdateSchedule = async () => {
     const { trigger, setValue, getValues } = form;
-    const isValid = await trigger(`schedules.${lastIndex}`);
+    const isValid = await trigger(
+      `schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}`
+    );
     if (!isValid) {
       return;
     }
     const values = getValues();
-    const scheduleItem = values.schedules[lastIndex];
-    updateSchedule(lastIndex, scheduleItem);
+    const scheduleItem =
+      values.schedules[
+        isEditing ? (editingScheduleIndex as number) : lastIndex
+      ];
+    updateSchedule(
+      isEditing ? (editingScheduleIndex as number) : lastIndex,
+      scheduleItem
+    );
 
     setIsRegistration(false);
     setIsEditing(false);
+    setEditingScheduleIndex(null);
     const updatedSchedules = getValues().schedules.slice();
     updatedSchedules.sort((a, b) => {
       const timeA = a.arrival_time.split(':').map(Number);

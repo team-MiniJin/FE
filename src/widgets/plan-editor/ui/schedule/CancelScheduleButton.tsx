@@ -9,12 +9,16 @@ export default function CancelScheduleButton({
   lastIndex: number;
   removeSchedule: UseFieldArrayRemove;
 }) {
-  const { setIsRegistration, setIsEditing, setEditingScheduleId, isEditing } =
-    useCreatePlanStore();
+  const {
+    setIsRegistration,
+    setIsEditing,
+    setEditingScheduleIndex,
+    isEditing,
+  } = useCreatePlanStore();
 
   const handleRemoveSchedule = () => {
     if (isEditing) {
-      setEditingScheduleId('');
+      setEditingScheduleIndex(null);
       setIsEditing(false);
       return;
     }

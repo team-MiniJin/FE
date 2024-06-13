@@ -4,8 +4,10 @@ import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import Link from 'next/link';
 
 export default function PlanSimpleView({
+  planId,
   schedules,
 }: {
+  planId: number;
   schedules: ScheduleT[];
 }) {
   return (
@@ -17,7 +19,7 @@ export default function PlanSimpleView({
         asChild
         className="absolute right-0 top-0 z-10 bg-[--brand-main-color] hover:bg-[--brand-color-hover]"
       >
-        <Link href="/">자세히 보기</Link>
+        <Link href={`/my-travels/plan/${planId}`}>자세히 보기</Link>
       </Button>
     </>
   );

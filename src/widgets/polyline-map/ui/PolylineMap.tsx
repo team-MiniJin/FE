@@ -66,7 +66,6 @@ export default function PolylineMap({ schedules }: { schedules: ScheduleT[] }) {
     };
 
     if (mapScript) {
-      console.log('!');
       mapScript.addEventListener('load', onLoadKakaoMap);
       if (window.kakao && window.kakao.maps) {
         onLoadKakaoMap();

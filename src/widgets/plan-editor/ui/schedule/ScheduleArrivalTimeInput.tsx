@@ -8,6 +8,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { UseFormReturn } from 'react-hook-form';
 import { EditorPlanT } from '../../types/plan-editor-type';
+import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceArrivalTimeInput({
   form,
@@ -16,10 +17,12 @@ export default function PlaceArrivalTimeInput({
   form: UseFormReturn<EditorPlanT>;
   lastIndex: number;
 }) {
+  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
+
   return (
     <FormField
       control={form.control}
-      name={`schedules.${lastIndex}.arrival_time`}
+      name={`schedules.${isEditing ? (editingScheduleIndex as number) : lastIndex}.arrival_time`}
       render={({ field }) => (
         <FormItem>
           <FormLabel>도착 시간</FormLabel>

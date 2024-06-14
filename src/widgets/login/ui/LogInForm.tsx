@@ -1,31 +1,110 @@
-import { Button, Input, Logo } from '@/shared';
+'use client';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+const formSchema = z.object({
+  username: z.string().regex(/^[a-zA-Z0-9]{6,20}$/, {
+    message: '6~20자의 영문, 숫자만 가능합니다.',
+  }),
+  password: z
+    .string()
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/, {
+      message: '8~20자의 영문, 숫자, 특수문자 조합이어야 합니다.',
+    }),
+});
 
 export default function LogInForm() {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+    alert('로그인에 성공했습니다.');
+  }
+
   return (
-    <div className="flex h-[calc(100vh-6rem)] flex-col items-center justify-center bg-white">
-      <div className="flex w-full max-w-80 flex-col items-center px-4">
-        <Logo />
-        <div className="mt-8 w-full space-y-4">
-          <Input placeholder="아이디" />
-          <Input placeholder="비밀번호" type="password" />
-          <Button text="로그인" />
-          <div className="flex justify-between text-sm">
-            <Link href="/join" className="hover:text-[#3666FF]">
-              회원가입
-            </Link>
-            <Link href="/find-password" className="hover:text-[#3666FF]">
-              비밀번호 찾기
-            </Link>
-          </div>
-          <div className="flex w-full items-center">
-            <hr className="flex-1 border-gray-300" />
-            <span className="mx-2 text-sm text-gray-500">또는</span>
-            <hr className="flex-1 border-gray-300" />
-          </div>
-          <Button text="카카오톡 로그인" styleType="kakao" />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-sm space-y-8 rounded-lg bg-white p-8 shadow-xl"
+      >
+        <div className="font-bold">로그인</div>
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="아이디" {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <div className="relative">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="비밀번호"
+                    type={showPassword ? 'text' : 'password'}
+                    className="w-full"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-0 top-0 ml-2 bg-transparent text-slate-500 hover:bg-transparent hover:opacity-50"
+            tabIndex={-1}
+          >
+            {showPassword ? '숨기기' : '표시'}
+          </Button>
         </div>
-      </div>
-    </div>
+        <Button
+          type="submit"
+          className="w-full bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
+          disabled={isLoading}
+        >
+          {isLoading ? '로그인 중...' : '로그인'}
+        </Button>
+        <Button
+          type="button"
+          className="w-full bg-[--kakao-color] text-black hover:bg-[--kakao-color-hover]"
+        >
+          카카오 로그인
+        </Button>
+        <div className="flex justify-between text-sm">
+          <Link href="/find-username" className="hover:text-[#3666FF]">
+            아이디 찾기
+          </Link>
+          <Link href="/find-password" className="hover:text-[#3666FF]">
+            비밀번호 찾기
+          </Link>
+        </div>
+      </form>
+    </Form>
   );
 }

@@ -52,7 +52,7 @@ export default function PlaceInfo() {
   return (
     <div className="relative h-full w-full">
       <div className="sticky top-0 z-10 w-full border-y border-gray-200 bg-white">
-        {/* <FilterArea /> */}
+        <FilterArea />
       </div>
       <div className="flex w-full">
         <div className="w-1/2">

@@ -9,17 +9,13 @@ import { Input } from '@/components/ui/input';
 
 const formSchema = z.object({
   email: z.string().email({ message: '올바른 이메일 형식이 아닙니다.' }),
-  username: z.string().regex(/^[a-zA-Z0-9]{6,20}$/, {
-    message: '6~20자의 영문, 숫자만 가능합니다.',
-  }),
 });
 
-export default function FindPasswordForm() {
+export default function FindUsernameForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      username: '',
     },
   });
 
@@ -33,7 +29,7 @@ export default function FindPasswordForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full max-w-sm space-y-8 rounded-lg bg-white p-8 shadow-xl"
       >
-        <div className="font-bold">비밀번호 찾기</div>
+        <div className="font-bold">아이디 찾기</div>
         <FormField
           control={form.control}
           name="email"
@@ -45,22 +41,11 @@ export default function FindPasswordForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="아이디" {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
         <Button
           type="submit"
           className="w-full bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
         >
-          비밀번호 확인
+          아이디 확인
         </Button>
       </form>
     </Form>

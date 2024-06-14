@@ -16,20 +16,22 @@ import {
 
 export default function ScheduleByDayCard({
   form,
+  idx,
   schedule,
   scheduleFields,
   updateSchedule,
   removeSchedule,
 }: {
   schedule: EditorScheduleT;
+  idx: number;
   form: UseFormReturn<EditorPlanT, any, undefined>;
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
   scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   removeSchedule: UseFieldArrayRemove;
 }) {
-  const { setIsEditing, setEditingScheduleId, editingScheduleId } =
+  const { setIsEditing, setEditingScheduleIndex, editingScheduleIndex } =
     useCreatePlanStore();
-  return editingScheduleId === schedule.id ? (
+  return editingScheduleIndex === idx ? (
     <EditPlace
       form={form}
       updateSchedule={updateSchedule}
@@ -48,9 +50,9 @@ export default function ScheduleByDayCard({
             )}
           </div>
           <div className="w-[90px] text-center">
-            {schedule.budgets
-              .reduce((prev: number, cur: EditorBudgetT) => prev + cur.cost, 0)
-              .toLocaleString()}
+            {schedule?.budgets
+              ?.reduce((prev: number, cur: EditorBudgetT) => prev + cur.cost, 0)
+              .toLocaleString() || '0'}
             원
           </div>
         </div>
@@ -73,7 +75,7 @@ export default function ScheduleByDayCard({
         <EditScheduleButton
           onClickHandler={() => {
             setIsEditing(true);
-            setEditingScheduleId(schedule.id as string);
+            setEditingScheduleIndex(idx);
           }}
         />
       </div>

@@ -36,7 +36,6 @@ export default function SearchPlaceBar({
       debouncedMutate(e.target.value);
     },
   };
-  console.log(keywordQMutate.data, addressQMutate.data);
   return (
     <div className="relative">
       <SearchBar {...properties} />

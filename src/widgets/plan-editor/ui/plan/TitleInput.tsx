@@ -7,7 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { EditorPlanT } from '../types/plan-editor-type';
+import { EditorPlanT } from '../../types/plan-editor-type';
 
 export default function TitleInput({
   form,

@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   const config: AxiosRequestConfig = {
     method,
     url,
-    headers: { ...headers, 'Cache-Control': 'max-age=31536000, immutable' },
+    headers: { ...headers },
     params: params || {},
     ...(method !== 'get' && data && { data }),
   };

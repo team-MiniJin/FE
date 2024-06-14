@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
-import useCreatePlanStore from '../store/usePlanEditorStore';
+import useCreatePlanStore from '../../store/usePlanEditorStore';
 
-export default function SubmitButton() {
+export default function SubmitButton({
+  isEditMode = false,
+}: {
+  isEditMode: boolean;
+}) {
   const { isEditing, isRegistration } = useCreatePlanStore();
   return (
     <Button
@@ -9,7 +13,7 @@ export default function SubmitButton() {
       className="w-full  bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
       disabled={isEditing || isRegistration}
     >
-      만들기
+      {isEditMode ? '수정' : '만들기'}
     </Button>
   );
 }

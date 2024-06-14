@@ -4,7 +4,7 @@ import {
   UseFieldArrayUpdate,
   UseFormReturn,
 } from 'react-hook-form';
-import PlaceRegistration from './ScheduleRegistration';
+import ScheduleRegistration from './ScheduleRegistration';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
@@ -22,7 +22,7 @@ export default function EditSchedule({
   const { isEditing } = useCreatePlanStore();
   return (
     isEditing && (
-      <PlaceRegistration
+      <ScheduleRegistration
         form={form}
         scheduleFields={scheduleFields}
         updateSchedule={updateSchedule}

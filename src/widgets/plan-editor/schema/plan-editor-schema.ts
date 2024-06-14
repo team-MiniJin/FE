@@ -1,8 +1,12 @@
 import { z } from 'zod';
 
 const planEditorFormBudgetSchema = z.object({
-  budget_category: z.string(),
-  cost: z.number().nonnegative(),
+  budget_category: z.string().min(1, '지출 내용을 입력해 주세요.'),
+  cost: z
+    .number({
+      invalid_type_error: '숫자를 입력해 주세요.',
+    })
+    .min(1, '지출 비용은 1원 이상을 입력해 주세요.'),
 });
 
 const planEditorFormScheduleSchema = z.object({

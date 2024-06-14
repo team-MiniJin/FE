@@ -8,18 +8,21 @@ import {
 import { Input } from '@/components/ui/input';
 import { UseFormReturn } from 'react-hook-form';
 import { EditorPlanT } from '../../types/plan-editor-type';
+import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceMemoInput({
   form,
-  lastIndex,
+  curIndex,
 }: {
   form: UseFormReturn<EditorPlanT>;
-  lastIndex: number;
+  curIndex: number;
 }) {
+  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
+
   return (
     <FormField
       control={form.control}
-      name={`schedules.${lastIndex}.place_memo`}
+      name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_memo`}
       render={({ field }) => (
         <FormItem>
           <FormLabel>메모 (선택)</FormLabel>

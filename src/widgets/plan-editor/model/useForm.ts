@@ -3,6 +3,7 @@ import { useFieldArray, useForm as useReactHookForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
+import { eachDayOfInterval } from 'date-fns';
 import { EditorPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
@@ -10,7 +11,14 @@ import usePlanEditorStore from '../store/usePlanEditorStore';
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
   useEffect(() => {
-    setDateOfDays([new Date()]);
+    if (plan) {
+      const startDate = new Date(plan.start_date);
+      const endDate = new Date(plan.end_date);
+      const dates = eachDayOfInterval({ start: startDate, end: endDate });
+      setDateOfDays(dates);
+    } else {
+      setDateOfDays([new Date()]);
+    }
   }, [setDateOfDays]);
   const form = useReactHookForm<EditorPlanT>({
     resolver: zodResolver(planEditorFormPlanSchema),

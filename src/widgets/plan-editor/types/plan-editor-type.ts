@@ -5,7 +5,7 @@ export interface EditorBudgetT {
 
 export interface EditorScheduleT {
   // schedule_date: Date;
-  id: string;
+  id: number;
   place_category: string;
   place_name: string;
   place_addr: string;

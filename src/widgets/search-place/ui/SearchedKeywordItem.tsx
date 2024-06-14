@@ -19,7 +19,6 @@ export default function SearchedKeywordItem({
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {
   const handleClickKeyword = (name: string, address: string) => {
-    console.log(address, form.getValues().schedules[curScheduleIndex]);
     if (curScheduleIndex < 0 || curScheduleIndex >= scheduleFields.length) {
       return;
     }

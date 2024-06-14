@@ -40,7 +40,6 @@ export default function JoinForm() {
     }
     const { confirmPassword, ...userData } = formValues;
     setIsSubmitted(true);
-    console.log('Form Data:', userData);
   };
 
   useEffect(() => {

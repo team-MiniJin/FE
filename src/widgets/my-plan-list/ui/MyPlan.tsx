@@ -77,7 +77,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
         className="relative mt-2 h-0 overflow-hidden rounded-md transition-[height]"
         ref={planSimpleViewRef}
       >
-        <PlanSimpleView schedules={plan.schedule} />
+        <PlanSimpleView planId={plan.plan_id} schedules={plan.schedule} />
       </div>
       <div className="my-4 h-[1px] w-full border-b" />
     </>

@@ -8,18 +8,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { EditorPlanT } from '../../types/plan-editor-type';
+import usePlanEditorStore from '../../store/usePlanEditorStore';
 
 export default function PlaceTypeInput({
   form,
-  lastIndex,
+  curIndex,
 }: {
   form: UseFormReturn<EditorPlanT, any, undefined>;
-  lastIndex: number;
+  curIndex: number;
 }) {
+  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
+
   return (
     <FormField
       control={form.control}
-      name={`schedules.${lastIndex}.place_category`}
+      name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_category`}
       render={({ field }) => (
         <FormItem>
           <FormLabel>장소 유형</FormLabel>

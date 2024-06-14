@@ -13,8 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { THEMES } from '../constants/consts';
-import { EditorPlanT } from '../types/plan-editor-type';
+import { THEMES } from '../../constants/consts';
+import { EditorPlanT } from '../../types/plan-editor-type';
 
 export default function ThemeSelect({
   form,

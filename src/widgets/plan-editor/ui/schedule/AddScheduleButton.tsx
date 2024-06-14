@@ -13,7 +13,7 @@ export default function AddPlaceButton({
   const handleAddPlace = () => {
     setIsRegistration(true);
     appendSchedule({
-      id: '0',
+      id: 0,
       schedule_day: activedDateCardIndex,
       place_category: '',
       place_name: '',

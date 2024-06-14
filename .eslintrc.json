@@ -25,6 +25,7 @@
     "react"
   ],
   "rules": {
+    "@typescript-eslint/no-shadow": "off",
     "react/jsx-no-useless-fragment": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "no-restricted-globals": "off",

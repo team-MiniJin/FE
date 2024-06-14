@@ -4,10 +4,12 @@ import PlanEditorForm from './PlanEditorForm';
 export default function PlanEditor({
   mode,
   plan,
+  isEditMode,
   setIsEditMode,
 }: {
   mode: 'edit' | 'create';
   plan?: PlanDetailT;
+  isEditMode?: boolean;
   setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
@@ -20,7 +22,11 @@ export default function PlanEditor({
       </div>
       <div className=" h-[1px] w-full border-b" />
       <div>
-        <PlanEditorForm plan={plan} setIsEditMode={setIsEditMode} />
+        <PlanEditorForm
+          plan={plan}
+          setIsEditMode={setIsEditMode}
+          isEditMode={isEditMode}
+        />
       </div>
     </div>
   );

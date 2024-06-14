@@ -11,7 +11,15 @@ interface PlanEditorStoreT {
   setIsEditing: (isEditing: boolean) => void;
   dateOfDays: Date[];
   setDateOfDays: (dateOfDays: Date[]) => void;
+  resetStore: () => void;
 }
+const initialState = {
+  editingScheduleIndex: null,
+  activedDateCardIndex: 0,
+  isRegistration: false,
+  isEditing: false,
+  dateOfDays: [new Date()],
+};
 
 const usePlanEditorStore = create<PlanEditorStoreT>((set) => ({
   editingScheduleIndex: null,
@@ -29,6 +37,7 @@ const usePlanEditorStore = create<PlanEditorStoreT>((set) => ({
   dateOfDays: [new Date()],
   setDateOfDays: (dateOfDays: Date[]) =>
     set((state) => ({ ...state, dateOfDays })),
+  resetStore: () => set(() => initialState),
 }));
 
 export default usePlanEditorStore;

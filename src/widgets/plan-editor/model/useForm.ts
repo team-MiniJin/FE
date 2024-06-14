@@ -10,7 +10,8 @@ import usePlanEditorStore from '../store/usePlanEditorStore';
 
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
-  useEffect(() => {
+
+  const initializeDates = (plan: PlanDetailT | undefined) => {
     if (plan) {
       const startDate = new Date(plan.start_date);
       const endDate = new Date(plan.end_date);
@@ -19,7 +20,12 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     } else {
       setDateOfDays([new Date()]);
     }
-  }, [setDateOfDays]);
+  };
+
+  useEffect(() => {
+    initializeDates(plan);
+  }, [setDateOfDays, plan]);
+
   const form = useReactHookForm<EditorPlanT>({
     resolver: zodResolver(planEditorFormPlanSchema),
     defaultValues: {
@@ -32,7 +38,8 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       schedules: plan ? plan.schedules : [],
     },
   });
-  const { control } = form;
+
+  const { control, reset } = form;
 
   const {
     fields: scheduleFields,
@@ -46,6 +53,19 @@ export const useForm = (plan: PlanDetailT | undefined) => {
 
   const onSubmit = (values: z.infer<typeof planEditorFormPlanSchema>) => {};
 
+  const resetForm = (plan: PlanDetailT | undefined) => {
+    reset({
+      plan_name: plan ? plan.plan_name : '',
+      theme: plan ? plan.theme : '',
+      start_date: plan ? new Date(plan.start_date) : new Date(),
+      end_date: plan ? new Date(plan.end_date) : new Date(),
+      scope: plan ? plan.scope : true,
+      number_of_members: plan ? plan.number_of_members : 0,
+      schedules: plan ? plan.schedules : [],
+    });
+    initializeDates(plan);
+  };
+
   return {
     form,
     scheduleFields,
@@ -53,5 +73,6 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     removeSchedule,
     updateSchedule,
     onSubmit,
+    resetForm,
   };
 };

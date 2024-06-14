@@ -4,6 +4,7 @@ import { Form } from '@/components/ui/form';
 import { DateCards } from '@/shared';
 import { format } from 'date-fns';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
+import { useEffect } from 'react';
 import AddPlanDateButton from './days/AddPlanDateButton';
 import ThemeSelect from './plan/ThemeSelect';
 import TitleInput from './plan/TitleInput';
@@ -14,15 +15,17 @@ import ScheduleByDayList from './schedule/ScheduleByDayList';
 import CreatePlanCancelButton from './plan/EditorPlanCancelButton';
 import SubmitButton from './plan/SubmitButton';
 import AddPlaceButton from './schedule/AddScheduleButton';
-import useCreatePlanStore from '../store/usePlanEditorStore';
+import usePlanEditorStore from '../store/usePlanEditorStore';
 import { useForm } from '../model/useForm';
 
 export default function PlanEditorForm({
   plan = undefined,
   setIsEditMode,
+  isEditMode,
 }: {
   plan?: PlanDetailT | undefined;
   setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditMode?: boolean;
 }) {
   const {
     dateOfDays,
@@ -30,7 +33,8 @@ export default function PlanEditorForm({
     isEditing,
     activedDateCardIndex,
     setActivedDateCardIndex,
-  } = useCreatePlanStore();
+    resetStore,
+  } = usePlanEditorStore();
   const {
     form,
     scheduleFields,
@@ -38,7 +42,17 @@ export default function PlanEditorForm({
     appendSchedule,
     updateSchedule,
     onSubmit,
+    resetForm,
   } = useForm(plan);
+  useEffect(() => {
+    console.log(activedDateCardIndex);
+    console.log(isEditMode);
+    if (isEditMode !== undefined) {
+      setActivedDateCardIndex(0);
+      resetStore();
+      resetForm(plan);
+    }
+  }, [isEditMode]);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const dates = dateOfDays.map((date) => format(date, 'yyyy-MM-dd'));

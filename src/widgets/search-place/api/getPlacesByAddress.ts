@@ -1,11 +1,10 @@
-import { fetcher, KAKAO_LOCAL_URL } from '@/shared';
+import { fetcher } from '@/shared';
 import { AxiosResponse } from 'axios';
-import { size } from 'lodash';
 
 const getPlacesByAddress = async (queryText: string) => {
   try {
     const result: AxiosResponse = await fetcher(
-      KAKAO_LOCAL_URL,
+      'https://dapi.kakao.com/v2/local/search',
       '/address',
       'get',
       {

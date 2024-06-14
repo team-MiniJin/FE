@@ -5,7 +5,7 @@ import { GoPlus } from 'react-icons/go';
 export default function CreatingPlanButton() {
   return (
     <Button variant="outline" asChild>
-      <Link href="/creating-plan">
+      <Link href="/create-plan">
         <GoPlus className="mr-2" />
         일정 만들기
       </Link>

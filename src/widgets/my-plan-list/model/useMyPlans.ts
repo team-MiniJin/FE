@@ -1,12 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import {
-  FetchMyPlanErrorT,
-  FetchMyPlanSuccessT,
-} from '@/widgets/my-plan-list/types/myPlans';
+import { FetchMyPlanSuccessT } from '@/widgets/my-plan-list/types/myPlans';
 import fetchMyPlans from '@/widgets/my-plan-list/api/fetchMyPlans';
 
 const useMyPlans = () => {
-  return useInfiniteQuery<FetchMyPlanSuccessT | FetchMyPlanErrorT | Error>({
+  return useInfiniteQuery<FetchMyPlanSuccessT | Error>({
     queryKey: ['plans'],
     queryFn: ({ pageParam = 1 }) => fetchMyPlans(pageParam as number),
     initialPageParam: 1,

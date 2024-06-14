@@ -13,7 +13,7 @@ const planEditorFormScheduleSchema = z.object({
   arrival_time: z
     .string()
     .min(3, '도착 시간을 입력해 주세요.')
-    .regex(/^\d{2}:\d{2}$/, '입력 형식에 맞게 입력해 주세요. (ex: 8:10)'),
+    .regex(/^\d{2}:\d{2}$/, '입력 형식에 맞게 입력해 주세요. (ex: 08:10)'),
   budgets: z.array(planEditorFormBudgetSchema),
   x: z.number(),
   y: z.number(),

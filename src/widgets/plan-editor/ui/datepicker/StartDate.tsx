@@ -30,6 +30,20 @@ export default function StartDate({
   const { isEditing, isRegistration, setDateOfDays } = usePlanEditorStore();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date !== undefined) {
+      const nextEndDate = new Date(date);
+      form.setValue('end_date', addDays(nextEndDate, dateOfDays.length - 1));
+      form.setValue('start_date', date);
+      const days = eachDayOfInterval({
+        start: date,
+        end: form.getValues().end_date,
+      });
+      setDateOfDays(days);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <FormField
@@ -62,22 +76,7 @@ export default function StartDate({
                 <Calendar
                   mode="single"
                   selected={field.value ? new Date(field.value) : undefined}
-                  onSelect={(date) => {
-                    if (date !== undefined) {
-                      const nextEndDate = new Date(date);
-                      form.setValue(
-                        'end_date',
-                        addDays(nextEndDate, dateOfDays.length - 1)
-                      );
-                      field.onChange(format(date, 'yyyy-MM-dd'));
-                      form.setValue('start_date', date);
-                      const days = eachDayOfInterval({
-                        start: date,
-                        end: form.getValues().end_date,
-                      });
-                      setDateOfDays(days);
-                    }
-                  }}
+                  onSelect={handleDateSelect}
                   disabled={(date) => date < today}
                   initialFocus
                   locale={ko}

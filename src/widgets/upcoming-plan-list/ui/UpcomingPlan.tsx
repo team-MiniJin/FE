@@ -1,6 +1,6 @@
 import calculateDday from '@/shared/utils/calculateDday';
 import Link from 'next/link';
-import { UpcomingPlanT } from '../types/upcomingPlan';
+import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 export default function UpcomingPlan({
   plan,

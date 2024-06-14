@@ -2,7 +2,7 @@
 
 import fetchUpcomingPlans from '@/widgets/upcoming-plan-list/api/fetchUpcomingPlans';
 import { useQuery } from '@tanstack/react-query';
-import { UpcomingPlanT } from '@/widgets/upcoming-plan-list/types/upcomingPlan';
+import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 const useUpcomingPlans = () => {
   const { data, isFetching, isLoading } = useQuery<UpcomingPlanT[]>({

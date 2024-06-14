@@ -14,7 +14,7 @@ export default function AddPlaceButton({
     setIsRegistration(true);
     appendSchedule({
       id: 0,
-      schedule_day: activedDateCardIndex,
+      schedule_day: activedDateCardIndex + 1,
       place_category: '',
       place_name: '',
       place_addr: '',

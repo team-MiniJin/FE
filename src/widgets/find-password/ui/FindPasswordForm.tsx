@@ -7,9 +7,9 @@ export default function FindPasswordForm() {
         <Logo />
         <div className="mt-8 w-full space-y-4">
           <h2 className="font-bold">비밀번호 찾기</h2>
-          <Input placeholder="이름" />
-          <Input placeholder="이메일" />
-          <Input placeholder="아이디" />
+          <Input placeholder="이름" name="name" />
+          <Input placeholder="이메일" name="email" />
+          <Input placeholder="아이디" name="id" />
           <Button text="비밀번호 확인" />
         </div>
       </div>

@@ -1,25 +1,16 @@
-import {
-  BookmarkWithCount,
-  calculateStayDuration,
-  LikeWithCount,
-  WayPoints,
-} from '@/shared';
+import { calculateStayDuration } from '@/shared';
+import { IoIosArrowRoundForward } from 'react-icons/io';
+import { IoBookmarkOutline } from 'react-icons/io5';
 import { MyPlanT } from '@/widgets/my-plan-list/types/myPlans';
+import { GoHeart } from 'react-icons/go';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {
   const [isOpen, setIsOpen] = useState(false);
-  const planSimpleViewRef = useRef<HTMLDivElement>(null);
+
   const toggleAccordion = () => {
-    if (planSimpleViewRef.current) {
-      if (isOpen) {
-        planSimpleViewRef.current.style.height = '0';
-      } else {
-        planSimpleViewRef.current.style.height = `294px`;
-      }
-      setIsOpen(!isOpen);
-    }
+    setIsOpen(!isOpen);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -27,6 +18,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
       toggleAccordion();
     }
   };
+
   return (
     <>
       <li>
@@ -59,8 +51,21 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
                 <span>|</span>
                 <p className="truncate">{plan?.number_of_members}명</p>
               </div>
-              <div>
-                <WayPoints waypoints={plan.waypoints} />
+              <div className="flex space-x-2">
+                {plan?.waypoints?.map((region, idx) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div
+                    key={idx}
+                    className="flex items-center space-x-2 text-sm"
+                  >
+                    <p className="inline-block truncate">{region}</p>
+                    {idx !== plan.waypoints.length - 1 && (
+                      <span>
+                        <IoIosArrowRoundForward />
+                      </span>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -68,14 +73,29 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
             <p className="inline-block shrink-0	">
               {plan.scope ? '공개' : '비공개'}
             </p>
-            <LikeWithCount count={plan.number_of_likes} />
-            <BookmarkWithCount count={plan.number_of_scraps} />
+            <div
+              className="flex items-center space-x-1"
+              aria-label={`좋아요 ${plan.number_of_likes}`}
+            >
+              <span>
+                <GoHeart className="text-base" />
+              </span>
+              <span>{plan.number_of_likes}</span>
+            </div>
+            <div
+              className="flex items-center space-x-1"
+              aria-label={`스크랩 ${plan.number_of_scraps}`}
+            >
+              <span>
+                <IoBookmarkOutline className="text-base" />
+              </span>
+              <span>{plan.number_of_scraps}</span>
+            </div>
           </div>
         </div>
       </li>
       <div
-        className="relative mt-2 h-0 overflow-hidden rounded-md transition-[height]"
-        ref={planSimpleViewRef}
+        className={`relative mt-2 overflow-hidden rounded-md transition-all duration-300 ${isOpen ? 'h-[294px]' : 'h-0'}`}
       >
         <PlanSimpleView planId={plan.plan_id} schedules={plan.schedule} />
       </div>

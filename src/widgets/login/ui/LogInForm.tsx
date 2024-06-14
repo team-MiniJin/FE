@@ -7,8 +7,8 @@ export default function LogInForm() {
       <div className="flex w-full max-w-80 flex-col items-center px-4">
         <Logo />
         <div className="mt-8 w-full space-y-4">
-          <Input placeholder="아이디" />
-          <Input placeholder="비밀번호" type="password" />
+          <Input placeholder="아이디" name="id" />
+          <Input placeholder="비밀번호" name="password" type="password" />
           <Button text="로그인" />
           <div className="flex justify-between text-sm">
             <Link href="/join" className="hover:text-[#3666FF]">

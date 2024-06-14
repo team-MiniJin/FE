@@ -10,7 +10,7 @@ import PopularPlan from './PopularPlan';
 
 const BREAK_POINTS: { [key: number]: number } = {
   320: 1,
-  768: 2,
+  574: 2,
   1024: 4,
 };
 const data = [

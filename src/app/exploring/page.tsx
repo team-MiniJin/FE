@@ -1,3 +1,9 @@
+import { PopularPlans } from '@/widgets';
+
 export default function Page() {
-  return <div>home</div>;
+  return (
+    <div>
+      <PopularPlans />
+    </div>
+  );
 }

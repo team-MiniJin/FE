@@ -5,17 +5,18 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
-import useUpcomingPlans from '@/widgets/upcoming-plan-list/model/useUpcomingPlans';
-import UpcomingPlan from './UpcomingPlan';
+import usePopularPlan from '../model/usePopularPlans';
+import PopularPlan from './PopularPlan';
+import { data } from '../mock/data';
 
 const BREAK_POINTS: { [key: number]: number } = {
   320: 1,
-  768: 2,
-  1024: 3,
+  574: 2,
+  1024: 4,
 };
 
-export default function UpcomingPlans() {
-  const { data, isFetching, isLoading } = useUpcomingPlans();
+export default function PopularPlans() {
+  //  const { data, isFetching, isLoading } = usePopularPlan();
   const { carouselStartIndex, visibleSlides, nextItem, prevItem } = useCarousel(
     BREAK_POINTS,
     data ? data.length : 0,
@@ -25,7 +26,7 @@ export default function UpcomingPlans() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-xl font-bold">다가오는 여행 일정</h2>
+        <h2 className="text-xl font-bold">금주 인기 여행 일정</h2>
       </div>
       <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
         {data && (
@@ -40,7 +41,7 @@ export default function UpcomingPlans() {
               <MdOutlineKeyboardArrowLeft />
             </button>
             {data?.map((plan) => (
-              <UpcomingPlan
+              <PopularPlan
                 key={plan.plan_id}
                 plan={plan}
                 carouselStartIndex={carouselStartIndex}
@@ -60,8 +61,6 @@ export default function UpcomingPlans() {
             </button>
           </ul>
         )}
-        {isFetching && '데이터 가져오는 중'}
-        {!data && !isLoading && !isFetching && '가져올 데이터가 없어요'}
       </div>
     </div>
   );

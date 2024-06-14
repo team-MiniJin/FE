@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { debounce } from 'lodash';
-import { GetPlacesByKeywordResponseT } from '../types/keyword';
+import { GetPlacesByKeywordResponseT } from '../types/keyword-type';
 import getPlacesByKeyword from '../api/getPlacesByKeyword';
-import { GetPlacesByAddressResponseT } from '../types/address';
+import { GetPlacesByAddressResponseT } from '../types/address-type';
 import getPlacesByAddress from '../api/getPlacesByAddress';
 
 export const useSearchPlace = () => {

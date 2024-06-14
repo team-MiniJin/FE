@@ -12,3 +12,4 @@ export { default as JoinForm } from './join/ui/JoinForm';
 export { default as LogInForm } from './login/ui/LogInForm';
 export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
 export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';
+export { default as ChatPopup } from './chat/ui/ChatPopup';

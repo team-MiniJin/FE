@@ -12,4 +12,4 @@ export { default as JoinForm } from './join/ui/JoinForm';
 export { default as LogInForm } from './login/ui/LogInForm';
 export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
 export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';
-export { default as PopularPlans } from './popular-schedule/ui/PopularPlans';
+export { default as PopularPlans } from './popular-plans/ui/PopularPlans';

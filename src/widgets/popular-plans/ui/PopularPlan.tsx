@@ -32,13 +32,12 @@ export default function PopularPlan({
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}
     >
-      <Link
-        href="/"
-        className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4 text-sm"
-      >
+      <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4 text-sm">
         <div>
           <p className="">{plan.user_nickname} 님의</p>
-          <p className="text-base font-bold">{plan.plan_name}</p>
+          <Link href={`/exploring/plan/${plan.plan_id}`}>
+            <p className="text-base font-bold">{plan.plan_name}</p>
+          </Link>
         </div>
         <div>
           <div>
@@ -71,7 +70,7 @@ export default function PopularPlan({
             <p>{plan.number_of_scraps}</p>
           </div>
         </div>
-      </Link>
+      </div>
     </li>
   );
 }

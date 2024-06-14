@@ -5,7 +5,7 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
-import useUpcomingPlans from '@/widgets/upcoming-plan-list/model/useUpcomingPlans';
+import useUpcomingPlans from '@/widgets/upcoming-plans/model/useUpcomingPlans';
 import UpcomingPlan from './UpcomingPlan';
 
 const BREAK_POINTS: { [key: number]: number } = {

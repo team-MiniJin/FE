@@ -1,7 +1,7 @@
 import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import { MutableRefObject } from 'react';
 import { EditorPlanT } from '@/widgets/plan-editor/types/plan-editor-type';
-import { DocumentT } from '../types/keyword';
+import { DocumentT } from '../types/keyword-type';
 
 export default function SearchedKeywordItem({
   doc,

@@ -1,24 +1,31 @@
+'use client';
+
 import calculateDday from '@/shared/utils/calculateDday';
 import Link from 'next/link';
-import { UpcomingPlanT } from '@/widgets/upcoming-plan-list/types/upcomingplan';
+import { PopularPlanT } from '../types/popular-plan-type';
 
-export default function UpcomingPlan({
+interface PopularPlanProps {
+  plan: PopularPlanT;
+  carouselStartIndex: number;
+  visibleSlides: number;
+}
+
+export default function PopularPlan({
   plan,
   carouselStartIndex,
   visibleSlides,
-}: {
-  plan: UpcomingPlanT;
-  carouselStartIndex: number;
-  visibleSlides: number;
-}) {
+}: PopularPlanProps) {
   const width: { [key: number]: string } = {
     1: 'w-full',
     2: 'w-1/2',
-    3: 'w-1/3',
+    4: 'w-1/4',
   };
+
+  const widthClass = width[visibleSlides] || 'w-full';
+
   return (
     <li
-      className={` ${width[visibleSlides]} h-[200px] flex-shrink-0 text-white transition-transform`}
+      className={`${widthClass} h-[200px] flex-shrink-0 text-white transition-transform`}
       style={{
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}
@@ -35,7 +42,7 @@ export default function UpcomingPlan({
           {plan.start_date} ~ {plan.end_date}
         </p>
         <div className="flex items-center space-x-2 text-sm font-bold">
-          <p className="flex">{plan.plan_budget}원</p>
+          <p className="flex">{plan.plan_budget.toLocaleString()}원</p>
           <span>|</span>
           <p className="flex">{plan.number_of_members}명</p>
         </div>
@@ -44,6 +51,16 @@ export default function UpcomingPlan({
           aria-label={plan.theme}
         >
           <p>{plan.theme}</p>
+        </div>
+        <div className="absolute right-4 top-4 flex space-x-2">
+          <div className="flex items-center space-x-1">
+            <span className="text-lg">❤️</span>
+            <p>{plan.number_of_likes}</p>
+          </div>
+          <div className="flex items-center space-x-1">
+            <span className="text-lg">🔖</span>
+            <p>{plan.number_of_scraps}</p>
+          </div>
         </div>
       </Link>
     </li>

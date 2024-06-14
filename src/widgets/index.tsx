@@ -1,5 +1,5 @@
 export { default as Header } from './header/ui/Header';
-export { default as UpcomingPlans } from './upcoming-plan-list/ui/UpcomingPlans';
+export { default as UpcomingPlans } from './upcoming-plans/ui/UpcomingPlans';
 export { default as MyPlans } from './my-plan-list/ui/MyPlans';
 export { default as PlanEditor } from './plan-editor/ui/PlanEditor';
 export { default as CreatingPlanButton } from './plan/ui/CreatingPlanButton';
@@ -12,3 +12,4 @@ export { default as JoinForm } from './join/ui/JoinForm';
 export { default as LogInForm } from './login/ui/LogInForm';
 export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
 export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';
+export { default as PopularPlans } from './popular-schedule/ui/PopularPlans';

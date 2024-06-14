@@ -1,15 +1,12 @@
-interface PlaceT {
-  place_id: number;
+export interface MyPlanScheduleT {
+  schedule_id: number;
+  schedule_date: string; // "yyyy-MM-dd"
   place_name: string;
   arrival_time: string; // "HH:mm:ss"
   x: number; // double
   y: number; // double
-}
-
-interface ScheduleT {
-  schedule_id: number;
-  schedule_date: string; // "yyyy-MM-dd"
-  place: PlaceT[];
+  place_addr: string;
+  place_categeory: string;
 }
 
 export interface MyPlanT {
@@ -24,8 +21,8 @@ export interface MyPlanT {
   number_of_members: number;
   number_of_likes: number;
   number_of_scraps: number;
-  schedule: ScheduleT[];
-  regions: string[];
+  waypoints: string[];
+  schedule: MyPlanScheduleT[];
 }
 
 export type FetchMyPlanSuccessT = { data: MyPlanT[]; nextCursor?: number };

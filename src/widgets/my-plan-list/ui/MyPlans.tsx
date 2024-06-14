@@ -2,7 +2,9 @@
 
 import { useInfiniteScroll } from '@/shared';
 import useMyPlans from '@/widgets/my-plan-list/model/useMyPlans';
+import { useEffect } from 'react';
 import MyPlan from './MyPlan';
+import { MyPlanT } from '../types/myPlans';
 
 export default function MyPlans() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
@@ -10,6 +12,16 @@ export default function MyPlans() {
   const observerRef = useInfiniteScroll(() => {
     if (hasNextPage && !isFetchingNextPage && !isFetching) fetchNextPage();
   }, hasNextPage);
+  useEffect(() => {
+    if (!document.getElementById('kakao-map-script')) {
+      const mapScript = document.createElement('script');
+      mapScript.id = 'kakao-map-script';
+      mapScript.async = true;
+      mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS_KEY}&libraries=services,clusterer,drawing&autoload=false`;
+      document.head.appendChild(mapScript);
+    }
+  }, []);
+
   return (
     <div className="space-y-4">
       <div>
@@ -20,7 +32,9 @@ export default function MyPlans() {
           {data?.pages.map(
             (page) =>
               'data' in page &&
-              page.data.map((plan) => <MyPlan key={plan.plan_id} plan={plan} />)
+              page.data.map((plan: MyPlanT) => (
+                <MyPlan key={plan.plan_id} plan={plan} />
+              ))
           )}
         </ul>
         <div ref={observerRef} />

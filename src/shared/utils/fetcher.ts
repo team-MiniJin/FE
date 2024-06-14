@@ -36,7 +36,8 @@ const fetcher = async <T>(
   const config: AxiosRequestConfig = {
     method,
     url: fullUrl,
-    headers: headers || {},
+    headers:
+      { ...headers, 'Cache-Control': 'max-age=31536000, immutable' } || {},
     params: params || {},
     ...(method !== 'get' && data && { data }),
   };

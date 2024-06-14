@@ -31,7 +31,7 @@
   },
   "eslint.workingDirectories": [{ "mode": "auto" }],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true // ESLint 자동 수정
+    "source.fixAll.eslint": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode" // 기본 포맷터를 Prettier로 설정
 }

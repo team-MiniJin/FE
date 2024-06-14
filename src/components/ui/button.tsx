@@ -10,16 +10,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-[--brand-color] text-slate-50 hover:bg-[--brand-color-hover] dark:bg-slate-50 dark:text-[text-[--text-default-color]] dark:hover:bg-slate-50/90',
+          'bg-[--brand-color] text-slate-50 hover:bg-[--brand-color-hover] dark:bg-slate-50 dark:text-[--text-default-color] dark:hover:bg-slate-50/90',
         destructive:
           'bg-red-500 text-slate-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90',
         outline:
-          'border border-slate-200 bg-white hover:bg-slate-100 hover:text-[text-[--text-default-color]] dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50',
+          'border border-slate-200 bg-white hover:bg-slate-100 hover:text-[--text-default-color] dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50',
         secondary:
-          'bg-slate-100 text-[text-[--text-default-color]] hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80',
+          'bg-slate-100 text-[--text-default-color] hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80',
         ghost:
-          'hover:bg-slate-100 hover:text-[text-[--text-default-color]] dark:hover:bg-slate-800 dark:hover:text-slate-50',
-        link: 'text-[text-[--text-default-color]] underline-offset-4 hover:underline dark:text-slate-50',
+          'hover:bg-slate-100 hover:text-[--text-default-color] dark:hover:bg-slate-800 dark:hover:text-slate-50',
+        link: 'text-[--text-default-color] underline-offset-4 hover:underline dark:text-slate-50',
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -38,7 +38,6 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  // eslint-disable-next-line react/require-default-props
   asChild?: boolean;
 }
 
@@ -49,7 +48,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
     );

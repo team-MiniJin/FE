@@ -6,5 +6,6 @@ export { default as CreatingPlanButton } from './plan/ui/CreatingPlanButton';
 export { default as EditProfileForm } from './edit-profile/ui/EditProfileForm';
 export { default as JoinForm } from './join/ui/JoinForm';
 export { default as LogInForm } from './login/ui/LogInForm';
+export { default as FindUsernameForm } from './find-username/ui/FindUsernameForm';
 export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
 export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';

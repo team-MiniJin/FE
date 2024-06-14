@@ -1,7 +1,7 @@
 import fetcher from '@/shared/utils/fetcher';
 import { AxiosResponse } from 'axios';
-import { UpcomingPlanT } from '@/widgets/upcoming-plan-list/types/upcomingPlan';
 import { MOCK_SERVER_URL } from '@/shared/constants/api';
+import { UpcomingPlanT } from '../types/upcomingPlan';
 
 const fetchUpcomingPlans = async (): Promise<UpcomingPlanT[]> => {
   try {

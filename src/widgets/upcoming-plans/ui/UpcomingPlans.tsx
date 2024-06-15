@@ -6,6 +6,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
 import useUpcomingPlans from '@/widgets/upcoming-plans/model/useUpcomingPlans';
+import calculateDday from '@/shared/utils/calculateDday';
 import UpcomingPlan from './UpcomingPlan';
 
 const BREAK_POINTS: { [key: number]: number } = {
@@ -39,14 +40,18 @@ export default function UpcomingPlans() {
             >
               <MdOutlineKeyboardArrowLeft />
             </button>
-            {data?.map((plan) => (
-              <UpcomingPlan
-                key={plan.plan_id}
-                plan={plan}
-                carouselStartIndex={carouselStartIndex}
-                visibleSlides={visibleSlides}
-              />
-            ))}
+            {data?.map((plan) => {
+              if (calculateDday(plan.start_date) >= 0)
+                return (
+                  <UpcomingPlan
+                    key={plan.plan_id}
+                    plan={plan}
+                    carouselStartIndex={carouselStartIndex}
+                    visibleSlides={visibleSlides}
+                  />
+                );
+              return null;
+            })}
             <button
               className="absolute right-0 top-1/2 -translate-y-1/2 text-4xl disabled:hidden"
               type="button"

@@ -10,3 +10,7 @@ export { default as FindUsernameForm } from './find-username/ui/FindUsernameForm
 export { default as FindPasswordForm } from './find-password/ui/FindPasswordForm';
 export { default as ChangePasswordForm } from './change-password/ui/ChangePasswordForm';
 export { default as PopularPlans } from './popular-plans/ui/PopularPlans';
+export { default as AreaFilter } from './travel-info/components/AreaFilter';
+export { default as CategoryFilter } from './travel-info/components/CategoryFilter';
+export { default as SearchKeyword } from './travel-info/components/SearchKeyword';
+export { default as PlacesList } from './travel-info/components/PlacesList';

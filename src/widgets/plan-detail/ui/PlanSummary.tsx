@@ -1,7 +1,6 @@
 import {
   BookmarkWithCount,
   calculateStayDuration,
-  LikeWithCount,
   PlanTheme,
   WayPoints,
 } from '@/shared';
@@ -38,9 +37,6 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
       <div className="flex items-center text-sm">
         <span>{plan?.scope ? '공개된 일정' : '비공개된 일정'}</span>
         <span className="mx-2">|</span>
-        <span className="mr-1">
-          <LikeWithCount count={plan?.number_of_likes || 0} />
-        </span>
         <span>
           <BookmarkWithCount count={plan?.number_of_scraps || 0} />
         </span>

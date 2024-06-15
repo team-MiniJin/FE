@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 declare global {
@@ -19,6 +18,7 @@ export default function SearchBar(properties: any) {
         type="text"
         aria-label="Search"
         className="w-full outline-none placeholder:text-[--text-description-color]"
+        placeholder="검색어를 입력해 주세요."
         {...properties}
       />
     </div>

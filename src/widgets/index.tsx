@@ -14,3 +14,4 @@ export { default as AreaFilter } from './travel-info/components/AreaFilter';
 export { default as CategoryFilter } from './travel-info/components/CategoryFilter';
 export { default as SearchKeyword } from './travel-info/components/SearchKeyword';
 export { default as PlacesList } from './travel-info/components/PlacesList';
+export { default as UserPlanList } from './user-travel-list/ui/UserTravelList';

@@ -85,7 +85,7 @@ export default function LogInForm() {
         </div>
         <Button
           type="submit"
-          className="w-full bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
+          className="w-full bg-[--brand-main-color] hover:bg-[--brand-main-color] hover:opacity-50"
           disabled={isLoading}
         >
           {isLoading ? '로그인 중...' : '로그인'}

@@ -169,7 +169,7 @@ export default function JoinForm() {
         <div className="flex w-full justify-end">
           <Button
             type="submit"
-            className="bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
+            className="bg-[--brand-main-color] hover:bg-[--brand-main-color] hover:opacity-50"
           >
             가입하기
           </Button>

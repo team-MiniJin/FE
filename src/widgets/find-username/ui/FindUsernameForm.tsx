@@ -57,24 +57,27 @@ export default function FindUsernameForm() {
         />
         <Button
           type="submit"
-          className="w-full bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
+          className="w-full bg-[--brand-main-color] hover:bg-[--brand-main-color] hover:opacity-50"
         >
           아이디 확인
         </Button>
         {username && (
           <div className="mt-4">
-            회원님의 아이디는
-            <strong className="text-[--brand-color]">{username}</strong> 입니다.
+            회원님의 아이디는{' '}
+            <strong className="font-semibold text-[--brand-color]">
+              {username}
+            </strong>{' '}
+            입니다.
           </div>
         )}
         {errorMessage && (
           <div className="mt-4 text-red-500">{errorMessage}</div>
         )}
-        <Link href="/login">
-          <Button type="button" className="mt-4 w-full" variant="link">
+        <div className="text-sm">
+          <Link href="/login" className="hover:text-[#3666FF]">
             로그인 하러 가기
-          </Button>
-        </Link>
+          </Link>
+        </div>
       </form>
     </Form>
   );

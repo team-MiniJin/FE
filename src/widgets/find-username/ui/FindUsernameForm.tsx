@@ -4,23 +4,36 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import Link from 'next/link';
 
 const formSchema = z.object({
   email: z.string().email({ message: '올바른 이메일 형식이 아닙니다.' }),
 });
 
 export default function FindUsernameForm() {
+  const [username, setUsername] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       email: '',
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setUsername('id1234');
+    // setErrorMessage('일치하는 회원정보가 없습니다.');
   }
 
   return (
@@ -34,10 +47,11 @@ export default function FindUsernameForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="h-12">
               <FormControl>
                 <Input placeholder="이메일" {...field} />
               </FormControl>
+              <FormMessage className="h-6" />
             </FormItem>
           )}
         />
@@ -47,6 +61,20 @@ export default function FindUsernameForm() {
         >
           아이디 확인
         </Button>
+        {username && (
+          <div className="mt-4">
+            회원님의 아이디는
+            <strong className="text-[--brand-color]">{username}</strong> 입니다.
+          </div>
+        )}
+        {errorMessage && (
+          <div className="mt-4 text-red-500">{errorMessage}</div>
+        )}
+        <Link href="/login">
+          <Button type="button" className="mt-4 w-full" variant="link">
+            로그인 하러 가기
+          </Button>
+        </Link>
       </form>
     </Form>
   );

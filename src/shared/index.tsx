@@ -19,3 +19,4 @@ export type { ScheduleT } from './types/plan';
 export { default as getDateArray } from './utils/getDateArray';
 export { default as RemoveScheduleButton } from './ui/RemoveScheduleButton';
 export { default as EditScheduleButton } from './ui/EditScheduleButton';
+export { default as KakaoMap } from './ui/KakaoMap';

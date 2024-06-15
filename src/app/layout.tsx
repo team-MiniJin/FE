@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="ko" className="min-h-svh">
       <body className={`${notoSansKR.className} min-h-svh`}>
         <ReactQueryProvider>
-          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] space-y-6 overflow-hidden px-8 text-[--text-default-color] disabled:!bg-[--deactived-color] disabled:!text-[--deactived-text-color]">
+          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 text-[--text-default-color] disabled:!bg-[--deactived-color] disabled:!text-[--deactived-text-color]">
             <Header />
             <main>{children}</main>
           </div>

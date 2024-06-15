@@ -31,7 +31,7 @@ export default function AreaCode({
     }
   }, [isSelected, initiallySelectedAreaCode]);
 
-  const url = `http://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&areaCode=${code}&numOfRows=100&MobileOS=ETC&MobileApp=APPTest&_type=json`;
+  const url = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&areaCode=${code}&numOfRows=100&MobileOS=ETC&MobileApp=APPTest&_type=json`;
 
   const fetchData = async () => {
     setError(null);

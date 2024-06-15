@@ -22,7 +22,7 @@ export default function PlacesList({ apiData }: PlacesListProps) {
       setExpandedId(contentId);
       if (!detailedData[contentId]) {
         try {
-          const url = `http://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&contentId=${contentId}&MobileOS=ETC&MobileApp=APPTest&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
+          const url = `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&contentId=${contentId}&MobileOS=ETC&MobileApp=APPTest&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error('Network response was not ok.');

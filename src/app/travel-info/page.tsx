@@ -57,8 +57,8 @@ export default function TravelInfo() {
       ? `&sigunguCode=${selectedSigunguCode}`
       : '';
     const url = keywordParam.length
-      ? `http://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
-      : `http://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
+      ? `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
+      : `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {

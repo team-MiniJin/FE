@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { calculateStayDuration } from '@/shared';
-import { GoHeart } from 'react-icons/go';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import { PopularPlanT } from '../types/popular-plan-type';
 
@@ -56,19 +55,12 @@ export default function PopularPlan({
         >
           <p>{plan.theme}</p>
         </div>
-        <div className="absolute bottom-5 right-4 flex flex-col space-y-2">
-          <div className="flex items-center space-x-1">
-            <span className="rounded-full bg-white p-1 text-black shadow-md">
-              <GoHeart />
-            </span>
-            <p>{plan.number_of_likes}</p>
-          </div>
-          <div className="flex items-center space-x-1">
-            <span className="rounded-full bg-white p-1 text-black shadow-md">
-              <IoBookmarkOutline />
-            </span>
-            <p>{plan.number_of_scraps}</p>
-          </div>
+
+        <div className="absolute bottom-6 right-4 flex items-center space-x-1">
+          <span className="rounded-full bg-white p-1 text-black shadow-md">
+            <IoBookmarkOutline />
+          </span>
+          <p>{plan.number_of_scraps}</p>
         </div>
       </div>
     </li>

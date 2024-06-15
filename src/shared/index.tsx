@@ -14,7 +14,6 @@ export { default as BackLink } from './ui/BackLink';
 export { default as PlanTheme } from './ui/PlanTheme';
 export { default as WayPoints } from './ui/WayPoints';
 export { default as BookmarkWithCount } from './ui/BookmarkWithCount';
-export { default as LikeWithCount } from './ui/LikeWithCount';
 export { default as DateCards } from './ui/DateCards';
 export type { ScheduleT } from './types/plan';
 export { default as getDateArray } from './utils/getDateArray';

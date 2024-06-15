@@ -90,12 +90,20 @@ export default function LogInForm() {
         >
           {isLoading ? '로그인 중...' : '로그인'}
         </Button>
+        <div className="my-4 flex items-center">
+          <hr className="flex-grow border-t border-gray-300" />
+          <span className="mx-2 text-sm text-gray-500">또는</span>
+          <hr className="flex-grow border-t border-gray-300" />
+        </div>
         <Button
           type="button"
-          className="w-full bg-[--kakao-color] text-black hover:bg-[--kakao-color-hover]"
-        >
-          카카오 로그인
-        </Button>
+          className="w-full hover:opacity-50"
+          style={{
+            backgroundImage: "url('/image/kakao_login_large_wide.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
         <div className="flex justify-between text-sm">
           <Link href="/find-username" className="hover:text-[#3666FF]">
             아이디 찾기

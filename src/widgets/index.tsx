@@ -15,3 +15,4 @@ export { default as CategoryFilter } from './travel-info/components/CategoryFilt
 export { default as SearchKeyword } from './travel-info/components/SearchKeyword';
 export { default as PlacesList } from './travel-info/components/PlacesList';
 export { default as UserPlanList } from './user-travel-list/ui/UserTravelList';
+export { default as Chatting } from './chat/ui/Chatting';

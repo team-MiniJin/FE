@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { GoPlus } from 'react-icons/go';
+import { Button } from '@/components/ui/button';
+import { SearchBar } from '@/shared';
 import { getChatRooms, createChatRoom } from '../mockdata/mockFunctions';
 import { ChatRoomT } from '../type/chat';
 import CreateRoom from './CreateRoom';
@@ -17,6 +18,7 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
   const [newRoomTitle, setNewRoomTitle] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'all' | 'my'>('my');
   const [showModal, setShowModal] = useState<boolean>(false); // 채팅방 생성 창
+  const [keyword, setKeyword] = useState<string>(''); // 채팅방 검색어
 
   useEffect(() => {
     const rooms = getChatRooms();
@@ -40,12 +42,14 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
   };
 
   const displayRooms = activeTab === 'my' ? myChatRooms : chatRooms;
+  const filteredRooms = displayRooms.filter((room) =>
+    room.room_name.toLowerCase().includes(keyword.toLowerCase())
+  );
 
   return (
     <>
-      <div className="flex items-center justify-center border-b py-4">
-        <h1 className="mr-4 h-10 text-xl font-bold leading-10">채팅</h1>
-        <div className="mx-auto flex">
+      <div className="flex items-center justify-center border-b py-4 ">
+        <div className="mr-auto flex">
           <Button
             type="button"
             variant="outline"
@@ -63,11 +67,19 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
             전체 채팅
           </Button>
         </div>
-        <div>
-          <Button variant="outline" onClick={() => setShowModal(true)}>
-            <GoPlus className="mr-2" />새 채팅
-          </Button>
+        <div className="mr-4 flex items-center py-4">
+          <SearchBar
+            type="text"
+            placeholder="채팅방 검색"
+            value={keyword}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setKeyword(e.target.value)
+            }
+          />
         </div>
+        <Button variant="outline" onClick={() => setShowModal(true)}>
+          <GoPlus className="mr-2" />새 채팅
+        </Button>
         {showModal && (
           <CreateRoom
             newRoomTitle={newRoomTitle}
@@ -78,12 +90,12 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
         )}
       </div>
       <ul className="flex h-full flex-col items-center overflow-auto">
-        {displayRooms.length === 0 ? (
+        {filteredRooms.length === 0 ? (
           <li className="flex h-28 w-full items-center justify-center border-b">
             <span className="text-gray-500">채팅방에 참여해보세요.</span>
           </li>
         ) : (
-          displayRooms.map((room) => (
+          filteredRooms.map((room) => (
             <li key={room.room_id} className="h-28 w-full border-b">
               <button
                 type="button"

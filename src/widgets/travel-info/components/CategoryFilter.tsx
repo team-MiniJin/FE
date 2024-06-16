@@ -2,17 +2,20 @@
 
 import { useState } from 'react';
 
-export default function CategoryFilter({
-  onCategorySelect,
-  selectedCategoryName,
-  setSelectedCategoryName,
-}: {
-  onCategorySelect: (contentTypeId: number | null) => void;
+interface CategoryFilterProps {
   selectedCategoryName: string;
   setSelectedCategoryName: (name: string) => void;
-}) {
+  selectedCategoryId: number | null;
+  setSelectedCategoryId: (name: number | null) => void;
+}
+
+export default function CategoryFilter({
+  selectedCategoryName,
+  setSelectedCategoryName,
+  selectedCategoryId,
+  setSelectedCategoryId,
+}: CategoryFilterProps) {
   const [select, setSelect] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const categories = [
     { name: '관광지', contentTypeId: 12 },
@@ -24,21 +27,21 @@ export default function CategoryFilter({
     { name: '음식', contentTypeId: 39 },
   ];
 
+  // select=true면 카테고리 목록 드롭박스 나타남
   const handleClick = () => {
     setSelect((prev) => !prev);
   };
 
   const handleCategoryClick = (name: string, contentTypeId: number) => {
-    if (selectedCategory === contentTypeId) {
-      setSelectedCategory(null);
-      onCategorySelect(null);
+    // 동일 카테고리 두번 클릭 시 선택 초기화
+    if (selectedCategoryId === contentTypeId) {
+      setSelectedCategoryId(null);
       setSelectedCategoryName('');
     } else {
-      setSelectedCategory(contentTypeId);
-      onCategorySelect(contentTypeId);
+      setSelectedCategoryId(contentTypeId);
       setSelectedCategoryName(name);
     }
-    setSelect(false);
+    setSelect(false); // 카테고리 선택 시 드롭박스 닫힘
   };
 
   return (
@@ -54,7 +57,7 @@ export default function CategoryFilter({
         <span className="font-bold text-[--brand-color]">{` > ${selectedCategoryName}`}</span>
       )}
       <section
-        className={`absolute left-0 top-12 w-32 bg-gray-100 py-[4px] text-sm transition-all duration-500 ease-in-out ${select ? 'h-[176px] opacity-100' : 'h-0 opacity-0'}`}
+        className={`absolute left-0 top-7 w-32 bg-gray-100 py-[4px] text-sm transition-all duration-500 ease-in-out ${select ? 'h-[176px] opacity-100' : 'h-0 opacity-0'}`}
       >
         {select &&
           categories.map((type) => (
@@ -65,7 +68,7 @@ export default function CategoryFilter({
                   handleCategoryClick(type.name, type.contentTypeId)
                 }
                 className={`w-full text-center hover:font-bold hover:text-[--brand-color] ${
-                  selectedCategory === type.contentTypeId
+                  selectedCategoryId === type.contentTypeId
                     ? 'font-bold text-[--brand-color]'
                     : ''
                 }`}

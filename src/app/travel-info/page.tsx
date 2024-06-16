@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   SearchKeyword,
   PlacesList,
@@ -8,42 +8,25 @@ import {
   CategoryFilter,
 } from '@/widgets';
 import { PlaceT } from '@/widgets/travel-info/types/Place';
+import { AiOutlineReload } from 'react-icons/ai';
+import useInfiniteScroll from '@/widgets/travel-info/hooks/useInfiniteScroll';
 
 export default function TravelInfo() {
-  const [keyword, setKeyword] = useState('');
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null
-  );
-  const [selectedCategoryName, setSelectedCategoryName] = useState('');
+  const [keyword, setKeyword] = useState<string>('');
   const [selectedAreaCode, setSelectedAreaCode] = useState<number | null>(null);
+  const [selectedAreaName, setSelectedAreaName] = useState<string>('');
   const [selectedSigunguCode, setSelectedSigunguCode] = useState<number | null>(
     null
   );
+  const [selectedSigunguName, setSelectedSigunguName] = useState<string>('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null
+  );
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
 
   const [apiData, setApiData] = useState<PlaceT[] | null>(null);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number>(0);
   const [hasMore, setHasMore] = useState(false);
-  const loader = useRef<HTMLDivElement | null>(null);
-
-  const handleCategorySelect = (contentTypeId: number | null) => {
-    setSelectedCategoryId(contentTypeId);
-  };
-  const handleAreaSelect = (areaCode: number | null) => {
-    setSelectedAreaCode(areaCode);
-  };
-  const handleSigunguSelect = (sigunguCode: number | null) => {
-    setSelectedSigunguCode(sigunguCode);
-  };
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  const handleSearch = async (searchKeyword: string) => {
-    setKeyword(searchKeyword);
-    setPage(0);
-    setHasMore(true);
-    scrollToTop();
-    await fetchData(1, true);
-  };
 
   const fetchData = async (pageNo: number, isNewSearch = false) => {
     const contentTypeIdParam = selectedCategoryId
@@ -84,38 +67,40 @@ export default function TravelInfo() {
     }
   };
 
-  const observer = useRef<IntersectionObserver | null>(null);
+  const loader = useInfiniteScroll(hasMore, () =>
+    setPage((prevPage) => prevPage + 1)
+  );
 
   useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    });
-
-    if (loader.current) observer.current.observe(loader.current);
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [hasMore]);
-
-  useEffect(() => {
-    if (page > 1) {
+    if (page >= 1) {
       fetchData(page);
     }
   }, [page]);
 
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const handleSearch = async () => {
+    setPage(0);
+    setHasMore(true);
+    scrollToTop();
+    await fetchData(1, true);
+  };
+
   const handleReset = () => {
     setKeyword('');
-    setApiData(null);
-    setPage(0);
-    setHasMore(false);
+    setSelectedAreaCode(null);
+    setSelectedAreaName('');
+    setSelectedSigunguCode(null);
+    setSelectedSigunguName('');
     setSelectedCategoryId(null);
     setSelectedCategoryName('');
+    setPage(0);
+    setHasMore(false);
   };
+
+  useEffect(() => {
+    fetchData(1, true); // 컴포넌트가 마운트될 때 초기 데이터 가져오기
+  }, []);
 
   return (
     <div className="relative h-full w-full">
@@ -123,31 +108,37 @@ export default function TravelInfo() {
         <button
           type="button"
           onClick={handleReset}
-          disabled={!apiData || apiData.length === 0}
-          className={`bg-transparent px-4 py-2 ${!apiData || apiData.length === 0 ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:font-bold hover:text-[--brand-color]'}`}
+          disabled={!apiData}
+          className={`flex flex-col items-center justify-center bg-transparent px-4 py-2 text-xs ${!apiData ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:font-bold hover:text-[--brand-color]'}`}
         >
+          <AiOutlineReload className="mr-2" size={20} />
           선택초기화
         </button>
         <div className="flex-1 space-y-4 py-4">
           <AreaFilter
-            onAreaSelect={handleAreaSelect}
-            onSigunguSelect={handleSigunguSelect}
+            selectedAreaCode={selectedAreaCode}
+            setSelectedAreaCode={setSelectedAreaCode}
+            selectedSigunguCode={selectedSigunguCode}
+            setSelectedSigunguCode={setSelectedSigunguCode}
+            selectedAreaName={selectedAreaName}
+            setSelectedAreaName={setSelectedAreaName}
+            selectedSigunguName={selectedSigunguName}
+            setSelectedSigunguName={setSelectedSigunguName}
           />
           <CategoryFilter
-            onCategorySelect={handleCategorySelect}
+            selectedCategoryId={selectedCategoryId}
+            setSelectedCategoryId={setSelectedCategoryId}
             selectedCategoryName={selectedCategoryName}
             setSelectedCategoryName={setSelectedCategoryName}
           />
         </div>
-        <SearchKeyword
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onSearch={handleSearch}
-        />
+        <div className="flex items-center">
+          <SearchKeyword setKeyword={setKeyword} onSearch={handleSearch} />
+        </div>
       </div>
       <div className="h-full w-full">
         {apiData && apiData.length ? (
-          <div className="w-1/2 overflow-y-auto">
+          <div className="w-full overflow-y-auto">
             <PlacesList apiData={apiData} />
           </div>
         ) : (

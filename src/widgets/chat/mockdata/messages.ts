@@ -1,5 +1,12 @@
-export const messages = {
-  '1': [
+interface Message {
+  chat_message_id: string;
+  user_id: string;
+  message: string;
+  timestamp: string;
+}
+
+export const messages: Record<string, Message[]> = {
+  'user1:title1': [
     {
       chat_message_id: '1',
       user_id: 'user1',
@@ -19,7 +26,7 @@ export const messages = {
       timestamp: '2024-05-01T12:02:00Z',
     },
   ],
-  '2': [
+  'user2:title2': [
     {
       chat_message_id: '4',
       user_id: 'user3',

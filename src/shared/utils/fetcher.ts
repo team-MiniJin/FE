@@ -33,6 +33,7 @@ const fetcher = async (
   data?: any
 ) => {
   const fullUrl = baseurl.concat(url);
+  console.log(fullUrl);
   const config: AxiosRequestConfig = {
     method,
     url: fullUrl,
@@ -42,6 +43,7 @@ const fetcher = async (
   };
 
   const response = await axiosInstance(config);
+  console.log(response);
   return response;
 };
 

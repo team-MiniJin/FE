@@ -1,123 +1,160 @@
 'use client';
 
-import { useState } from 'react';
-import { FilterArea, PlacesList, Map } from '@/widgets';
+import { useState, useEffect } from 'react';
+import {
+  SearchKeyword,
+  PlacesList,
+  AreaFilter,
+  CategoryFilter,
+} from '@/widgets';
 import { PlaceT } from '@/widgets/travel-info/types/Place';
+import { AiOutlineReload } from 'react-icons/ai';
+import useInfiniteScroll from '@/widgets/travel-info/hooks/useInfiniteScroll';
 
 export default function TravelInfo() {
-  const ENCODING_KEY =
-    'NGVffsMvyiv72RIfJIaWX8uyRc%2FREwo2VnS3vrzTPvmub0BAAomblyPiOekyEE6%2FS9eSn%2BOK2P2CWaFStEfr7A%3D%3D';
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState<string>('');
+  const [selectedAreaCode, setSelectedAreaCode] = useState<number | null>(null);
+  const [selectedAreaName, setSelectedAreaName] = useState<string>('');
+  const [selectedSigunguCode, setSelectedSigunguCode] = useState<number | null>(
+    null
+  );
+  const [selectedSigunguName, setSelectedSigunguName] = useState<string>('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     null
   );
-  const [apiData, setApiData] = useState<PlaceT[] | null>([]);
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
 
-  const handleCategorySelect = (contentTypeId: number) => {
-    setSelectedCategoryId(contentTypeId);
-  };
+  const [apiData, setApiData] = useState<PlaceT[] | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState(false);
 
-  const handleSearch = async (searchKeyword: string) => {
-    setKeyword(searchKeyword);
-
+  const fetchData = async (pageNo: number, isNewSearch = false) => {
+    const contentTypeIdParam = selectedCategoryId
+      ? `&contentTypeId=${selectedCategoryId}`
+      : '';
+    const keywordParam = keyword ? `&keyword=${keyword}` : '';
+    const areaCodeParam = selectedAreaCode
+      ? `&areaCode=${selectedAreaCode}`
+      : '';
+    const sigunguCodeParam = selectedSigunguCode
+      ? `&sigunguCode=${selectedSigunguCode}`
+      : '';
+    const url = keywordParam.length
+      ? `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
+      : `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
     try {
-      const isSelected = selectedCategoryId
-        ? `&contentTypeId=${selectedCategoryId}`
-        : '';
-      const url = `http://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=APPTest&serviceKey=${ENCODING_KEY}&_type=json&listYN=Y&arrange=O${isSelected}&keyword=${searchKeyword}`;
-
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }
       const data = await response.json();
-      setApiData(data.response.body.items.item);
+      const newItems = data.response.body.items.item;
+
+      if (isNewSearch) {
+        setApiData(newItems);
+      } else {
+        setApiData((prevItems) =>
+          prevItems ? [...prevItems, ...newItems] : newItems
+        );
+      }
+
+      if (newItems.length < 10) {
+        setHasMore(false);
+      }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error(error);
+      alert('일치하는 결과가 없습니다.');
     }
   };
 
+  const loader = useInfiniteScroll(hasMore, () =>
+    setPage((prevPage) => prevPage + 1)
+  );
+
+  useEffect(() => {
+    if (page >= 1) {
+      fetchData(page);
+    }
+  }, [page]);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const handleSearch = async () => {
+    setPage(0);
+    setHasMore(true);
+    scrollToTop();
+    await fetchData(1, true);
+  };
+
+  const handleReset = () => {
+    setKeyword('');
+    setSelectedAreaCode(null);
+    setSelectedAreaName('');
+    setSelectedSigunguCode(null);
+    setSelectedSigunguName('');
+    setSelectedCategoryId(null);
+    setSelectedCategoryName('');
+    setPage(0);
+    setHasMore(false);
+  };
+
+  useEffect(() => {
+    fetchData(1, true); // 컴포넌트가 마운트될 때 초기 데이터 가져오기
+  }, []);
+
   return (
     <div className="relative h-full w-full">
-      <div className="sticky top-0 z-10 w-full border-y border-gray-200 bg-white">
-        <FilterArea
-          keyword={keyword}
-          setKeyword={setKeyword}
-          onCategorySelect={handleCategorySelect}
-          selectedCategoryId={selectedCategoryId}
-          onSearch={handleSearch}
-        />
+      <div className="sticky top-0 z-10 flex w-full border-y border-gray-200 bg-white px-4 text-sm">
+        <button
+          type="button"
+          onClick={handleReset}
+          disabled={!apiData}
+          className={`flex flex-col items-center justify-center bg-transparent px-4 py-2 text-xs ${!apiData ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:font-bold hover:text-[--brand-color]'}`}
+        >
+          <AiOutlineReload className="mr-2" size={20} />
+          선택초기화
+        </button>
+        <div className="flex-1 space-y-4 py-4">
+          <AreaFilter
+            selectedAreaCode={selectedAreaCode}
+            setSelectedAreaCode={setSelectedAreaCode}
+            selectedSigunguCode={selectedSigunguCode}
+            setSelectedSigunguCode={setSelectedSigunguCode}
+            selectedAreaName={selectedAreaName}
+            setSelectedAreaName={setSelectedAreaName}
+            selectedSigunguName={selectedSigunguName}
+            setSelectedSigunguName={setSelectedSigunguName}
+          />
+          <CategoryFilter
+            selectedCategoryId={selectedCategoryId}
+            setSelectedCategoryId={setSelectedCategoryId}
+            selectedCategoryName={selectedCategoryName}
+            setSelectedCategoryName={setSelectedCategoryName}
+          />
+        </div>
+        <div className="flex items-center">
+          <SearchKeyword setKeyword={setKeyword} onSearch={handleSearch} />
+        </div>
       </div>
-      <div className="flex h-full w-full">
-        <div className="w-1/2 overflow-y-auto">
-          <PlacesList apiData={apiData} />
-        </div>
-        <div className="fixed right-0 top-24 h-[calc(100%-5rem)] w-1/2">
-          <Map />
-        </div>
+      <div className="h-full w-full">
+        {apiData && apiData.length ? (
+          <div className="w-full overflow-y-auto">
+            <PlacesList apiData={apiData} />
+          </div>
+        ) : (
+          <div className="flex h-[calc(100vh-13rem)] w-full flex-col items-center justify-center">
+            장소를 선택하거나 키워드를 입력 후 검색해주세요
+          </div>
+        )}
+        <div ref={loader} className="h-1 bg-transparent" />
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="fixed bottom-4 left-4 rounded-md bg-[--brand-color] px-4 py-2 text-white shadow-md hover:opacity-50"
+        >
+          맨 위로
+        </button>
       </div>
     </div>
   );
 }
-
-// 'use client';
-
-// import { useState } from 'react';
-// import { FilterArea, PlacesList, Map } from '@/widgets';
-// import { PlaceT } from '@/widgets/travel-info/types/Place';
-
-// export default function TravelInfo() {
-//   const ENCODING_KEY =
-//     'NGVffsMvyiv72RIfJIaWX8uyRc%2FREwo2VnS3vrzTPvmub0BAAomblyPiOekyEE6%2FS9eSn%2BOK2P2CWaFStEfr7A%3D%3D';
-//   const [keyword, setKeyword] = useState('');
-//   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-//     null
-//   );
-//   const [apiData, setApiData] = useState<PlaceT[] | null>([]);
-
-//   const handleCategorySelect = (contentTypeId: number) => {
-//     setSelectedCategoryId(contentTypeId);
-//   };
-
-//   const handleSearch = async (searchKeyword: string) => {
-//     setKeyword(searchKeyword);
-
-//     try {
-//       const isSelected = selectedCategoryId
-//         ? `&contentTypeId=${selectedCategoryId}`
-//         : '';
-//       const url = `http://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=APPTest&serviceKey=${ENCODING_KEY}&_type=json&listYN=Y&arrange=O${isSelected}&keyword=${searchKeyword}`;
-
-//       const response = await fetch(url);
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok.');
-//       }
-//       const data = await response.json();
-//       setApiData(data.response.body.items.item);
-//     } catch (error) {
-//       console.error('Error fetching data:', error);
-//     }
-//   };
-
-//   return (
-//     <div className="relative h-full w-full">
-//       <div className="sticky top-0 z-10 w-full border-y border-gray-200 bg-white">
-//         <FilterArea
-//           keyword={keyword}
-//           setKeyword={setKeyword}
-//           onCategorySelect={handleCategorySelect}
-//           selectedCategoryId={selectedCategoryId}
-//           onSearch={handleSearch}
-//         />
-//       </div>
-//       <div className="flex h-full w-full">
-//         <div className="w-1/2 overflow-y-auto">
-//           <PlacesList apiData={apiData} />
-//         </div>
-//         <div className="fixed right-0 top-20 h-[calc(100%-5rem)] w-1/2 overflow-y-auto">
-//           <Map />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

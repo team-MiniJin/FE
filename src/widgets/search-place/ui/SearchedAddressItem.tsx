@@ -1,7 +1,7 @@
 import { FieldArrayWithId, UseFormReturn } from 'react-hook-form';
 import { MutableRefObject } from 'react';
 import { EditorPlanT } from '@/widgets/plan-editor/types/plan-editor-type';
-import { DocumentT } from '../types/address';
+import { DocumentT } from '../types/address-type';
 
 export default function SearchedAddressItem({
   form,

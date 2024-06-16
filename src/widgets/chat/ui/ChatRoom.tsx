@@ -1,10 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { BiPaperPlane } from 'react-icons/bi';
+import { Input } from '@/components/ui/input';
 import {
   getMessages,
   addMessage,
   deleteMessage,
+  deleteChatRoom,
 } from '../mockdata/mockFunctions';
 import { ChatRoomT, MessageT } from '../type/chat';
 
@@ -50,28 +53,37 @@ export default function ChatRoom({
     );
   };
 
-  const handleLeaveCompletely = (roomId: string) => {
-    if (window.confirm('채팅방을 나가시겠습니까?')) {
+  const handleLeaveCompletely = (roomId: string, created_by: string) => {
+    if (currentUser === created_by) {
+      if (
+        window.confirm(
+          '이 방을 나가면 채팅방이 삭제됩니다. 채팅방을 나가시겠습니까?'
+        )
+      ) {
+        onLeaveCompletely(roomId);
+        deleteChatRoom(roomId);
+      }
+    } else if (window.confirm('채팅방을 나가시겠습니까?')) {
       onLeaveCompletely(roomId);
     }
   };
 
   return (
-    <div className="h-full">
+    <div className="h-[calc(100vh-15rem)]">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-bold">{room.room_name}</h2>
+        <h2 className="text-lg font-bold">{room.room_name}</h2>
         <div>
           <button
             type="button"
-            className="mr-2 bg-red-500 p-2 text-white"
+            className="mr-2 p-2 hover:text-[--brand-color]"
             onClick={onExit}
           >
             뒤로가기
           </button>
           <button
             type="button"
-            className="bg-red-700 p-2 text-white"
-            onClick={() => handleLeaveCompletely(room.room_id)}
+            className="p-2 hover:text-[--brand-color]"
+            onClick={() => handleLeaveCompletely(room.room_id, room.created_by)}
           >
             채팅방 나가기
           </button>
@@ -142,7 +154,7 @@ export default function ChatRoom({
         })}
       </div>
       <div className="flex w-full">
-        <input
+        <Input
           className="flex-grow border p-2"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
@@ -156,10 +168,11 @@ export default function ChatRoom({
         />
         <button
           type="button"
-          className="ml-2 bg-blue-500 p-2 text-white"
+          aria-label="send message"
+          className="ml-2 flex items-center p-2 text-2xl text-[--brand-color]"
           onClick={sendMessage}
         >
-          전송
+          <BiPaperPlane className="ml-1" />
         </button>
       </div>
     </div>

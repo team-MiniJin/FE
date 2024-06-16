@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { THEMES } from '../../constants/consts';
+import { THEMES } from '../../../../shared/constants/themes';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
 export default function ThemeSelect({

@@ -2,7 +2,6 @@ import { calculateStayDuration } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import { MyPlanT } from '@/widgets/my-plan-list/types/myPlans';
-import { GoHeart } from 'react-icons/go';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';
 
@@ -73,15 +72,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
             <p className="inline-block shrink-0	">
               {plan.scope ? '공개' : '비공개'}
             </p>
-            <div
-              className="flex items-center space-x-1"
-              aria-label={`좋아요 ${plan.number_of_likes}`}
-            >
-              <span>
-                <GoHeart className="text-base" />
-              </span>
-              <span>{plan.number_of_likes}</span>
-            </div>
+
             <div
               className="flex items-center space-x-1"
               aria-label={`스크랩 ${plan.number_of_scraps}`}

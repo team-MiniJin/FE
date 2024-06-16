@@ -11,13 +11,13 @@ const useCarousel = (
 ) => {
   const [carouselStartIndex, setCarouselStartIndex] = useState<number>(0);
   const [visibleSlides, setVisibleSlides] =
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     useState<number>(getVisibleSlides());
   const [isAutoSliding, setIsAutoSliding] = useState<boolean>(autoSlide);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function getVisibleSlides() {
-    let slides = 1; // 기본 값
+    let slides =
+      Object.values(breakpoints)[Object.values(breakpoints).length - 1]; // 기본 값
     if (typeof window !== 'undefined') {
       const width = window.innerWidth;
       // 주어진 브레이크포인트에 따라 슬라이드 수 설정
@@ -44,7 +44,6 @@ const useCarousel = (
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breakpoints]);
 
   const nextItem = () => {
@@ -77,7 +76,6 @@ const useCarousel = (
         clearInterval(intervalRef.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAutoSliding, interval]);
 
   const toggleAutoSlide = () => {

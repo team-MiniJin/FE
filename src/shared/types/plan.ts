@@ -11,9 +11,9 @@ export interface ScheduleT {
   place_category: string;
   place_name: string;
   region: string;
-  place_memo: string;
+  place_memo?: string;
   arrival_time: string;
-  budgets: BudgetT[];
+  budgets?: BudgetT[];
   x: number;
   y: number;
   place_addr: string;

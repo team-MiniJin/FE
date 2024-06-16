@@ -11,7 +11,6 @@ export default function GNB({ closeNav }: { closeNav: () => void }) {
   useEffect(() => {
     const curCategory = pathname.split('/')[1];
     if (curCategory !== activedCategory) setActivedCatogory(curCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
   return (
     <nav className="absolute right-0 top-[64px] flex flex-col px-6 text-right md:static md:flex-row md:space-x-8 md:px-0">

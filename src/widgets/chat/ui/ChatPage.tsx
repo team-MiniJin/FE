@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { GoPlus } from 'react-icons/go';
 import { getChatRooms, createChatRoom } from '../mockdata/mockFunctions';
 import { ChatRoomT } from '../type/chat';
+import CreateRoom from './CreateRoom';
 
 interface ChatPageProps {
   enterRoom: (room: ChatRoomT) => void;
@@ -11,8 +14,9 @@ interface ChatPageProps {
 
 export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
   const [chatRooms, setChatRooms] = useState<ChatRoomT[]>([]);
-  const [newRoomTitle, setNewRoomTitle] = useState('');
+  const [newRoomTitle, setNewRoomTitle] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'all' | 'my'>('my');
+  const [showModal, setShowModal] = useState<boolean>(false); // 채팅방 생성 창
 
   useEffect(() => {
     const rooms = getChatRooms();
@@ -31,6 +35,7 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
       setChatRooms([...chatRooms, newRoom]);
       setNewRoomTitle('');
       enterRoom(newRoom);
+      setShowModal(false);
     }
   };
 
@@ -38,28 +43,46 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
 
   return (
     <>
-      <div className="mb-4 flex">
-        <h1 className="mr-6 h-10 text-2xl font-bold leading-10">채팅</h1>
-        <button
-          type="button"
-          className="bg-blue-500 p-2 text-white"
-          onClick={createRoom}
-        >
-          새 채팅
-        </button>
-        <input
-          className="w-full max-w-xs border p-2"
-          value={newRoomTitle}
-          onChange={(e) => setNewRoomTitle(e.target.value)}
-          placeholder="채팅방 이름을 입력해주세요"
-        />
+      <div className="flex items-center justify-center border-b py-4">
+        <h1 className="mr-4 h-10 text-xl font-bold leading-10">채팅</h1>
+        <div className="mx-auto flex">
+          <Button
+            type="button"
+            variant="outline"
+            className={`rounded-r-[0px] p-2 ${activeTab === 'my' ? 'text-[--brand-main-color]' : ''}`}
+            onClick={() => setActiveTab('my')}
+          >
+            내 채팅
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className={`rounded-l-[0px] p-2 ${activeTab === 'all' ? 'text-[--brand-main-color]' : ''}`}
+            onClick={() => setActiveTab('all')}
+          >
+            전체 채팅
+          </Button>
+        </div>
+        <div>
+          <Button variant="outline" onClick={() => setShowModal(true)}>
+            <GoPlus className="mr-2" />새 채팅
+          </Button>
+        </div>
+        {showModal && (
+          <CreateRoom
+            newRoomTitle={newRoomTitle}
+            setNewRoomTitle={setNewRoomTitle}
+            createRoom={createRoom}
+            setShowModal={setShowModal}
+          />
+        )}
       </div>
-      <ul className="flex h-full max-h-[75%] flex-col items-center overflow-auto">
+      <ul className="flex h-full flex-col items-center overflow-auto">
         {displayRooms.map((room) => (
-          <li key={room.room_id} className="w-[80%]">
+          <li key={room.room_id} className="h-28 w-full border-b">
             <button
               type="button"
-              className="h-20 w-full bg-white p-4 text-left font-bold shadow hover:opacity-50"
+              className="h-full w-full bg-white p-4 text-left font-bold hover:bg-gray-100"
               onClick={() => enterRoom(room)}
             >
               {room.room_name}
@@ -67,22 +90,6 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
           </li>
         ))}
       </ul>
-      <div className="mt-4 flex justify-center">
-        <button
-          type="button"
-          className={`ml-2 p-2 ${activeTab === 'my' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-          onClick={() => setActiveTab('my')}
-        >
-          내 채팅
-        </button>
-        <button
-          type="button"
-          className={`p-2 ${activeTab === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-          onClick={() => setActiveTab('all')}
-        >
-          전체 채팅방
-        </button>
-      </div>
     </>
   );
 }

@@ -14,12 +14,14 @@ export default function TravelSort() {
   return (
     <Select onValueChange={setSort} value={sort}>
       <SelectTrigger>
-        <SelectValue>{sort}</SelectValue>
+        <SelectValue>
+          {sort === 'newest' ? '최신순' : '스크랩 많은 순'}
+        </SelectValue>
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="최신순">최신순</SelectItem>
-        <SelectItem value="스크랩 많은 순">스크랩 많은 순</SelectItem>
+        <SelectItem value="newest">최신순</SelectItem>
+        <SelectItem value="scrap">스크랩 많은 순</SelectItem>
       </SelectContent>
     </Select>
   );

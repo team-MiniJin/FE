@@ -14,7 +14,7 @@ export default function AddPlanDateButton({
     <button
       onClick={() => addDays(form, setDateOfDays)}
       type="button"
-      className="flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-slate-100 disabled:bg-gray-100 disabled:text-[--deactived-text-color]"
+      className="flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-slate-100 disabled:bg-gray-100 disabled:text-[--deactivated-text-color]"
       aria-label="date card"
       disabled={isEditing || isRegistration}
     >

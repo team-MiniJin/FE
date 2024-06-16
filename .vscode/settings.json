@@ -34,5 +34,5 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["consts", "tanstack", "zustand"] // 기본 포맷터를 Prettier로 설정
+  "cSpell.words": ["clsx", "consts", "tanstack", "zustand"] // 기본 포맷터를 Prettier로 설정
 }

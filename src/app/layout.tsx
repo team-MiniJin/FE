@@ -2,6 +2,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/widgets';
 import { Metadata } from 'next';
+import { Toaster } from '@/components/ui/toaster';
 import ReactQueryProvider from './ReactQueryProvider';
 
 const notoSansKR = Noto_Sans_KR({
@@ -24,9 +25,10 @@ export default function RootLayout({
     <html lang="ko" className="min-h-svh">
       <body className={`${notoSansKR.className} min-h-svh`}>
         <ReactQueryProvider>
-          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 text-[--text-default-color] disabled:!bg-[--deactived-color] disabled:!text-[--deactived-text-color]">
+          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 text-[--text-default-color] disabled:!bg-[--deactivated-color] disabled:!text-[--deactivated-text-color]">
             <Header />
             <main>{children}</main>
+            <Toaster />
           </div>
         </ReactQueryProvider>
       </body>

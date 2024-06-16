@@ -7,10 +7,10 @@ import GNBCategory from './GNBCategory';
 
 export default function GNB({ closeNav }: { closeNav: () => void }) {
   const pathname = usePathname();
-  const [activedCategory, setActivedCatogory] = useState<string>('');
+  const [activatedCategory, setActivatedCatogory] = useState<string>('');
   useEffect(() => {
     const curCategory = pathname.split('/')[1];
-    if (curCategory !== activedCategory) setActivedCatogory(curCategory);
+    if (curCategory !== activatedCategory) setActivatedCatogory(curCategory);
   }, [pathname]);
   return (
     <nav className="absolute right-0 top-[64px] flex flex-col px-6 text-right md:static md:flex-row md:space-x-8 md:px-0">
@@ -19,8 +19,8 @@ export default function GNB({ closeNav }: { closeNav: () => void }) {
           key={categoryKey}
           categoryKey={categoryKey}
           categoryValue={GNB_CATEGORIES[categoryKey]}
-          activedCategory={activedCategory}
-          setActivedCatogory={setActivedCatogory}
+          activatedCategory={activatedCategory}
+          setActivatedCatogory={setActivatedCatogory}
           closeNav={closeNav}
         />
       ))}

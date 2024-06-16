@@ -3,8 +3,8 @@ import { create } from 'zustand';
 interface PlanEditorStoreT {
   editingScheduleIndex: number | null;
   setEditingScheduleIndex: (id: number | null) => void;
-  activedDateCardIndex: number;
-  setActivedDateCardIndex: (activedDateCardIndex: number) => void;
+  activatedDateCardIndex: number;
+  setActivatedDateCardIndex: (activatedDateCardIndex: number) => void;
   isRegistration: boolean;
   setIsRegistration: (isRegistration: boolean) => void;
   isEditing: boolean;
@@ -15,7 +15,7 @@ interface PlanEditorStoreT {
 }
 const initialState = {
   editingScheduleIndex: null,
-  activedDateCardIndex: 0,
+  activatedDateCardIndex: 0,
   isRegistration: false,
   isEditing: false,
   dateOfDays: [new Date()],
@@ -25,9 +25,9 @@ const usePlanEditorStore = create<PlanEditorStoreT>((set) => ({
   editingScheduleIndex: null,
   setEditingScheduleIndex: (id: number | null) =>
     set((state) => ({ ...state, editingScheduleIndex: id })),
-  activedDateCardIndex: 0,
-  setActivedDateCardIndex: (activedDateCardIndex: number) =>
-    set((state) => ({ ...state, activedDateCardIndex })),
+  activatedDateCardIndex: 0,
+  setActivatedDateCardIndex: (activatedDateCardIndex: number) =>
+    set((state) => ({ ...state, activatedDateCardIndex })),
   isRegistration: false,
   setIsRegistration: (isRegistration: boolean) =>
     set((state) => ({ ...state, isRegistration })),

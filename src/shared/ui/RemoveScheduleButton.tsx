@@ -1,15 +1,16 @@
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { AiOutlineDelete } from 'react-icons/ai';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 export default function RemoveScheduleButton({
   onClickHandler,
@@ -17,31 +18,38 @@ export default function RemoveScheduleButton({
   onClickHandler: () => void;
 }) {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <button
-          type="button"
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          variant="outline"
           aria-label="장소 삭제"
-          className="rounded-full p-2 hover:bg-slate-100"
+          className=" p-2 hover:bg-slate-100"
         >
           <AiOutlineDelete className="text-xl" />
-        </button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>일정을 삭제할까요?</DialogTitle>
-          <DialogDescription>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent className="">
+        <AlertDialogHeader>
+          <AlertDialogTitle>일정을 삭제할까요?</AlertDialogTitle>
+          <AlertDialogDescription>
             삭제된 일정은 복구할 수 없습니다.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" onClick={onClickHandler}>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel asChild>
+            <Button variant="outline">취소</Button>
+          </AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              variant="destructive"
+              onClick={onClickHandler}
+              className="!important bg-red-600 text-white hover:bg-red-700"
+            >
               삭제
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

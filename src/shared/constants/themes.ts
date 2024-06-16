@@ -1,4 +1,5 @@
 export const THEMES: { [key: string]: string } = {
+  all: '모든 테마',
   'with-family': '가족과 함께',
   'with-children': '아이와 함께',
   'with-friend': '친구와 함께',

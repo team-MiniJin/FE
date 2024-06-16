@@ -7,9 +7,9 @@ import { UserTravelPlanT } from '../types/user-travel-type';
 import UserTravel from './user-travels/UserTravel';
 
 export default function UserTravels() {
-  const { sort, region, theme } = useTravelFilterAndSortStore();
+  const { sort, region, theme, search } = useTravelFilterAndSortStore();
   const { data, hasNextPage, isFetchingNextPage, isFetching, fetchNextPage } =
-    useUserTravels(sort, region as string, theme as string);
+    useUserTravels(sort, region as string, theme as string, search);
   const observerRef = useInfiniteScroll(() => {
     if (hasNextPage && !isFetchingNextPage && !isFetching) fetchNextPage();
   }, hasNextPage);

@@ -6,7 +6,8 @@ const getUserTravels = async (
   pageParam: number,
   sort: string,
   region: string,
-  theme: string
+  theme: string,
+  search: string
 ): Promise<GetUserTravelPlanSuccessT> => {
   try {
     const result: AxiosResponse = await fetcher(
@@ -18,6 +19,7 @@ const getUserTravels = async (
         cursor: pageParam,
         theme,
         region,
+        search,
       }
     );
     return result.data as GetUserTravelPlanSuccessT;

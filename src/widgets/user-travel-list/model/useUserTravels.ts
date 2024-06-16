@@ -2,12 +2,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import getUserTravels from '../api/getUserTravels';
 import { GetUserTravelPlanSuccessT, SortType } from '../types/user-travel-type';
 
-const useUserTravels = (sort: SortType, region: string, theme: string) => {
+const useUserTravels = (
+  sort: SortType,
+  region: string,
+  theme: string,
+  search: string
+) => {
   return useInfiniteQuery<GetUserTravelPlanSuccessT>({
     queryKey: ['userTravels', sort, region, theme],
     queryFn: ({ pageParam = 1 }) => {
       const page = pageParam as number;
-      return getUserTravels(page, sort, region, theme);
+      return getUserTravels(page, sort, region, theme, search);
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {

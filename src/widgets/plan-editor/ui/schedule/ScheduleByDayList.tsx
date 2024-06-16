@@ -19,11 +19,11 @@ export default function ScheduleByDayList({
   scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
   removeSchedule: UseFieldArrayRemove;
 }) {
-  const { activedDateCardIndex } = useCreatePlanStore();
+  const { activatedDateCardIndex } = useCreatePlanStore();
 
   const filterdSchedules = scheduleFields.filter(
     (value) =>
-      value.schedule_day - 1 === activedDateCardIndex && value.place_category
+      value.schedule_day - 1 === activatedDateCardIndex && value.place_category
   );
   return (
     <ul className="space-y-4">

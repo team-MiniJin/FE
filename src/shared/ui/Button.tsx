@@ -22,7 +22,7 @@ export default function Button({
         styleType === 'kakao',
       'bg-[--brand-color]/25 text-[--brand-color] hover:bg-[--brand-color]/35':
         styleType === 'sky',
-      'bg-[--deactived-color] text-[--deactived-text-color]':
+      'bg-[--deactivated-color] text-[--deactivated-text-color]':
         styleType === 'disabled',
     }
   );

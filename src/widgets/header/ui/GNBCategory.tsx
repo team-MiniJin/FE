@@ -6,23 +6,23 @@ import React from 'react';
 export default function GNBCategory({
   categoryKey,
   categoryValue,
-  activedCategory,
-  setActivedCatogory,
+  activatedCategory,
+  setActivatedCatogory,
   closeNav,
 }: {
   categoryKey: string;
   categoryValue: string;
-  activedCategory: string;
-  setActivedCatogory: React.Dispatch<React.SetStateAction<string>>;
+  activatedCategory: string;
+  setActivatedCatogory: React.Dispatch<React.SetStateAction<string>>;
   closeNav: () => void;
 }) {
   return (
     <Link
       id={categoryKey}
       href={`/${categoryKey}`}
-      className={`${activedCategory === categoryKey ? 'text-[--brand-main-color]' : 'text-[--deactived-color]'} inline-block  px-1 py-3 font-bold hover:text-[--brand-main-color]`}
+      className={`${activatedCategory === categoryKey ? 'text-[--brand-main-color]' : 'text-[--deactivated-color]'} inline-block  px-1 py-3 font-bold hover:text-[--brand-main-color]`}
       onClick={() => {
-        setActivedCatogory(categoryKey);
+        setActivatedCatogory(categoryKey);
         closeNav();
       }}
     >

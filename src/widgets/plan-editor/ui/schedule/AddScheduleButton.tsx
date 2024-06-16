@@ -9,12 +9,12 @@ export default function AddPlaceButton({
 }: {
   appendSchedule: UseFieldArrayAppend<EditorPlanT, 'schedules'>;
 }) {
-  const { activedDateCardIndex, setIsRegistration } = useCreatePlanStore();
+  const { activatedDateCardIndex, setIsRegistration } = useCreatePlanStore();
   const handleAddPlace = () => {
     setIsRegistration(true);
     appendSchedule({
       id: 0,
-      schedule_day: activedDateCardIndex + 1,
+      schedule_day: activatedDateCardIndex + 1,
       place_category: '',
       place_name: '',
       place_addr: '',

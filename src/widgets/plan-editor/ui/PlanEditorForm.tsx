@@ -31,8 +31,8 @@ export default function PlanEditorForm({
     dateOfDays,
     isRegistration,
     isEditing,
-    activedDateCardIndex,
-    setActivedDateCardIndex,
+    activatedDateCardIndex,
+    setActivatedDateCardIndex,
     resetStore,
   } = usePlanEditorStore();
   const {
@@ -45,10 +45,8 @@ export default function PlanEditorForm({
     resetForm,
   } = useForm(plan);
   useEffect(() => {
-    console.log(activedDateCardIndex);
-    console.log(isEditMode);
     if (isEditMode !== undefined) {
-      setActivedDateCardIndex(0);
+      setActivatedDateCardIndex(0);
       resetStore();
       resetForm(plan);
     }
@@ -69,9 +67,9 @@ export default function PlanEditorForm({
         <div className="flex space-x-2 overflow-hidden">
           <DateCards
             dates={dates}
-            activedCardIndex={activedDateCardIndex}
+            activatedCardIndex={activatedDateCardIndex}
             disabled={isRegistration || isEditing}
-            onClickHandler={setActivedDateCardIndex}
+            onClickHandler={setActivatedDateCardIndex}
           />
           <AddPlanDateButton form={form} />
         </div>

@@ -4,13 +4,11 @@ import { ChangeEvent } from 'react';
 import { SearchBar } from '@/shared';
 
 interface FilterAreaProps {
-  keyword: string;
   setKeyword: (keyword: string) => void;
-  onSearch: (keyword: string) => void;
+  onSearch: () => void;
 }
 
 export default function SearchKeyword({
-  keyword,
   setKeyword,
   onSearch,
 }: FilterAreaProps) {
@@ -20,12 +18,8 @@ export default function SearchKeyword({
 
   const handleInputKeyPress = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
-      handleSearch();
+      onSearch();
     }
-  };
-
-  const handleSearch = () => {
-    onSearch(keyword);
   };
 
   return (
@@ -33,15 +27,14 @@ export default function SearchKeyword({
       <div className="relative">
         <button
           type="button"
-          onClick={handleSearch}
+          onClick={onSearch}
           className="absolute left-[5px] top-[5px] h-[30px] w-[30px] bg-white px-4 py-2 text-[0px] opacity-0 hover:opacity-50"
           aria-label="검색버튼"
         />
         <SearchBar
-          value={keyword}
           onChange={handleInputChange}
-          placeholder="장소를 검색하세요"
           onKeyPress={handleInputKeyPress}
+          placeholder="장소를 검색하세요"
         />
       </div>
     </div>

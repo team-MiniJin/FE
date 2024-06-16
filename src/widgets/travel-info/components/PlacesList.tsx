@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { PlaceT, PlaceDetailT } from '@/widgets/travel-info/types/Place';
 import { KakaoMap } from '@/shared';
+import Link from 'next/link';
+import { AiOutlineHome } from 'react-icons/ai';
 
 interface PlacesListProps {
   apiData: PlaceT[] | null;
@@ -22,7 +24,7 @@ export default function PlacesList({ apiData }: PlacesListProps) {
       setExpandedId(contentId);
       if (!detailedData[contentId]) {
         try {
-          const url = `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&contentId=${contentId}&MobileOS=ETC&MobileApp=APPTest&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
+          const url = `http://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&contentId=${contentId}&MobileOS=ETC&MobileApp=APPTest&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error('Network response was not ok.');
@@ -49,7 +51,7 @@ export default function PlacesList({ apiData }: PlacesListProps) {
           >
             <button
               type="button"
-              className="flex w-full text-left"
+              className="flex w-1/2 text-left"
               onClick={() => handleToggle(place.contentid)}
             >
               <figure className="relative m-4 flex h-44 w-44 items-center justify-center">
@@ -89,7 +91,7 @@ export default function PlacesList({ apiData }: PlacesListProps) {
               </article>
             </button>
             <div
-              className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              className={`w-1/2 overflow-hidden transition-all duration-500 ease-in-out ${
                 expandedId === place.contentid
                   ? 'max-h-screen opacity-100'
                   : 'max-h-0 opacity-0'
@@ -101,17 +103,19 @@ export default function PlacesList({ apiData }: PlacesListProps) {
                     {detailedData[place.contentid]?.homepage && (
                       <article>
                         <h3 className="text-base font-bold hover:text-[#3666FF]">
-                          <a
+                          <Link
                             href={
                               detailedData[place.contentid]?.homepage.split(
                                 '"'
-                              )[1]
+                              )[1] || '#'
                             }
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="flex"
                           >
                             홈페이지
-                          </a>
+                            <AiOutlineHome className="ml-2" size={24} />
+                          </Link>
                         </h3>
                       </article>
                     )}
@@ -130,7 +134,7 @@ export default function PlacesList({ apiData }: PlacesListProps) {
                       </article>
                     )}
                     {detailedData[place.contentid]?.mapx && (
-                      <article className="fixed left-[50%] top-20 h-full w-1/2 max-w-[512px] pr-8">
+                      <article className="fixed left-[50%] top-20 h-full w-1/2 max-w-[512px] pl-2 pr-8">
                         <KakaoMap
                           mapx={detailedData[place.contentid]?.mapx}
                           mapy={detailedData[place.contentid]?.mapy}

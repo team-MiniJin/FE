@@ -78,17 +78,23 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
         )}
       </div>
       <ul className="flex h-full flex-col items-center overflow-auto">
-        {displayRooms.map((room) => (
-          <li key={room.room_id} className="h-28 w-full border-b">
-            <button
-              type="button"
-              className="h-full w-full bg-white p-4 text-left font-bold hover:bg-gray-100"
-              onClick={() => enterRoom(room)}
-            >
-              {room.room_name}
-            </button>
+        {displayRooms.length === 0 ? (
+          <li className="flex h-28 w-full items-center justify-center border-b">
+            <span className="text-gray-500">채팅방에 참여해보세요.</span>
           </li>
-        ))}
+        ) : (
+          displayRooms.map((room) => (
+            <li key={room.room_id} className="h-28 w-full border-b">
+              <button
+                type="button"
+                className="h-full w-full bg-white p-4 text-left font-bold hover:bg-gray-100"
+                onClick={() => enterRoom(room)}
+              >
+                {room.room_name}
+              </button>
+            </li>
+          ))
+        )}
       </ul>
     </>
   );

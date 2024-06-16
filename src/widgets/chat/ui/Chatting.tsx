@@ -10,12 +10,14 @@ export default function Chatting() {
   const [myChatRooms, setMyChatRooms] = useState<ChatRoomT[]>([]);
 
   const enterRoom = (room: ChatRoomT) => {
-    const confirmEnter = window.confirm('채팅방에 참여하시겠습니까?');
-    if (confirmEnter) {
-      setCurrentRoom(room);
-      if (!myChatRooms.some((r) => r.room_id === room.room_id)) {
+    if (!myChatRooms.some((r) => r.room_id === room.room_id)) {
+      const confirmEnter = window.confirm('채팅방에 참여하시겠습니까?');
+      if (confirmEnter) {
+        setCurrentRoom(room);
         setMyChatRooms([...myChatRooms, room]);
       }
+    } else {
+      setCurrentRoom(room);
     }
   };
 

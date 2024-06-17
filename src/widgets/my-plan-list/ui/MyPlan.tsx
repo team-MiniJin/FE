@@ -26,7 +26,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
           tabIndex={0}
           onKeyDown={handleKeyDown}
           onClick={toggleAccordion}
-          className="relative flex h-[220px] cursor-pointer py-8 md:h-auto md:items-center md:px-3"
+          className="relative flex h-[220px] cursor-pointer py-6 md:h-auto md:items-center md:px-3"
         >
           <div className="absolute top-[50%] h-[50px] w-[50px] -translate-y-1/2 rounded-full bg-slate-100 md:h-[96px] md:w-[96px]" />
           <div className="w-full pl-[70px] md:pl-[132px]">

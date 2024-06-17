@@ -28,9 +28,6 @@ export default function MyPlans() {
           )}
         </ul>
         <div ref={observerRef} />
-        {isFetchingNextPage && <p>더 가져오는 중...</p>}
-        {!hasNextPage && !isFetching && <p>더 가져올게 없습니다!</p>}
-        {isFetching && !isFetchingNextPage && <p>초기 데이터 가져오는 중...</p>}
       </div>
     </div>
   );

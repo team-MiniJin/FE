@@ -7,6 +7,7 @@ import {
 } from 'react-icons/md';
 import useUpcomingPlans from '@/widgets/upcoming-plans/model/useUpcomingPlans';
 import calculateDday from '@/shared/utils/calculateDday';
+import { Skeleton } from '@/components/ui/skeleton';
 import UpcomingPlan from './UpcomingPlan';
 
 const BREAK_POINTS: { [key: number]: number } = {
@@ -16,7 +17,7 @@ const BREAK_POINTS: { [key: number]: number } = {
 };
 
 export default function UpcomingPlans() {
-  const { data, isFetching, isLoading } = useUpcomingPlans();
+  const { data, isLoading } = useUpcomingPlans();
   const { carouselStartIndex, visibleSlides, nextItem, prevItem } = useCarousel(
     BREAK_POINTS,
     data ? data.length : 0,
@@ -29,44 +30,50 @@ export default function UpcomingPlans() {
         <h2 className="text-xl font-bold">다가오는 여행 일정</h2>
       </div>
       <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
-        {data && (
-          <ul className=" flex w-full justify-between overflow-hidden">
-            <button
-              type="button"
-              className="absolute left-0 top-2/4 z-10 -translate-y-2/4  text-4xl disabled:hidden"
-              aria-label="이전 슬라이드"
-              onClick={prevItem}
-              disabled={carouselStartIndex === 0}
-            >
-              <MdOutlineKeyboardArrowLeft />
-            </button>
-            {data?.map((plan) => {
-              if (calculateDday(plan.start_date) >= 0)
-                return (
-                  <UpcomingPlan
-                    key={plan.plan_id}
-                    plan={plan}
-                    carouselStartIndex={carouselStartIndex}
-                    visibleSlides={visibleSlides}
-                  />
-                );
-              return null;
-            })}
-            <button
-              className="absolute right-0 top-1/2 -translate-y-1/2 text-4xl disabled:hidden"
-              type="button"
-              aria-label="다음 슬라이드"
-              onClick={nextItem}
-              disabled={
-                carouselStartIndex >= (data?.length ?? 0) - visibleSlides
-              }
-            >
-              <MdOutlineKeyboardArrowRight />
-            </button>
-          </ul>
-        )}
-        {isFetching && '데이터 가져오는 중'}
-        {!data && !isLoading && !isFetching && '가져올 데이터가 없어요'}
+        <ul className="flex h-[200px] w-full justify-between overflow-hidden">
+          {isLoading &&
+            new Array(3)
+              .fill(null)
+              .map((_, idx) => (
+                <Skeleton
+                  key={idx}
+                  className="h-full w-full flex-shrink-0 border-x-[0.5rem] border-white md:w-1/2 lg:w-1/3"
+                />
+              ))}
+          <button
+            type="button"
+            className="absolute left-0 top-2/4 z-10 -translate-y-2/4  text-4xl disabled:hidden"
+            aria-label="이전 슬라이드"
+            onClick={prevItem}
+            disabled={carouselStartIndex === 0}
+          >
+            <MdOutlineKeyboardArrowLeft />
+          </button>
+          {data?.map((plan) => {
+            if (calculateDday(plan.start_date) >= 0)
+              return (
+                <UpcomingPlan
+                  key={plan.plan_id}
+                  plan={plan}
+                  carouselStartIndex={carouselStartIndex}
+                  visibleSlides={visibleSlides}
+                />
+              );
+            return null;
+          })}
+          {isLoading && (
+            <Skeleton className="absolute right-0 top-1/2 h-[36px] w-[36px] -translate-y-1/2" />
+          )}
+          <button
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-4xl disabled:hidden"
+            type="button"
+            aria-label="다음 슬라이드"
+            onClick={nextItem}
+            disabled={carouselStartIndex >= (data?.length ?? 0) - visibleSlides}
+          >
+            <MdOutlineKeyboardArrowRight />
+          </button>
+        </ul>
       </div>
     </div>
   );

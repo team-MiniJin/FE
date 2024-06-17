@@ -1,5 +1,6 @@
 import calculateDday from '@/shared/utils/calculateDday';
 import Link from 'next/link';
+import { WIDTH } from '@/shared';
 import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 export default function UpcomingPlan({
@@ -11,14 +12,9 @@ export default function UpcomingPlan({
   carouselStartIndex: number;
   visibleSlides: number;
 }) {
-  const width: { [key: number]: string } = {
-    1: 'w-full',
-    2: 'w-1/2',
-    3: 'w-1/3',
-  };
   return (
     <li
-      className={` ${width[visibleSlides]} h-[200px] flex-shrink-0 text-white transition-transform`}
+      className={` ${WIDTH[visibleSlides]} h-full flex-shrink-0 text-white transition-transform`}
       style={{
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}

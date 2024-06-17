@@ -9,7 +9,7 @@ export default function SubmitButton({
   const { isEditing, isRegistration } = useCreatePlanStore();
   return (
     <Button
-      type="button"
+      type="submit"
       className="w-full  bg-[--brand-main-color] hover:bg-[--brand-sub-color]"
       disabled={isEditing || isRegistration}
     >

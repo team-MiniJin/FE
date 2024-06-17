@@ -7,6 +7,7 @@ import { eachDayOfInterval } from 'date-fns';
 import { EditorPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
+import postNewPlan from '../api/postNewPlan';
 
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
@@ -51,7 +52,9 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     name: 'schedules',
   });
 
-  const onSubmit = (values: z.infer<typeof planEditorFormPlanSchema>) => {};
+  const onSubmit = (values: z.infer<typeof planEditorFormPlanSchema>) => {
+    postNewPlan(values);
+  };
 
   const resetForm = (plan: PlanDetailT | undefined) => {
     reset({

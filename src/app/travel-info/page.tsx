@@ -1,15 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   SearchKeyword,
   PlacesList,
   AreaFilter,
   CategoryFilter,
 } from '@/widgets';
-import { PlaceT } from '@/widgets/travel-info/types/Place';
-import { AiOutlineReload } from 'react-icons/ai';
-import useInfiniteScroll from '@/widgets/travel-info/hooks/useInfiniteScroll';
+import { AiOutlineReload, AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import useIntersectionObserver from '@/widgets/travel-info/hooks/useIntersectionObserver';
 
 export default function TravelInfo() {
   const [keyword, setKeyword] = useState<string>('');
@@ -24,11 +24,7 @@ export default function TravelInfo() {
   );
   const [selectedCategoryName, setSelectedCategoryName] = useState<string>('');
 
-  const [apiData, setApiData] = useState<PlaceT[] | null>(null);
-  const [page, setPage] = useState<number>(0);
-  const [hasMore, setHasMore] = useState(false);
-
-  const fetchData = async (pageNo: number, isNewSearch = false) => {
+  const fetchPlaces = async ({ pageParam = 1 }) => {
     const contentTypeIdParam = selectedCategoryId
       ? `&contentTypeId=${selectedCategoryId}`
       : '';
@@ -40,50 +36,57 @@ export default function TravelInfo() {
       ? `&sigunguCode=${selectedSigunguCode}`
       : '';
     const url = keywordParam.length
-      ? `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
-      : `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      }
-      const data = await response.json();
-      const newItems = data.response.body.items.item;
+      ? `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
+      : `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
 
-      if (isNewSearch) {
-        setApiData(newItems);
-      } else {
-        setApiData((prevItems) =>
-          prevItems ? [...prevItems, ...newItems] : newItems
-        );
-      }
-
-      if (newItems.length < 10) {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('일치하는 결과가 없습니다.');
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
     }
+    const data = await response.json();
+    return {
+      items: data.response.body.items.item,
+      nextPage:
+        data.response.body.items.item.length === 10 ? pageParam + 1 : undefined,
+    };
   };
 
-  const loader = useInfiniteScroll(hasMore, () =>
-    setPage((prevPage) => prevPage + 1)
-  );
-
-  useEffect(() => {
-    if (page >= 1) {
-      fetchData(page);
-    }
-  }, [page]);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: [
+      'places',
+      keyword,
+      selectedAreaCode,
+      selectedSigunguCode,
+      selectedCategoryId,
+    ],
+    queryFn: fetchPlaces,
+    getNextPageParam: (lastPage, pages) => {
+      // lastPage가 없는 경우 undefined 반환
+      if (!lastPage || !lastPage.items || lastPage.items.length === 0) {
+        return undefined;
+      }
+      // 불러올 데이터가 더 이상 없으면 undefined 반환
+      if (lastPage.items.length < 10) {
+        return undefined;
+      }
+      // 데이터가 더 있으면 다음 페이지 반환
+      return pages.length + 1;
+    },
+    initialPageParam: 1, // 초기 페이지 번호 설정
+  });
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const handleSearch = async () => {
-    setPage(0);
-    setHasMore(true);
     scrollToTop();
-    await fetchData(1, true);
+    await refetch();
   };
 
   const handleReset = () => {
@@ -94,13 +97,15 @@ export default function TravelInfo() {
     setSelectedSigunguName('');
     setSelectedCategoryId(null);
     setSelectedCategoryName('');
-    setPage(0);
-    setHasMore(false);
+    refetch();
   };
 
-  useEffect(() => {
-    fetchData(1, true); // 컴포넌트가 마운트될 때 초기 데이터 가져오기
-  }, []);
+  // 무한 스크롤을 위한 Intersection Observer 사용
+  const loaderRef = useIntersectionObserver(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  });
 
   return (
     <div className="relative h-full w-full">
@@ -108,8 +113,8 @@ export default function TravelInfo() {
         <button
           type="button"
           onClick={handleReset}
-          disabled={!apiData}
-          className={`flex flex-col items-center justify-center bg-transparent px-4 py-2 text-xs ${!apiData ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:font-bold hover:text-[--brand-color]'}`}
+          disabled={!data}
+          className={`flex flex-col items-center justify-center bg-transparent px-4 py-2 text-xs ${!data ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:font-bold hover:text-[--brand-color]'}`}
         >
           <AiOutlineReload className="mr-2" size={20} />
           선택초기화
@@ -137,16 +142,39 @@ export default function TravelInfo() {
         </div>
       </div>
       <div className="h-full w-full">
-        {apiData && apiData.length ? (
-          <div className="w-full overflow-y-auto">
-            <PlacesList apiData={apiData} />
+        {isLoading ? (
+          <div className="flex h-[calc(100vh-13rem)] w-full flex-col items-center justify-center">
+            <AiOutlineLoading3Quarters
+              className="animate-spin"
+              size={48}
+              color="gray"
+            />
           </div>
         ) : (
-          <div className="flex h-[calc(100vh-13rem)] w-full flex-col items-center justify-center">
-            장소를 선택하거나 키워드를 입력 후 검색해주세요
+          <>
+            {data?.pages.flatMap((page) => page.items).length ? (
+              <div className="w-full overflow-y-auto">
+                <PlacesList
+                  apiData={data.pages.flatMap((page) => page.items)}
+                />
+              </div>
+            ) : (
+              <div className="flex h-[calc(100vh-13rem)] w-full flex-col items-center justify-center">
+                일치하는 결과가 없습니다.
+              </div>
+            )}
+          </>
+        )}
+        <div ref={loaderRef} className="h-1 bg-transparent" />
+        {isFetchingNextPage && hasNextPage && (
+          <div className="flex justify-center">
+            <AiOutlineLoading3Quarters
+              className="animate-spin"
+              size={24}
+              color="gray"
+            />
           </div>
         )}
-        <div ref={loader} className="h-1 bg-transparent" />
         <button
           type="button"
           onClick={scrollToTop}

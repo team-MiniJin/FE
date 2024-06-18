@@ -2,7 +2,6 @@ import { fetcher, TRAVEL_URL } from '@/shared';
 import { PostNewPlanT } from '../types/plan-editor-type';
 
 const planData = {
-  user_id: 1,
   plan_name: '테스트 계획-1',
   theme: '테스트-1',
   start_date: '2024-05-31',
@@ -17,7 +16,7 @@ const planData = {
       place_addr: '서울시',
       region: '서울',
       place_memo: '파싱해서 저장하자-1',
-      arrival_time: '21:00:00',
+      arrival_time: '21:00',
       budget: [
         {
           budget_category: '식비-1',

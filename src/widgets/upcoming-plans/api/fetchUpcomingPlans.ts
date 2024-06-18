@@ -1,12 +1,12 @@
 import fetcher from '@/shared/utils/fetcher';
 import { AxiosResponse } from 'axios';
-import { MOCK_SERVER_URL } from '@/shared/constants/api';
+import { MOCK_SERVER_URL, TRAVEL_URL } from '@/shared/constants/api';
 import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 const fetchUpcomingPlans = async (): Promise<UpcomingPlanT[]> => {
   try {
     const result: AxiosResponse = await fetcher(
-      MOCK_SERVER_URL,
+      TRAVEL_URL,
       '/plans/upcoming',
       'get'
     );

@@ -5,12 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 const useUpcomingPlans = () => {
-  const { data, isFetching, isLoading } = useQuery<UpcomingPlanT[]>({
+  const { data, isFetching, isLoading, isError } = useQuery<UpcomingPlanT[]>({
     queryKey: ['upcomingPlans'],
     queryFn: fetchUpcomingPlans,
   });
 
-  return { data, isLoading, isFetching };
+  return { data, isLoading, isFetching, isError };
 };
 
 export default useUpcomingPlans;

@@ -47,6 +47,8 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
+const BASE_URL = 'http://lyckabc.synology.me:20280';
+
 export default function JoinForm() {
   const router = useRouter();
 

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { fetcher, useAuth } from '@/shared';
 
 const formSchema = z.object({
   username: z.string().regex(/^[a-zA-Z0-9]{6,20}$/, {
@@ -34,10 +35,39 @@ export default function LogInForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    alert('로그인에 성공했습니다.');
-  }
+  const BASE_URL = 'http://lyckabc.synology.me:20280';
+  const { setJwt } = useAuth();
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    try {
+      const response = await fetcher(
+        BASE_URL,
+        '/auth/login',
+        'post',
+        {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        undefined,
+        values
+      );
+      console.log('응답', response);
+      const [, jwt] = response && response.headers.authorization.split(' ');
+      if (jwt) {
+        localStorage.setItem('jwt', jwt);
+        setJwt(jwt);
+        router.push('/');
+      } else {
+        console.error('JWT not found in the response headers');
+      }
+    } catch (error: any) {
+      // 네트워크 오류 또는 기타 예외 처리
+      console.error('에러', error);
+      if (error.response.data.message) alert(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form {...form}>

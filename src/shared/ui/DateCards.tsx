@@ -24,9 +24,9 @@ export default function DateCards({
             onClick={onClickHandler ? () => onClickHandler(index) : undefined}
             type="button"
             className={clsx(
-              'flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm text-[--brand-main-color] hover:bg-[--brand-sub-color] hover:text-white disabled:bg-gray-100 disabled:text-[--deactivated-text-color]',
+              'flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-[--brand-sub-color] hover:text-white disabled:bg-gray-100 disabled:text-[--deactivated-text-color]',
               {
-                'bg-[--brand-main-color] !text-white hover:bg-[--brand-sub-color] disabled:!bg-[--brand-sub-color]':
+                'hover:tr bg-[--brand-main-color] !text-white disabled:!bg-[--brand-sub-color]':
                   activatedCardIndex === index,
                 'space-y-0': pathname.split('/')[1] === 'exploring',
               }
@@ -34,8 +34,8 @@ export default function DateCards({
             aria-label={`${date} ${index}일차 날짜 카드 `}
             disabled={disabled}
           >
+            <div className="flex items-center font-bold">{index + 1}일차</div>
             {pathname.split('/')[1] !== 'exploring' && <div>{date}</div>}
-            <div className="flex items-center">{index + 1}일차</div>
           </button>
         </li>
       ))}

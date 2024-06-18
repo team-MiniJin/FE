@@ -26,7 +26,7 @@ export default function ThemeSelect({
       control={form.control}
       name="theme"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="w-[294px]">
           <FormLabel>여행 테마</FormLabel>
           <Select onValueChange={field.onChange}>
             <FormControl>
@@ -35,11 +35,13 @@ export default function ThemeSelect({
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {Object.keys(THEMES).map((key) => (
-                <SelectItem key={key} value={key}>
-                  {THEMES[key]}
-                </SelectItem>
-              ))}
+              {Object.keys(THEMES).map((key) =>
+                key === 'all' ? null : (
+                  <SelectItem key={key} value={key}>
+                    {THEMES[key]}
+                  </SelectItem>
+                )
+              )}
             </SelectContent>
           </Select>
           <FormMessage />

@@ -4,10 +4,11 @@ import { z } from 'zod';
 import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
-import { EditorPlanT } from '../types/plan-editor-type';
+import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
+import createNewPlanData from '../util/createNewPlanData';
 
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
@@ -35,7 +36,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       start_date: plan ? new Date(plan.start_date) : new Date(),
       end_date: plan ? new Date(plan.end_date) : new Date(),
       scope: plan ? plan.scope : true,
-      number_of_members: plan ? plan.number_of_members : 0,
+      number_of_members: plan ? plan.number_of_members : 1,
       schedules: plan ? plan.schedules : [],
     },
   });
@@ -52,8 +53,22 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     name: 'schedules',
   });
 
-  const onSubmit = (values: z.infer<typeof planEditorFormPlanSchema>) => {
-    postNewPlan(values);
+  const onSubmit = async (values: z.infer<typeof planEditorFormPlanSchema>) => {
+    const { trigger, setValue, getValues } = form;
+    const isValid = await trigger([
+      'plan_name',
+      'theme',
+      'start_date',
+      'end_date',
+      'scope',
+      'number_of_members',
+    ]);
+    if (!isValid) {
+      console.log('r');
+    }
+
+    const data: PostNewPlanT = createNewPlanData(values);
+    await postNewPlan(data);
   };
 
   const resetForm = (plan: PlanDetailT | undefined) => {

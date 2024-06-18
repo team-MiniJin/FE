@@ -8,7 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
-import { eachDayOfInterval, format } from 'date-fns';
+import { differenceInDays, eachDayOfInterval, format } from 'date-fns';
 import {
   FormControl,
   FormField,
@@ -33,8 +33,8 @@ export default function EndDate({
       <FormField
         control={form.control}
         name="end_date"
-        render={({ field }) => (
-          <FormItem className="flex flex-col">
+        render={({ field, fieldState }) => (
+          <FormItem className="relative flex flex-col">
             <FormLabel>도착일</FormLabel>
             <Popover>
               <PopoverTrigger asChild>
@@ -60,6 +60,7 @@ export default function EndDate({
                 <Calendar
                   mode="single"
                   selected={field.value ? new Date(field.value) : undefined}
+                  defaultMonth={field.value}
                   onSelect={(date) => {
                     if (date && date < form.getValues().start_date) return;
                     if (date !== undefined) {
@@ -72,13 +73,20 @@ export default function EndDate({
                       setDateOfDays(days);
                     }
                   }}
-                  disabled={(date) => date < form.getValues().start_date}
+                  disabled={(date) => {
+                    const startDate = form.getValues().start_date;
+                    startDate.setHours(0, 0, 0, 0);
+                    return (
+                      date < new Date(startDate) ||
+                      differenceInDays(date, startDate) > 59
+                    );
+                  }}
                   initialFocus
                   locale={ko}
                 />
               </PopoverContent>
             </Popover>
-            <FormMessage />
+            <FormMessage className="absolute left-[110%] top-1/2 w-full -translate-y-1/2" />
           </FormItem>
         )}
       />

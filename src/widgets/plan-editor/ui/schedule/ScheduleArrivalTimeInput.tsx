@@ -24,10 +24,10 @@ export default function PlaceArrivalTimeInput({
       control={form.control}
       name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.arrival_time`}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="w-[100px]">
           <FormLabel>도착 시간</FormLabel>
           <FormControl>
-            <Input {...field} type="text" placeholder="HH:mm (예: 07:10)" />
+            <Input {...field} type="text" placeholder="예) 07:10" />
           </FormControl>
           <FormMessage />
         </FormItem>

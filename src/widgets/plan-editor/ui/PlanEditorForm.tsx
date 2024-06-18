@@ -17,6 +17,8 @@ import SubmitButton from './plan/SubmitButton';
 import AddPlaceButton from './schedule/AddScheduleButton';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import { useForm } from '../model/useForm';
+import MemberInput from './plan/MemberInput';
+import ScopeRadioGroup from './plan/ScopeRadioGroup';
 
 export default function PlanEditorForm({
   plan = undefined,
@@ -94,6 +96,10 @@ export default function PlanEditorForm({
             !isEditing && <AddPlaceButton appendSchedule={appendSchedule} />
           )}
         </div>
+
+        <MemberInput form={form} />
+        <ScopeRadioGroup form={form} />
+
         <div className="!mt-12 flex space-x-[4%] text-center">
           <div className="w-[48%]">
             <CreatePlanCancelButton setIsEditMode={setIsEditMode} />

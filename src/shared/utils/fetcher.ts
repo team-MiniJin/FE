@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 const axiosInstance = axios.create();
@@ -32,19 +33,23 @@ const fetcher = async (
   params?: Record<string, any>,
   data?: any
 ) => {
-  const fullUrl = baseurl.concat(url);
-  console.log(fullUrl);
-  const config: AxiosRequestConfig = {
-    method,
-    url: fullUrl,
-    headers: headers || {},
-    params: params || {},
-    ...(method !== 'get' && data && { data }),
-  };
+  try {
+    const fullUrl = baseurl.concat(url);
+    console.log(fullUrl);
+    const config: AxiosRequestConfig = {
+      method,
+      url: fullUrl,
+      headers: headers || {},
+      params: params || {},
+      ...(method !== 'get' && data && { data }),
+    };
 
-  const response = await axiosInstance(config);
-  console.log(response);
-  return response;
+    const response = await axiosInstance(config);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default fetcher;

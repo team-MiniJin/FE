@@ -40,7 +40,7 @@ export default function PlaceBudgets({
       <Button
         type="button"
         variant="outline"
-        onClick={() => appendBudget({ budget_category: '', cost: 0 })}
+        onClick={() => appendBudget({ budget_category: '', cost: '1' })}
       >
         <GoPlus className="text-lg" />
       </Button>

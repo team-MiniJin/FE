@@ -1,6 +1,7 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 import { addDays } from '@/widgets/plan-editor/util/addDays';
 import { UseFormReturn } from 'react-hook-form';
+import { differenceInDays } from 'date-fns';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
@@ -16,7 +17,14 @@ export default function AddPlanDateButton({
       type="button"
       className="flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-slate-100 disabled:bg-gray-100 disabled:text-[--deactivated-text-color]"
       aria-label="date card"
-      disabled={isEditing || isRegistration}
+      disabled={
+        isEditing ||
+        isRegistration ||
+        differenceInDays(
+          new Date(form.getValues().end_date).setHours(0, 0, 0, 0),
+          new Date(form.getValues().start_date).setHours(0, 0, 0, 0)
+        ) > 58
+      }
     >
       <span className="text-lg">
         <AiOutlinePlus />

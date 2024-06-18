@@ -4,7 +4,8 @@ import { Form } from '@/components/ui/form';
 import { DateCards } from '@/shared';
 import { format } from 'date-fns';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import AddPlanDateButton from './days/AddPlanDateButton';
 import ThemeSelect from './plan/ThemeSelect';
 import TitleInput from './plan/TitleInput';
@@ -29,6 +30,8 @@ export default function PlanEditorForm({
   setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
   isEditMode?: boolean;
 }) {
+  const [loading, setLoading] = useState(true);
+
   const {
     dateOfDays,
     isRegistration,
@@ -37,6 +40,7 @@ export default function PlanEditorForm({
     setActivatedDateCardIndex,
     resetStore,
   } = usePlanEditorStore();
+
   const {
     form,
     scheduleFields,
@@ -46,6 +50,7 @@ export default function PlanEditorForm({
     onSubmit,
     resetForm,
   } = useForm(plan);
+
   useEffect(() => {
     if (isEditMode !== undefined) {
       setActivatedDateCardIndex(0);
@@ -53,9 +58,29 @@ export default function PlanEditorForm({
       resetForm(plan);
     }
   }, [isEditMode]);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="animate-spin">
+          <Image
+            src="/image/loading.png"
+            height={28}
+            width={28}
+            alt="loading"
+          />
+        </div>
+      </div>
+    );
+  }
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const dates = dateOfDays.map((date) => format(date, 'yyyy-MM-dd'));
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

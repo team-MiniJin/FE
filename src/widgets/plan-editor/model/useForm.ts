@@ -1,5 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFieldArray, useForm as useReactHookForm } from 'react-hook-form';
+import {
+  SubmitHandler,
+  useFieldArray,
+  useForm as useReactHookForm,
+} from 'react-hook-form';
 import { z } from 'zod';
 import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
@@ -53,8 +57,8 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     name: 'schedules',
   });
 
-  const onSubmit = async (values: z.infer<typeof planEditorFormPlanSchema>) => {
-    const { trigger, setValue, getValues } = form;
+  const onSubmit: SubmitHandler<EditorPlanT> = async (values) => {
+    const { trigger } = form;
     const isValid = await trigger([
       'plan_name',
       'theme',
@@ -63,8 +67,10 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       'scope',
       'number_of_members',
     ]);
+
     if (!isValid) {
-      console.log('r');
+      console.log('Validation failed');
+      return;
     }
 
     const data: PostNewPlanT = createNewPlanData(values);

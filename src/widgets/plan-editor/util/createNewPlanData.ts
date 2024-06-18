@@ -1,11 +1,7 @@
-import { z } from 'zod';
 import { add, format } from 'date-fns';
-import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
-import { PostNewPlanT } from '../types/plan-editor-type';
+import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 
-const createNewPlanData = (
-  values: z.infer<typeof planEditorFormPlanSchema>
-): PostNewPlanT => {
+const createNewPlanData = (values: EditorPlanT): PostNewPlanT => {
   const data: PostNewPlanT = {
     plan_name: values.plan_name,
     theme: values.theme,
@@ -24,11 +20,19 @@ const createNewPlanData = (
       place_category: schedule.place_category,
       place_name: schedule.place_name,
       place_addr: schedule.place_addr,
-      place_memo: schedule.place_memo,
+      place_memo: schedule.place_memo || '',
       arrival_time: schedule.arrival_time,
       x: schedule.x,
       y: schedule.y,
-      budgets: [...schedule.budgets],
+      budgets: schedule.budgets
+        ? schedule.budgets.map((budget) => ({
+            budget_category: budget.budget_category,
+            cost:
+              typeof budget.cost === 'number'
+                ? budget.cost
+                : parseInt(budget.cost.replace(/,/g, ''), 10), // 문자열에서 숫자로 변환
+          }))
+        : [],
     })),
   };
   return data;

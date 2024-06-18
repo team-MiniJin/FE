@@ -1,4 +1,5 @@
 import { ScheduleT } from '@/shared';
+import { BudgetT } from '@/shared/types/plan';
 
 export interface EditorBudgetT {
   budget_category: string;
@@ -39,7 +40,7 @@ export interface PostNewScheduleT {
   region: string;
   place_memo: string;
   arrival_time: string; // HH:mm:ss
-  budgets: EditorBudgetT[];
+  budgets: BudgetT[];
   x: number;
   y: number;
 }

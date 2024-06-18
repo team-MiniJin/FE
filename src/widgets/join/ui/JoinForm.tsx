@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import fetcher from '@/shared/utils/fetcher';
 
 const formSchema = z
   .object({
@@ -61,11 +62,31 @@ export default function JoinForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const BASE_URL = 'http://lyckabc.synology.me:20280';
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const { confirmPassword, ...userInfo } = values;
-    console.log(userInfo);
-    alert('회원가입에 성공했습니다');
-    router.push('/login');
+    try {
+      const response = await fetcher(
+        BASE_URL,
+        '/auth/join',
+        'post',
+        {
+          'Content-Type': 'application/json',
+        },
+        undefined,
+        userInfo
+      );
+
+      console.log(response);
+      if (response && response.data.success) {
+        alert('회원가입에 성공했습니다');
+        router.push('/login');
+      }
+    } catch (error: any) {
+      console.error('에러:', error);
+      if (error.response.data.message) alert(error.response.data.message);
+    }
   }
 
   const [showPassword, setShowPassword] = useState(false);

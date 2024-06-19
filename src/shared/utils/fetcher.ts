@@ -1,27 +1,19 @@
-/* eslint-disable consistent-return */
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (config) => config,
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      return Promise.reject(axiosError);
+      return Promise.reject(new Error(error.message));
     }
-    return Promise.reject(error);
+    return Promise.reject(new Error('An unknown error occurred'));
   }
 );
 
@@ -32,23 +24,28 @@ const fetcher = async (
   headers?: Record<string, string>,
   params?: Record<string, any>,
   data?: any
-) => {
+): Promise<any> => {
   try {
-    const fullUrl = baseurl.concat(url);
-    console.log(fullUrl);
+    const fullUrl = `${baseurl}${url}`;
     const config: AxiosRequestConfig = {
       method,
       url: fullUrl,
-      headers: headers || {},
-      params: params || {},
+      headers,
+      params,
       ...(method !== 'get' && data && { data }),
     };
 
-    const response = await axiosInstance(config);
-    console.log(response);
-    return response;
+    const response: AxiosResponse = await axiosInstance(config);
+    console.log('요청 성공: ', response);
+    return response.data;
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.message);
+      throw new Error(error.message);
+    } else {
+      console.error('Unexpected error:', error);
+      throw new Error('Unexpected error occurred');
+    }
   }
 };
 

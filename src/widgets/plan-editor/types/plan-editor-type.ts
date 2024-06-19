@@ -39,7 +39,7 @@ export interface PostNewScheduleT {
   place_addr: string;
   region: string;
   place_memo: string;
-  arrival_time: string; // HH:mm:ss
+  arrival_time: string; // HH:mm
   budgets: BudgetT[];
   x: number;
   y: number;

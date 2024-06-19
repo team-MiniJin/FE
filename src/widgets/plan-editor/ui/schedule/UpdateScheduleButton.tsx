@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { UseFieldArrayUpdate, UseFormReturn } from 'react-hook-form';
+import { add } from 'date-fns';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
@@ -38,14 +39,31 @@ export default function UpdateScheduleButton({
     setIsRegistration(false);
     setIsEditing(false);
     setEditingScheduleIndex(null);
-    const updatedSchedules = getValues().schedules.slice();
-    updatedSchedules.sort((a, b) => {
-      const timeA = a.arrival_time.split(':').map(Number);
-      const timeB = b.arrival_time.split(':').map(Number);
-      return timeA[0] * 60 + timeA[1] - (timeB[0] * 60 + timeB[1]);
-    });
 
-    setValue('schedules', updatedSchedules);
+    const sortedSchedules = getValues().schedules.sort(
+      (scheduleA: any, scheduleB: any) => {
+        const dateTimeA = add(new Date(values.start_date), {
+          days: scheduleA.schedule_day - 1,
+        });
+        const [hoursA, minutesA] = scheduleA.arrival_time
+          .split(':')
+          .map(Number);
+        dateTimeA.setHours(hoursA, minutesA);
+
+        const dateTimeB = add(new Date(values.start_date), {
+          days: scheduleB.schedule_day - 1,
+        });
+        const [hoursB, minutesB] = scheduleB.arrival_time
+          .split(':')
+          .map(Number);
+        dateTimeB.setHours(hoursB, minutesB);
+
+        if (dateTimeA < dateTimeB) return -1;
+        if (dateTimeA > dateTimeB) return 1;
+        return 0;
+      }
+    );
+    setValue('schedules', sortedSchedules);
   };
   return (
     <Button

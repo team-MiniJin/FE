@@ -1,5 +1,9 @@
 import { add, format } from 'date-fns';
-import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
+import {
+  EditorPlanT,
+  EditorScheduleT,
+  PostNewPlanT,
+} from '../types/plan-editor-type';
 
 const createNewPlanData = (values: EditorPlanT): PostNewPlanT => {
   const data: PostNewPlanT = {

@@ -12,7 +12,7 @@ import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
-import createNewPlanData from '../util/createNewPlanData';
+import createNewPlanData from '../utils/createNewPlanData';
 
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();

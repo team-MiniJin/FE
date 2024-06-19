@@ -1,6 +1,6 @@
 import { TRAVEL_URL } from '@/shared/constants/api';
 import fetcher from '@/shared/utils/fetcher';
-import { FetchMyPlanSuccessT } from '@/widgets/my-plan-list/types/myPlans';
+import { FetchMyPlanSuccessT } from '../types/my-plan-type';
 
 const fetchMyPlans = async (
   pageParam: number

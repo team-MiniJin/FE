@@ -6,13 +6,10 @@ import {
 } from 'react-hook-form';
 import formatTime from '@/shared/utils/formatTime';
 import { EditScheduleButton, RemoveScheduleButton } from '@/shared';
+import { BudgetT } from '@/shared/types/plan';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 import EditPlace from './EditSchedule';
-import {
-  EditorBudgetT,
-  EditorPlanT,
-  EditorScheduleT,
-} from '../../types/plan-editor-type';
+import { EditorBudgetT, EditorPlanT } from '../../types/plan-editor-type';
 
 export default function ScheduleByDayCard({
   form,
@@ -22,7 +19,7 @@ export default function ScheduleByDayCard({
   updateSchedule,
   removeSchedule,
 }: {
-  schedule: EditorScheduleT;
+  schedule: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>;
   idx: number;
   form: UseFormReturn<EditorPlanT, any, undefined>;
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
@@ -50,12 +47,14 @@ export default function ScheduleByDayCard({
             )}
           </div>
           <div className="w-[90px] text-center">
-            {schedule?.budgets
-              ?.reduce(
-                (prev: number, cur: EditorBudgetT) =>
-                  prev + parseInt(cur.cost.replace(/,/g, ''), 10),
-                0
-              )
+            {schedule.budgets
+              ?.reduce((prev: number, cur: BudgetT | EditorBudgetT) => {
+                const cost =
+                  typeof cur.cost === 'string'
+                    ? parseInt(cur.cost.replace(/,/g, ''), 10)
+                    : cur.cost;
+                return prev + cost;
+              }, 0)
               .toLocaleString() || '0'}
             원
           </div>
@@ -72,9 +71,7 @@ export default function ScheduleByDayCard({
         <RemoveScheduleButton
           onClickHandler={() => {
             removeSchedule(
-              scheduleFields.findIndex(
-                (item) => Number(item.id) === schedule.id
-              )
+              scheduleFields.findIndex((item) => item.id === schedule.id)
             );
           }}
         />

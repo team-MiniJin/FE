@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { fetcher, useAuth } from '@/shared';
+import { fetcher, useAuth, TRAVEL_URL } from '@/shared';
 
 const formSchema = z.object({
   username: z.string().regex(/^[a-zA-Z0-9]{6,20}$/, {
@@ -35,14 +35,13 @@ export default function LogInForm() {
     },
   });
 
-  const BASE_URL = 'http://lyckabc.synology.me:20280';
   const { setJwt } = useAuth();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
       const response = await fetcher(
-        BASE_URL,
+        TRAVEL_URL,
         '/auth/login',
         'post',
         {
@@ -52,7 +51,7 @@ export default function LogInForm() {
         values
       );
       console.log('응답', response);
-      const [, jwt] = response && response.headers.authorization.split(' ');
+      const jwt = response && response.headers.authorization.split(' ');
       if (jwt) {
         localStorage.setItem('jwt', jwt);
         setJwt(jwt);
@@ -63,7 +62,6 @@ export default function LogInForm() {
     } catch (error: any) {
       // 네트워크 오류 또는 기타 예외 처리
       console.error('에러', error);
-      if (error.response.data.message) alert(error.response.data.message);
     } finally {
       setIsLoading(false);
     }

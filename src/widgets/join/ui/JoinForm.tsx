@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-import fetcher from '@/shared/utils/fetcher';
+import { fetcher, TRAVEL_URL } from '@/shared';
 
 const formSchema = z
   .object({
@@ -47,8 +47,6 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
-const BASE_URL = 'http://lyckabc.synology.me:20280';
-
 export default function JoinForm() {
   const router = useRouter();
 
@@ -64,13 +62,11 @@ export default function JoinForm() {
     },
   });
 
-  const BASE_URL = 'http://lyckabc.synology.me:20280';
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { confirmPassword, ...userInfo } = values;
     try {
       const response = await fetcher(
-        BASE_URL,
+        TRAVEL_URL,
         '/auth/join',
         'post',
         {

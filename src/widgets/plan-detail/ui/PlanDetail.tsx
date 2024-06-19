@@ -15,21 +15,28 @@ import PlanEditor from '@/widgets/plan-editor/ui/PlanEditor';
 import { usePathname } from 'next/navigation';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
-import deletePlan from '../api/deletePlan';
 import CopyTravelButton from './CopyTravelButton';
 
 export default function PlanDetail({ planId }: { planId: number }) {
   const pathname = usePathname();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const { data } = usePlan(planId);
+  const { data, mutateDeletePlan, isError } = usePlan(planId);
   const [activatedCardIndex, setActivatedCardIndex] = useState<number>(0);
-
-  if (!data) {
-    return null;
+  if (!data || isError) {
+    return (
+      <div className="absolute inset-0 top-[-96px] flex h-svh flex-col items-center justify-center text-center">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="mb-4 text-3xl font-bold">잘못된 요청입니다.</h1>
+          <p className="mb-6 text-lg">
+            요청하신 여행 일정을 찾을 수 없습니다. 다시 시도해 주세요.
+          </p>
+          <BackLink classNames="text-blue-500 hover:underline" />
+        </div>
+      </div>
+    );
   }
-
   const filteredSchedules = data.schedules.filter(
-    (s) => s.schedule_day === activatedCardIndex + 1
+    (s) => s.schedule_days === activatedCardIndex + 1
   );
 
   return (
@@ -60,7 +67,7 @@ export default function PlanDetail({ planId }: { planId: number }) {
                 />
                 <RemoveScheduleButton
                   onClickHandler={() => {
-                    deletePlan(planId);
+                    mutateDeletePlan(planId);
                   }}
                 />
               </div>

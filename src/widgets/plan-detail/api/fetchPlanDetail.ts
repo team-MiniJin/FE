@@ -1,14 +1,13 @@
-import { fetcher, MOCK_SERVER_URL } from '@/shared';
+import { fetcher, TRAVEL_URL } from '@/shared';
 import { AxiosResponse } from 'axios';
 
 export const fetchPlanDetail = async (planId: number) => {
   try {
     const result: AxiosResponse = await fetcher(
-      MOCK_SERVER_URL,
-      `/plans`,
+      TRAVEL_URL,
+      `/plans/details/${planId}`,
       'get',
-      undefined,
-      { plan_id: planId }
+      undefined
     );
     return result.data;
   } catch (error) {

@@ -3,6 +3,7 @@ import './globals.css';
 import { Header } from '@/widgets';
 import { Metadata } from 'next';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/shared';
 import ReactQueryProvider from './ReactQueryProvider';
 
 const notoSansKR = Noto_Sans_KR({
@@ -25,11 +26,13 @@ export default function RootLayout({
     <html lang="ko" className="min-h-svh">
       <body className={`${notoSansKR.className} min-h-svh`}>
         <ReactQueryProvider>
-          <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 text-[--text-default-color] disabled:!bg-[--deactivated-color] disabled:!text-[--deactivated-text-color]">
-            <Header />
-            <main>{children}</main>
-            <Toaster />
-          </div>
+          <AuthProvider>
+            <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 text-[--text-default-color] disabled:!bg-[--deactivated-color] disabled:!text-[--deactivated-text-color]">
+              <Header />
+              <main>{children}</main>
+              <Toaster />
+            </div>
+          </AuthProvider>
         </ReactQueryProvider>
       </body>
     </html>

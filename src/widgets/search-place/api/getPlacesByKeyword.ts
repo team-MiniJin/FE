@@ -1,9 +1,11 @@
 import { fetcher, KAKAO_LOCAL_URL } from '@/shared';
-import { AxiosResponse } from 'axios';
+import { GetPlacesByKeywordResponseT } from '../types/keyword-type';
 
-const getPlacesByKeyword = async (queryText: string) => {
+const getPlacesByKeyword = async (
+  queryText: string
+): Promise<GetPlacesByKeywordResponseT> => {
   try {
-    const result: AxiosResponse = await fetcher(
+    const data = await fetcher(
       KAKAO_LOCAL_URL,
       '/keyword',
       'get',
@@ -12,8 +14,10 @@ const getPlacesByKeyword = async (queryText: string) => {
       },
       { query: queryText, size: 5, page: 1 }
     );
-    return result.data;
+
+    return data;
   } catch (error) {
+    console.error('Error to get places by keyword:', error);
     throw new Error('Failed to get places by keyword');
   }
 };

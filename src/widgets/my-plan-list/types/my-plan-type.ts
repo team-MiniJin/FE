@@ -25,4 +25,4 @@ export interface MyPlanT {
   schedules: MyPlanScheduleT[];
 }
 
-export type FetchMyPlanSuccessT = { data: MyPlanT[]; nextCursor?: number };
+export type FetchMyPlanSuccessT = { data: MyPlanT[]; next_cursor?: number };

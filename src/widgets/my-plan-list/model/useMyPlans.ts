@@ -8,7 +8,7 @@ const useMyPlans = () => {
     queryFn: ({ pageParam = 0 }) => fetchMyPlans(pageParam as number),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      if ('nextCursor' in lastPage) return lastPage.nextCursor;
+      if ('next_cursor' in lastPage) return lastPage.next_cursor;
       return undefined;
     },
   });

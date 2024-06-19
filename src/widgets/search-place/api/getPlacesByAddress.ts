@@ -1,9 +1,11 @@
 import { fetcher } from '@/shared';
-import { AxiosResponse } from 'axios';
+import { GetPlacesByAddressResponseT } from '../types/address-type';
 
-const getPlacesByAddress = async (queryText: string) => {
+const getPlacesByAddress = async (
+  queryText: string
+): Promise<GetPlacesByAddressResponseT> => {
   try {
-    const result: AxiosResponse = await fetcher(
+    const data = await fetcher(
       'https://dapi.kakao.com/v2/local/search',
       '/address',
       'get',
@@ -12,8 +14,10 @@ const getPlacesByAddress = async (queryText: string) => {
       },
       { query: queryText, size: 5, page: 1 }
     );
-    return result.data;
+
+    return data;
   } catch (error) {
+    console.error('Error to get places by address:', error);
     throw new Error('Failed to get places by address');
   }
 };

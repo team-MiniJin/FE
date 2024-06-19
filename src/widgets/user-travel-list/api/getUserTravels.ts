@@ -1,5 +1,4 @@
 import { fetcher, MOCK_SERVER_URL } from '@/shared';
-import { AxiosResponse } from 'axios';
 import { GetUserTravelPlanSuccessT } from '../types/user-travel-type';
 
 const getUserTravels = async (
@@ -10,7 +9,7 @@ const getUserTravels = async (
   search: string
 ): Promise<GetUserTravelPlanSuccessT> => {
   try {
-    const result: AxiosResponse = await fetcher(
+    const data = await fetcher(
       MOCK_SERVER_URL,
       `/plans/others/${sort}`,
       'get',
@@ -22,8 +21,9 @@ const getUserTravels = async (
         search,
       }
     );
-    return result.data as GetUserTravelPlanSuccessT;
+    return data as GetUserTravelPlanSuccessT;
   } catch (error) {
+    console.error('Failed to fetch user travels: ', error);
     throw new Error('Failed to fetch user travels');
   }
 };

@@ -118,7 +118,9 @@ export default function PlanEditorForm({
               form={form}
             />
           ) : (
-            !isEditing && <AddPlaceButton appendSchedule={appendSchedule} />
+            !isEditing && (
+              <AddPlaceButton form={form} appendSchedule={appendSchedule} />
+            )
           )}
         </div>
 

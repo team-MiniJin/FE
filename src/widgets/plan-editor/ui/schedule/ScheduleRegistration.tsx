@@ -5,6 +5,7 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 import { useRef } from 'react';
+import useCreatePlanStore from '../../store/usePlanEditorStore';
 import PlaceTypeInput from './ScheduleTypeInput';
 import PlaceNameAndAddressInput from './ScheduleNameAndAddressInput';
 import PlaceArrivalTimeInput from './ScheduleArrivalTimeInput';
@@ -27,8 +28,11 @@ export default function ScheduleRegistration({
   removeSchedule: UseFieldArrayRemove;
   isEditMode?: boolean;
 }) {
+  const { isEditing, editingScheduleIndex } = useCreatePlanStore();
   const placeNameRef = useRef<HTMLInputElement | null>(null);
-  const lastIndex = scheduleFields.length - 1;
+  const curIndex = isEditing
+    ? (editingScheduleIndex as number)
+    : scheduleFields.length - 1;
 
   return (
     <div className="space-y-2 rounded-md border p-6">
@@ -38,26 +42,26 @@ export default function ScheduleRegistration({
         </h3>
       </div>
       <div className="flex flex-col space-y-4">
-        <PlaceTypeInput form={form} curIndex={lastIndex} />
+        <PlaceTypeInput form={form} curIndex={curIndex} />
         <PlaceNameAndAddressInput
           form={form}
-          curIndex={lastIndex}
+          curIndex={curIndex}
           placeNameRef={placeNameRef}
           scheduleFields={scheduleFields}
           updateSchedule={updateSchedule}
         />
-        <PlaceArrivalTimeInput form={form} curIndex={lastIndex} />
-        <PlaceBudgets form={form} curIndex={lastIndex} />
-        <PlaceMemoInput form={form} curIndex={lastIndex} />
+        <PlaceArrivalTimeInput form={form} curIndex={curIndex} />
+        <PlaceBudgets form={form} curIndex={curIndex} />
+        <PlaceMemoInput form={form} curIndex={curIndex} />
       </div>
       <div className="!mt-10 flex justify-center space-x-4">
         <CancelScheduleButton
-          curIndex={lastIndex}
+          curIndex={curIndex}
           removeSchedule={removeSchedule}
         />
         <UpdateScheduleButton
           form={form}
-          curIndex={lastIndex}
+          curIndex={curIndex}
           updateSchedule={updateSchedule}
         />
       </div>

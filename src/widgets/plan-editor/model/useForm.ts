@@ -8,7 +8,11 @@ import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
+import {
+  EditorBudgetT,
+  EditorPlanT,
+  PostNewPlanT,
+} from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
@@ -41,7 +45,24 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       end_date: plan ? new Date(plan.end_date) : new Date(),
       scope: plan ? plan.scope : true,
       number_of_members: plan ? plan.number_of_members : 1,
-      schedules: plan ? plan.schedules : [],
+      schedules: plan
+        ? plan.schedules.map((schedule, idx) => ({
+            idx,
+            place_category: schedule.place_category,
+            place_name: schedule.place_name,
+            place_addr: schedule.place_addr,
+            region: schedule.region,
+            place_memo: schedule.place_memo || '',
+            arrival_time: schedule.arrival_time,
+            budgets: (schedule.budgets || []).map((budget) => ({
+              budget_category: budget.budget_category,
+              cost: budget.cost.toString(),
+            })),
+            x: schedule.x,
+            y: schedule.y,
+            schedule_day: schedule.schedule_day,
+          }))
+        : [],
     },
   });
 
@@ -87,7 +108,24 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       end_date: plan ? new Date(plan.end_date) : new Date(),
       scope: plan ? plan.scope : true,
       number_of_members: plan ? plan.number_of_members : 0,
-      schedules: plan ? plan.schedules : [],
+      schedules: plan
+        ? plan.schedules.map((schedule, idx) => ({
+            idx,
+            place_category: schedule.place_category,
+            place_name: schedule.place_name,
+            place_addr: schedule.place_addr,
+            region: schedule.region,
+            place_memo: schedule.place_memo || '',
+            arrival_time: schedule.arrival_time,
+            budgets: (schedule.budgets || []).map((budget) => ({
+              budget_category: budget.budget_category,
+              cost: budget.cost.toString(),
+            })),
+            x: schedule.x,
+            y: schedule.y,
+            schedule_day: schedule.schedule_day,
+          }))
+        : [],
     });
     initializeDates(plan);
   };

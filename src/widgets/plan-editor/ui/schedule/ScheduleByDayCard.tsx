@@ -13,14 +13,12 @@ import { EditorBudgetT, EditorPlanT } from '../../types/plan-editor-type';
 
 export default function ScheduleByDayCard({
   form,
-  idx,
   schedule,
   scheduleFields,
   updateSchedule,
   removeSchedule,
 }: {
   schedule: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>;
-  idx: number;
   form: UseFormReturn<EditorPlanT, any, undefined>;
   updateSchedule: UseFieldArrayUpdate<EditorPlanT, 'schedules'>;
   scheduleFields: FieldArrayWithId<EditorPlanT, 'schedules', 'id'>[];
@@ -28,7 +26,7 @@ export default function ScheduleByDayCard({
 }) {
   const { setIsEditing, setEditingScheduleIndex, editingScheduleIndex } =
     useCreatePlanStore();
-  return editingScheduleIndex === idx ? (
+  return editingScheduleIndex === schedule.idx ? (
     <EditPlace
       form={form}
       updateSchedule={updateSchedule}
@@ -78,7 +76,7 @@ export default function ScheduleByDayCard({
         <EditScheduleButton
           onClickHandler={() => {
             setIsEditing(true);
-            setEditingScheduleIndex(idx);
+            setEditingScheduleIndex(schedule.idx);
           }}
         />
       </div>

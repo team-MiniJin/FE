@@ -1,5 +1,5 @@
 export interface BudgetT {
-  // budget_id: number;
+  budget_id?: number;
   budget_category: string;
   cost: number;
 }

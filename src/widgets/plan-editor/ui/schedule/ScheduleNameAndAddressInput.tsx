@@ -43,7 +43,7 @@ export default function PlaceNameAndAddressInput({
       />
       <FormField
         control={form.control}
-        name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_name`}
+        name={`schedules.${curIndex}.place_name`}
         render={({ field }) => (
           <FormItem>
             <FormControl>
@@ -62,7 +62,7 @@ export default function PlaceNameAndAddressInput({
       />
       <FormField
         control={form.control}
-        name={`schedules.${editingScheduleIndex ? editingScheduleIndex - 1 : curIndex}.place_addr`}
+        name={`schedules.${curIndex}.place_addr`}
         render={({ field }) => (
           <FormItem>
             <FormControl>

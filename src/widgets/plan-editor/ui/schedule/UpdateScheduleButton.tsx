@@ -17,24 +17,17 @@ export default function UpdateScheduleButton({
     setIsRegistration,
     isEditing,
     setIsEditing,
-    editingScheduleIndex,
     setEditingScheduleIndex,
   } = useCreatePlanStore();
   const handleUpdateSchedule = async () => {
     const { trigger, setValue, getValues } = form;
-    const isValid = await trigger(
-      `schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}`
-    );
+    const isValid = await trigger(`schedules.${curIndex}`);
     if (!isValid) {
       return;
     }
     const values = getValues();
-    const scheduleItem =
-      values.schedules[isEditing ? (editingScheduleIndex as number) : curIndex];
-    updateSchedule(
-      isEditing ? (editingScheduleIndex as number) : curIndex,
-      scheduleItem
-    );
+    const scheduleItem = values.schedules[curIndex];
+    updateSchedule(curIndex, scheduleItem);
 
     setIsRegistration(false);
     setIsEditing(false);

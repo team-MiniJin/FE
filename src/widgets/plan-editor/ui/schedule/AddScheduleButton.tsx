@@ -1,19 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { UseFieldArrayAppend } from 'react-hook-form';
+import { UseFieldArrayAppend, UseFormReturn } from 'react-hook-form';
 import useCreatePlanStore from '../../store/usePlanEditorStore';
 import { EditorPlanT } from '../../types/plan-editor-type';
 
 export default function AddPlaceButton({
+  form,
   appendSchedule,
 }: {
+  form: UseFormReturn<EditorPlanT, any, undefined>;
   appendSchedule: UseFieldArrayAppend<EditorPlanT, 'schedules'>;
 }) {
   const { activatedDateCardIndex, setIsRegistration } = useCreatePlanStore();
   const handleAddPlace = () => {
     setIsRegistration(true);
     appendSchedule({
-      id: 0,
+      idx: form.getValues().schedules.length,
       schedule_day: activatedDateCardIndex + 1,
       place_category: '',
       place_name: '',

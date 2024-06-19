@@ -37,15 +37,14 @@ const fetcher = async (
 
     const response: AxiosResponse = await axiosInstance(config);
     console.log('요청 성공: ', response);
-    return response.data;
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error('Axios error:', error.message);
-      throw new Error(error.message);
-    } else {
-      console.error('Unexpected error:', error);
-      throw new Error('Unexpected error occurred');
+      return error;
     }
+    console.error('Unexpected error:', error);
+    throw new Error('Unexpected error occurred');
   }
 };
 

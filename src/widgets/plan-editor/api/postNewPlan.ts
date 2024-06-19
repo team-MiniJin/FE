@@ -11,7 +11,7 @@ const postNewPlan = async (data: PostNewPlanT) => {
       undefined,
       data
     );
-    return result;
+    return result.data;
   } catch (error) {
     console.error('Error to post new plan:', error);
     throw new Error('Failed to post new plan');

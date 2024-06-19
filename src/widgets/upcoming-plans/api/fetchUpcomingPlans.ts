@@ -4,9 +4,9 @@ import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 const fetchUpcomingPlans = async (): Promise<UpcomingPlanT[]> => {
   try {
-    const data = await fetcher(TRAVEL_URL, '/plans/upcoming', 'get');
+    const result = await fetcher(TRAVEL_URL, '/plans/upcoming', 'get');
 
-    return data;
+    return result.data;
   } catch (error) {
     console.error('Error fetching upcoming plans:', error);
     throw new Error('Failed to fetch upcoming plans. Please try again later.');

@@ -9,7 +9,7 @@ const getUserTravels = async (
   search: string
 ): Promise<GetUserTravelPlanSuccessT> => {
   try {
-    const data = await fetcher(
+    const result = await fetcher(
       MOCK_SERVER_URL,
       `/plans/others/${sort}`,
       'get',
@@ -21,7 +21,7 @@ const getUserTravels = async (
         search,
       }
     );
-    return data as GetUserTravelPlanSuccessT;
+    return result.data;
   } catch (error) {
     console.error('Failed to fetch user travels: ', error);
     throw new Error('Failed to fetch user travels');

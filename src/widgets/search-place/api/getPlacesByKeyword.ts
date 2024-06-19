@@ -5,7 +5,7 @@ const getPlacesByKeyword = async (
   queryText: string
 ): Promise<GetPlacesByKeywordResponseT> => {
   try {
-    const data = await fetcher(
+    const result = await fetcher(
       KAKAO_LOCAL_URL,
       '/keyword',
       'get',
@@ -15,7 +15,7 @@ const getPlacesByKeyword = async (
       { query: queryText, size: 5, page: 1 }
     );
 
-    return data;
+    return result.data;
   } catch (error) {
     console.error('Error to get places by keyword:', error);
     throw new Error('Failed to get places by keyword');

@@ -6,11 +6,11 @@ const fetchMyPlans = async (
   pageParam: number
 ): Promise<FetchMyPlanSuccessT> => {
   try {
-    const data = await fetcher(TRAVEL_URL, '/plans', 'get', undefined, {
+    const result = await fetcher(TRAVEL_URL, '/plans', 'get', undefined, {
       cursor_id: pageParam,
     });
 
-    return data;
+    return result.data;
   } catch (error) {
     console.error('Error fetching my plans:', error);
     throw new Error('Failed to fetch my plans. Please try again later.');

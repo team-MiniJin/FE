@@ -12,7 +12,7 @@ const createNewPlanData = (values: EditorPlanT): PostNewPlanT => {
     schedules: values.schedules.map((schedule) => ({
       schedule_date: format(
         add(new Date(values.start_date), {
-          days: schedule.schedule_day,
+          days: schedule.schedule_day - 1,
         }),
         'yyyy-MM-dd'
       ),

@@ -4,10 +4,10 @@ import {
   useFieldArray,
   useForm as useReactHookForm,
 } from 'react-hook-form';
-import { z } from 'zod';
 import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
+import { useRouter } from 'next/navigation';
 import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
@@ -16,7 +16,7 @@ import createNewPlanData from '../util/createNewPlanData';
 
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
-
+  const router = useRouter();
   const initializeDates = (plan: PlanDetailT | undefined) => {
     if (plan) {
       const startDate = new Date(plan.start_date);
@@ -74,7 +74,9 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     }
 
     const data: PostNewPlanT = createNewPlanData(values);
-    await postNewPlan(data);
+    const result = await postNewPlan(data);
+    console.log(result);
+    router.push('/my-travels');
   };
 
   const resetForm = (plan: PlanDetailT | undefined) => {

@@ -29,12 +29,12 @@ export default function Header() {
       <div className="flex items-center  space-x-8">
         <h1 className="text-2xl font-bold">Travel</h1>
         <div
-          className="absolute	 -right-full top-0 z-50 h-full w-full bg-white transition-all md:static md:block"
+          className="absolute -right-full top-0 z-50 h-full w-full bg-white transition-all min-[900px]:static min-[900px]:block"
           ref={navDivRef}
         >
           <button
             type="button"
-            className="absolute right-5 top-5 md:hidden"
+            className="absolute right-5 top-5 min-[900px]:hidden"
             onClick={closeNav}
           >
             <IoMdClose className="text-2xl" />
@@ -42,7 +42,8 @@ export default function Header() {
           <GNB closeNav={closeNav} />
         </div>
       </div>
-      <div className="absolute right-[74px] text-sm md:static">
+
+      <div className="absolute right-[74px] text-sm min-[900px]:static">
         {jwt ? (
           <div className="space-x-4">
             <MyPageLink />
@@ -54,9 +55,10 @@ export default function Header() {
             <JoinLink />
           </div>
         )}
+
       </div>
       <button
-        className="absolute right-[36px] top-[31px]  md:hidden"
+        className="absolute right-[36px] top-[31px]  min-[900px]:hidden"
         type="button"
         onClick={openNav}
       >

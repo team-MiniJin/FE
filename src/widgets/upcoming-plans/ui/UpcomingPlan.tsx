@@ -1,6 +1,6 @@
 import calculateDday from '@/shared/utils/calculateDday';
 import Link from 'next/link';
-import { WIDTH } from '@/shared';
+import { THEMES, WIDTH } from '@/shared';
 import { UpcomingPlanT } from '../types/upcoming-plan-type';
 
 export default function UpcomingPlan({
@@ -19,13 +19,12 @@ export default function UpcomingPlan({
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}
     >
-      <Link
-        href="/"
-        className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4"
-      >
+      <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4">
         <div>
-          <p className="font-bold">{plan.plan_name}</p>
           <p className="font-bold">D-{calculateDday(plan.start_date)}</p>
+          <Link href="/" className="">
+            <p className="font-bold">{plan.plan_name}</p>
+          </Link>
         </div>
         <p className="inline-block border-b text-sm">
           {plan.start_date} ~ {plan.end_date}
@@ -39,9 +38,9 @@ export default function UpcomingPlan({
           className="absolute bottom-6 left-4 inline-block rounded bg-white p-2 text-xs font-bold text-[--brand-main-color]"
           aria-label={plan.theme}
         >
-          <p>{plan.theme}</p>
+          <p>{THEMES[plan.theme]}</p>
         </div>
-      </Link>
+      </div>
     </li>
   );
 }

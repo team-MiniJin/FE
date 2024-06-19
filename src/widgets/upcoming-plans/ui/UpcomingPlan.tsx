@@ -22,7 +22,7 @@ export default function UpcomingPlan({
       <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4">
         <div>
           <p className="font-bold">D-{calculateDday(plan.start_date)}</p>
-          <Link href="/" className="">
+          <Link href={`/my-travels/plan/${plan.plan_id}`} className="">
             <p className="font-bold">{plan.plan_name}</p>
           </Link>
         </div>

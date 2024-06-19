@@ -51,7 +51,11 @@ export default function ScheduleByDayCard({
           </div>
           <div className="w-[90px] text-center">
             {schedule?.budgets
-              ?.reduce((prev: number, cur: EditorBudgetT) => prev + cur.cost, 0)
+              ?.reduce(
+                (prev: number, cur: EditorBudgetT) =>
+                  prev + parseInt(cur.cost.replace(/,/g, ''), 10),
+                0
+              )
               .toLocaleString() || '0'}
             원
           </div>
@@ -68,7 +72,9 @@ export default function ScheduleByDayCard({
         <RemoveScheduleButton
           onClickHandler={() => {
             removeSchedule(
-              scheduleFields.findIndex((item) => item.id === schedule.id)
+              scheduleFields.findIndex(
+                (item) => Number(item.id) === schedule.id
+              )
             );
           }}
         />

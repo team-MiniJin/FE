@@ -3,7 +3,7 @@ import { PostNewPlanT } from '../types/plan-editor-type';
 
 const postNewPlan = async (data: PostNewPlanT) => {
   try {
-    const data = await fetcher(
+    const result = await fetcher(
       TRAVEL_URL,
       '/plans',
       'post',
@@ -11,7 +11,7 @@ const postNewPlan = async (data: PostNewPlanT) => {
       undefined,
       data
     );
-    return data;
+    return result;
   } catch (error) {
     console.error('Error to post new plan:', error);
     throw new Error('Failed to post new plan');

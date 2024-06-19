@@ -55,7 +55,6 @@ export default function Header() {
             <JoinLink />
           </div>
         )}
-
       </div>
       <button
         className="absolute right-[36px] top-[31px]  min-[900px]:hidden"

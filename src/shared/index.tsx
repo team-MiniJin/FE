@@ -22,3 +22,4 @@ export { default as EditScheduleButton } from './ui/EditScheduleButton';
 export { default as KakaoMap } from './ui/KakaoMap';
 export { THEMES } from './constants/themes';
 export { WIDTH } from './constants/style';
+export { AuthProvider, useAuth } from './api/AuthContext';

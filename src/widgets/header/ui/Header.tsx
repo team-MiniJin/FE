@@ -5,6 +5,7 @@
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useRef } from 'react';
 import { IoMdClose } from 'react-icons/io';
+import { useAuth } from '@/shared';
 import GNB from './GNB';
 import JoinLink from './JoinLink';
 import LoginLink from './LoginLink';
@@ -21,6 +22,7 @@ export default function Header() {
     navDivRef.current?.classList.remove('right-0');
     navDivRef.current?.classList.add('-right-full');
   };
+  const { jwt } = useAuth();
 
   return (
     <header className=" flex items-center justify-between py-6 ">
@@ -40,15 +42,20 @@ export default function Header() {
           <GNB closeNav={closeNav} />
         </div>
       </div>
+
       <div className="absolute right-[74px] text-sm min-[900px]:static">
-        <div className="space-x-4">
-          <LoginLink />
-          <JoinLink />
-        </div>
-        <div className="hidden space-x-4">
-          <MyPageLink />
-          <LogoutButton />
-        </div>
+        {jwt ? (
+          <div className="space-x-4">
+            <MyPageLink />
+            <LogoutButton />
+          </div>
+        ) : (
+          <div className="space-x-4">
+            <LoginLink />
+            <JoinLink />
+          </div>
+        )}
+
       </div>
       <button
         className="absolute right-[36px] top-[31px]  min-[900px]:hidden"

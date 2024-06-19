@@ -6,7 +6,6 @@ import {
 } from 'react-hook-form';
 import { useRef } from 'react';
 import PlaceTypeInput from './ScheduleTypeInput';
-import HiddenScheduleInputs from './HiddenScheduleInputs';
 import PlaceNameAndAddressInput from './ScheduleNameAndAddressInput';
 import PlaceArrivalTimeInput from './ScheduleArrivalTimeInput';
 import PlaceBudgets from '../budget/ScheduleBudgets';
@@ -39,7 +38,6 @@ export default function ScheduleRegistration({
         </h3>
       </div>
       <div className="flex flex-col space-y-4">
-        <HiddenScheduleInputs form={form} curIndex={lastIndex} />
         <PlaceTypeInput form={form} curIndex={lastIndex} />
         <PlaceNameAndAddressInput
           form={form}

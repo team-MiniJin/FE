@@ -10,11 +10,11 @@ const useUserTravels = (
 ) => {
   return useInfiniteQuery<GetUserTravelPlanSuccessT>({
     queryKey: ['userTravels', sort, region, theme],
-    queryFn: ({ pageParam = 1 }) => {
+    queryFn: ({ pageParam = 0 }) => {
       const page = pageParam as number;
       return getUserTravels(page, sort, region, theme, search);
     },
-    initialPageParam: 1,
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       if (lastPage?.nextCursor) return lastPage.nextCursor;
       return undefined;

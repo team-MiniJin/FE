@@ -1,4 +1,13 @@
-import { ScheduleT } from '@/shared';
+export interface MyPlanScheduleT {
+  schedule_id: number;
+  schedule_date: string; // "yyyy-MM-dd"
+  place_addr: string;
+  place_category: string;
+  place_name: string;
+  arrival_time: string;
+  x: number; // Longitude
+  y: number; // Latitude
+}
 
 export interface MyPlanT {
   plan_id: number;
@@ -12,8 +21,8 @@ export interface MyPlanT {
   number_of_members: number;
   number_of_likes: number;
   number_of_scraps: number;
-  waypoints: string[];
-  schedule: ScheduleT[];
+  region_list: string[];
+  schedules: MyPlanScheduleT[];
 }
 
 export type FetchMyPlanSuccessT = { data: MyPlanT[]; nextCursor?: number };

@@ -1,9 +1,9 @@
 import { calculateStayDuration } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { IoBookmarkOutline } from 'react-icons/io5';
-import { MyPlanT } from '@/widgets/my-plan-list/types/myPlans';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';
+import { MyPlanT } from '../types/my-plan-type';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,14 +51,14 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
                 <p className="truncate">{plan?.number_of_members}명</p>
               </div>
               <div className="flex space-x-2">
-                {plan?.waypoints?.map((region, idx) => (
+                {plan?.region_list?.map((region, idx) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <div
                     key={idx}
                     className="flex items-center space-x-2 text-sm"
                   >
                     <p className="inline-block truncate">{region}</p>
-                    {idx !== plan.waypoints.length - 1 && (
+                    {idx !== plan.region_list.length - 1 && (
                       <span>
                         <IoIosArrowRoundForward />
                       </span>
@@ -88,7 +88,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
       <div
         className={`relative mt-2 overflow-hidden rounded-md transition-all duration-300 ${isOpen ? 'h-[294px]' : 'h-0'}`}
       >
-        <PlanSimpleView planId={plan.plan_id} schedules={plan.schedule} />
+        <PlanSimpleView planId={plan.plan_id} schedules={plan.schedules} />
       </div>
       <div className="my-4 h-[1px] w-full border-b" />
     </>

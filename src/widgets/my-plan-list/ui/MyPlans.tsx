@@ -5,7 +5,7 @@ import { useInfiniteScroll } from '@/shared';
 import useMyPlans from '@/widgets/my-plan-list/model/useMyPlans';
 import { Skeleton } from '@/components/ui/skeleton';
 import MyPlan from './MyPlan';
-import { MyPlanT } from '../types/myPlans';
+import { MyPlanT } from '../types/my-plan-type';
 
 export default function MyPlans() {
   const {

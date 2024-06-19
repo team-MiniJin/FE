@@ -18,11 +18,15 @@ export default function SearchedAddressItem({
   setQueryText: React.Dispatch<React.SetStateAction<string>>;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {
-  const handleClickAddress = (address: string) => {
+  const handleClickAddress = (address: string, x: string, y: string) => {
     if (curScheduleIndex < 0 || curScheduleIndex >= scheduleFields.length) {
       return;
     }
+
     form.setValue(`schedules.${curScheduleIndex}.place_addr`, address);
+    form.setValue(`schedules.${curScheduleIndex}.x`, Number(x));
+    form.setValue(`schedules.${curScheduleIndex}.y`, Number(y));
+
     setQueryText('');
     if (placeNameRef.current) {
       placeNameRef.current.value = '';
@@ -38,25 +42,13 @@ export default function SearchedAddressItem({
         className="w-full py-1 text-left hover:bg-slate-50"
         onClick={() => {
           if (doc.road_address) {
-            handleClickAddress(doc.road_address.address_name);
+            handleClickAddress(doc.road_address.address_name, doc.x, doc.y);
           } else {
-            handleClickAddress(doc.address_name);
+            handleClickAddress(doc.address_name, doc.x, doc.y);
           }
         }}
       >
-        {doc.road_address ? (
-          <>
-            <div>{doc.road_address.address_name}</div>
-            <div className="text-xs">
-              {doc.address.address_name}
-              <span className="ml-1">({doc.road_address.zone_no})</span>
-            </div>
-          </>
-        ) : (
-          <>
-            <div>{doc.address_name}</div>
-          </>
-        )}
+        <div>{doc.address_name}</div>
       </button>
     </li>
   );

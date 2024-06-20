@@ -1,6 +1,6 @@
 import { calculateStayDuration, PlanTheme } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
-import { IoBookmarkOutline } from 'react-icons/io5';
+import { CiBookmark } from 'react-icons/ci';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';
 import { MyPlanT } from '../types/my-plan-type';
@@ -66,7 +66,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-[32px] left-[70px] m-0 flex  space-x-4 text-xs md:bottom-8 md:left-auto md:right-0 ">
+          <div className="absolute bottom-[32px] left-[70px] m-0 flex  items-center space-x-4 text-sm md:bottom-8 md:left-auto md:right-0 ">
             <p className="inline-block shrink-0	">
               {plan.scope ? '공개' : '비공개'}
             </p>
@@ -76,9 +76,9 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
               aria-label={`스크랩 ${plan.number_of_scraps}`}
             >
               <span>
-                <IoBookmarkOutline className="text-base" />
+                <CiBookmark className="pt-0.5 text-lg" />
               </span>
-              <span>{plan.number_of_scraps}</span>
+              <span className="flex items-center">{plan.number_of_scraps}</span>
             </div>
           </div>
         </div>

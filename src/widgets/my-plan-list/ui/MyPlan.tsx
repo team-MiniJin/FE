@@ -1,4 +1,4 @@
-import { calculateStayDuration } from '@/shared';
+import { calculateStayDuration, PlanTheme } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
@@ -31,9 +31,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
           <div className="absolute top-[50%] h-[50px] w-[50px] -translate-y-1/2 rounded-full bg-slate-100 md:h-[96px] md:w-[96px]" />
           <div className="w-full pl-[70px] md:pl-[132px]">
             <div className="space-y-1">
-              <p className="inline-block rounded bg-[--brand-main-color] px-2 py-1 text-xs font-bold text-white">
-                {plan?.theme}
-              </p>
+              <PlanTheme theme={plan.theme} />
               <div className="flex w-full flex-col space-y-1 md:flex-row md:items-center md:space-x-4">
                 <p className="inline-block truncate font-bold">
                   {plan?.plan_name}

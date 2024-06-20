@@ -60,11 +60,14 @@ export default function LogInForm() {
         console.error('JWT not found in the response headers');
       }
     } catch (error: any) {
-      // 네트워크 오류 또는 기타 예외 처리
-      console.error('에러', error);
+      alert(error.message);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleKakaoLogin = () => {
+    router.push(`${TRAVEL_URL}/oauth2/authorization/kakao`);
   };
 
   return (
@@ -131,6 +134,7 @@ export default function LogInForm() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
+          onClick={handleKakaoLogin}
         />
         <div className="flex justify-between text-sm">
           <Link href="/find-username" className="hover:text-[#3666FF]">

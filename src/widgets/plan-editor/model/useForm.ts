@@ -8,11 +8,7 @@ import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import {
-  EditorBudgetT,
-  EditorPlanT,
-  PostNewPlanT,
-} from '../types/plan-editor-type';
+import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
@@ -21,6 +17,7 @@ import createNewPlanData from '../utils/createNewPlanData';
 export const useForm = (plan: PlanDetailT | undefined) => {
   const { setDateOfDays } = usePlanEditorStore();
   const router = useRouter();
+
   const initializeDates = (plan: PlanDetailT | undefined) => {
     if (plan) {
       const startDate = new Date(plan.start_date);
@@ -34,7 +31,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
 
   useEffect(() => {
     initializeDates(plan);
-  }, [setDateOfDays, plan]);
+  }, [plan]);
 
   const form = useReactHookForm<EditorPlanT>({
     resolver: zodResolver(planEditorFormPlanSchema),
@@ -60,13 +57,13 @@ export const useForm = (plan: PlanDetailT | undefined) => {
             })),
             x: schedule.x,
             y: schedule.y,
-            schedule_day: schedule.schedule_day,
+            schedule_day: schedule.schedule_days, // 올바르게 매핑
           }))
         : [],
     },
   });
 
-  const { control, reset } = form;
+  const { control, reset, trigger } = form;
 
   const {
     fields: scheduleFields,
@@ -79,7 +76,6 @@ export const useForm = (plan: PlanDetailT | undefined) => {
   });
 
   const onSubmit: SubmitHandler<EditorPlanT> = async (values) => {
-    const { trigger } = form;
     const isValid = await trigger([
       'plan_name',
       'theme',
@@ -96,7 +92,6 @@ export const useForm = (plan: PlanDetailT | undefined) => {
 
     const data: PostNewPlanT = createNewPlanData(values);
     const result = await postNewPlan(data);
-    console.log(result);
     router.push('/my-travels');
   };
 
@@ -123,7 +118,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
             })),
             x: schedule.x,
             y: schedule.y,
-            schedule_day: schedule.schedule_day,
+            schedule_day: schedule.schedule_days, // 올바르게 매핑
           }))
         : [],
     });

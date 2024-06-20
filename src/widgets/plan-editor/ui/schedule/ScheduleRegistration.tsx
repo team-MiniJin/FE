@@ -31,7 +31,7 @@ export default function ScheduleRegistration({
   const { isEditing, editingScheduleIndex } = useCreatePlanStore();
   const placeNameRef = useRef<HTMLInputElement | null>(null);
   const curIndex = isEditing
-    ? (editingScheduleIndex as number)
+    ? scheduleFields.findIndex((item) => item.idx === editingScheduleIndex)
     : scheduleFields.length - 1;
 
   return (

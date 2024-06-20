@@ -93,7 +93,7 @@ export default function PlanDetail({ planId }: { planId: number }) {
                   </div>
                   <div className="flex h-[500px] w-[49%] flex-col justify-end space-y-3 rounded-md">
                     <PolylineMap schedules={filteredSchedules} />
-                    <SeeAllCourseButton />
+                    <SeeAllCourseButton schedules={data.schedules} />
                   </div>
                 </div>
               </div>

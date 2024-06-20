@@ -41,7 +41,7 @@ export default function UpcomingPlans() {
       )}
       {!isError && (
         <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
-          <ul className="flex h-[200px] w-full justify-between overflow-hidden">
+          <ul className="flex h-[200px] w-full justify-start overflow-hidden">
             {isLoading &&
               new Array(3)
                 .fill(null)

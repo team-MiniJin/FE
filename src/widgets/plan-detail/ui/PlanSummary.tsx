@@ -45,7 +45,7 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
           <span>{plan?.number_of_members}명</span>
         </div>
         <div>
-          <WayPoints waypoints={plan?.waypoints || []} />
+          <WayPoints waypoints={plan?.region_list || []} />
         </div>
       </div>
       <div className="flex items-center text-sm">

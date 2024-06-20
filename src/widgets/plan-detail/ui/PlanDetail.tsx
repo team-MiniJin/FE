@@ -13,6 +13,7 @@ import SeeAllCourseButton from '@/shared/ui/SeeAllCourseButton';
 import RemoveScheduleButton from '@/shared/ui/RemoveScheduleButton';
 import PlanEditor from '@/widgets/plan-editor/ui/PlanEditor';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
 import CopyTravelButton from './CopyTravelButton';
@@ -23,6 +24,20 @@ export default function PlanDetail({ planId }: { planId: number }) {
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const { data, mutateDeletePlan, isError, isLoading } = usePlan(planId);
   const [activatedCardIndex, setActivatedCardIndex] = useState<number>(0);
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <div className="animate-spin">
+          <Image
+            src="/image/loading.png"
+            height={28}
+            width={28}
+            alt="loading"
+          />
+        </div>
+      </div>
+    );
+  }
 
   if ((!isLoading && !data) || isError) {
     return (

@@ -9,6 +9,7 @@ import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '@/shared';
 import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
@@ -21,6 +22,7 @@ export const useForm = (
   isEditMode: boolean | undefined,
   setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  const { jwt } = useAuth();
   const { setDateOfDays } = usePlanEditorStore();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -83,7 +85,7 @@ export const useForm = (
   });
 
   const { mutate: mutateCreatePlan } = useMutation({
-    mutationFn: (data: PostNewPlanT) => postNewPlan(data),
+    mutationFn: (data: PostNewPlanT) => postNewPlan(data, jwt as string),
     onSuccess: (data) => {
       queryClient
         .invalidateQueries({ queryKey: ['plan', plan?.plan_id] })
@@ -94,7 +96,8 @@ export const useForm = (
   });
 
   const { mutate: mutateUpdatePlan } = useMutation({
-    mutationFn: (data: PostNewPlanT) => putPlan(data, plan?.plan_id as number),
+    mutationFn: (data: PostNewPlanT) =>
+      putPlan(data, plan?.plan_id as number, jwt as string),
     onSuccess: () => {
       if (setIsEditMode) setIsEditMode(false);
       queryClient.invalidateQueries({ queryKey: ['plan'] });

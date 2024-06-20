@@ -1,13 +1,15 @@
 import { fetcher, TRAVEL_URL } from '@/shared';
 import { AxiosResponse } from 'axios';
 
-export const fetchPlanDetail = async (planId: number) => {
+export const fetchPlanDetail = async (planId: number, jwt: string) => {
   try {
     const result: AxiosResponse = await fetcher(
       TRAVEL_URL,
       `/plans/details/${planId}`,
       'get',
-      undefined
+      {
+        Authorization: jwt,
+      }
     );
     return result.data;
   } catch (error) {

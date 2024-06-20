@@ -2,12 +2,18 @@ import { fetcher, TRAVEL_URL } from '@/shared';
 import { AxiosError, AxiosResponse } from 'axios';
 import { DeletePlanResponseT } from '../type/plan-detail';
 
-const deletePlan = async (plan_id: number): Promise<DeletePlanResponseT> => {
+const deletePlan = async (
+  plan_id: number,
+  jwt: string
+): Promise<DeletePlanResponseT> => {
   try {
     const result: AxiosResponse = await fetcher(
       TRAVEL_URL,
       `/plans/${plan_id}`,
-      'delete'
+      'delete',
+      {
+        Authorization: jwt,
+      }
     );
     if (result.data.success === false) throw new Error(result.data.message);
     return result.data;

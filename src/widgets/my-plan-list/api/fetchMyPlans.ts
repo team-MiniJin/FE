@@ -3,12 +3,19 @@ import fetcher from '@/shared/utils/fetcher';
 import { FetchMyPlanSuccessT } from '../types/my-plan-type';
 
 const fetchMyPlans = async (
-  pageParam: number
+  pageParam: number,
+  jwt: string
 ): Promise<FetchMyPlanSuccessT> => {
   try {
-    const result = await fetcher(TRAVEL_URL, '/plans', 'get', undefined, {
-      cursor_id: pageParam,
-    });
+    const result = await fetcher(
+      TRAVEL_URL,
+      '/plans',
+      'get',
+      { Authorization: jwt },
+      {
+        cursor_id: pageParam,
+      }
+    );
 
     return result.data;
   } catch (error) {

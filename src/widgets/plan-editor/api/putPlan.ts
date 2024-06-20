@@ -2,13 +2,16 @@ import { fetcher, TRAVEL_URL } from '@/shared';
 import { AxiosError, AxiosResponse } from 'axios';
 import { PostNewPlanT } from '../types/plan-editor-type';
 
-const putPlan = async (data: PostNewPlanT, plan_id: number) => {
+const putPlan = async (data: PostNewPlanT, plan_id: number, jwt: string) => {
   try {
     const result: AxiosResponse = await fetcher(
       TRAVEL_URL,
       `/plans/${plan_id}`,
       'put',
-      { 'Content-Type': 'application/json' },
+      {
+        Authorization: jwt,
+        'Content-Type': 'application/json',
+      },
       undefined,
       data
     );

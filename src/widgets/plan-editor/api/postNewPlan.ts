@@ -1,13 +1,16 @@
 import { fetcher, TRAVEL_URL } from '@/shared';
 import { PostNewPlanT } from '../types/plan-editor-type';
 
-const postNewPlan = async (data: PostNewPlanT) => {
+const postNewPlan = async (data: PostNewPlanT, jwt: string) => {
   try {
     const result = await fetcher(
       TRAVEL_URL,
       '/plans',
       'post',
-      { 'Content-Type': 'application/json' },
+      {
+        Authorization: jwt,
+        'Content-Type': 'application/json',
+      },
       undefined,
       data
     );

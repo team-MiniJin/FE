@@ -27,20 +27,16 @@ const formSchema = z
     }),
     password: z
       .string()
-      .regex(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/,
-        {
-          message: '8~20자의 영문, 숫자, 특수문자 조합이어야 합니다.',
-        }
-      ),
+      .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!-~])[A-Za-z\d!-~]{8,20}$/, {
+        message:
+          '8~20자의 대문자, 소문자, 숫자, 특수문자(!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~) 조합이어야 합니다.',
+      }),
     confirmPassword: z
       .string()
-      .regex(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/,
-        {
-          message: '8~20자의 영문, 숫자, 특수문자 조합이어야 합니다.',
-        }
-      ),
+      .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!-~])[A-Za-z\d!-~]{8,20}$/, {
+        message:
+          '8~20자의 대문자, 소문자, 숫자, 특수문자(!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~) 조합이어야 합니다.',
+      }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: '비밀번호가 일치하지 않습니다.',
@@ -75,15 +71,17 @@ export default function JoinForm() {
         undefined,
         userInfo
       );
-
-      console.log(response);
-      if (response && response.data.success) {
-        alert('회원가입에 성공했습니다');
-        router.push('/login');
+      if (response) {
+        if (response.data.success) {
+          alert('회원가입에 성공했습니다');
+          router.push('/login');
+        } else {
+          alert(response.data.message);
+        }
       }
     } catch (error: any) {
-      console.error('에러:', error);
-      if (error.response.data.message) alert(error.response.data.message);
+      console.log(error);
+      alert(error.message);
     }
   }
 

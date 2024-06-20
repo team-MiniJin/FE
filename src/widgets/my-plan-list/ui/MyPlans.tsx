@@ -5,7 +5,7 @@ import { useInfiniteScroll } from '@/shared';
 import useMyPlans from '@/widgets/my-plan-list/model/useMyPlans';
 import { Skeleton } from '@/components/ui/skeleton';
 import MyPlan from './MyPlan';
-import { MyPlanT } from '../types/myPlans';
+import { MyPlanT } from '../types/my-plan-type';
 
 export default function MyPlans() {
   const {
@@ -38,7 +38,7 @@ export default function MyPlans() {
         <div>
           <ul>
             {isLoading &&
-              new Array(10).fill(null).map((_, idx) => (
+              new Array(6).fill(null).map((_, idx) => (
                 <div key={idx} className="relative my-4">
                   <Skeleton className="absolute top-[50%] h-[50px] w-[50px] -translate-y-1/2 rounded-full bg-slate-100 md:h-[96px] md:w-[96px]"></Skeleton>
                   <Skeleton className="ml-[70px] h-[170px] border-x-[6px] border-y-[22px] border-white py-6  md:ml-[132px] md:items-center md:px-3" />
@@ -59,7 +59,7 @@ export default function MyPlans() {
               <PiSpinnerGapLight className="h-[32px] w-[32px]" />
             </div>
           )}
-          <div ref={observerRef} />
+          {isFetching && <div ref={observerRef} />}
         </div>
       )}
     </div>

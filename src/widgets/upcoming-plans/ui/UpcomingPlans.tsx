@@ -31,17 +31,18 @@ export default function UpcomingPlans() {
       <div>
         <h2 className="text-xl font-bold">다가오는 여행 일정</h2>
       </div>
-      {isError && (
-        <div className="flex justify-center text-center">
-          <p className="mt-16">
-            다가오는 여행 일정을 가져오는 중에 에러가 발생했어요.
-            <br /> 잠시 후 다시 시도해 주세요.
-          </p>
-        </div>
-      )}
+      {isError ||
+        (!isLoading && !data && (
+          <div className="flex justify-center text-center">
+            <p className="mt-16">
+              다가오는 여행 일정을 가져오는 중에 에러가 발생했어요.
+              <br /> 잠시 후 다시 시도해 주세요.
+            </p>
+          </div>
+        ))}
       {!isError && (
         <div className="relative flex w-full justify-center overflow-hidden px-8 py-4">
-          <ul className="flex h-[200px] w-full justify-between overflow-hidden">
+          <ul className="flex h-[200px] w-full justify-start overflow-hidden">
             {isLoading &&
               new Array(3)
                 .fill(null)

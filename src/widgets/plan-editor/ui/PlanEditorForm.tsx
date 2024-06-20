@@ -49,7 +49,7 @@ export default function PlanEditorForm({
     updateSchedule,
     onSubmit,
     resetForm,
-  } = useForm(plan);
+  } = useForm(plan, isEditMode, setIsEditMode);
 
   useEffect(() => {
     if (isEditMode !== undefined) {
@@ -118,7 +118,9 @@ export default function PlanEditorForm({
               form={form}
             />
           ) : (
-            !isEditing && <AddPlaceButton appendSchedule={appendSchedule} />
+            !isEditing && (
+              <AddPlaceButton form={form} appendSchedule={appendSchedule} />
+            )
           )}
         </div>
 

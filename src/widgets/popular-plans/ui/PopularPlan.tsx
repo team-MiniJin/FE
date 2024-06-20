@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { calculateStayDuration } from '@/shared';
+import { calculateStayDuration, THEMES } from '@/shared';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import { PopularPlanT } from '../types/popular-plan-type';
 
@@ -53,7 +53,7 @@ export default function PopularPlan({
           className="absolute bottom-6 left-4 inline-block rounded bg-white p-2 text-xs font-bold text-[--brand-main-color]"
           aria-label={plan.theme}
         >
-          <p>{plan.theme}</p>
+          <p>{THEMES[plan.theme]}</p>
         </div>
 
         <div className="absolute bottom-6 right-4 flex items-center space-x-1">

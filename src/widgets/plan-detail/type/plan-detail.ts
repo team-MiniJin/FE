@@ -9,9 +9,14 @@ export interface PlanDetailT {
   end_date: string;
   scope: boolean;
   number_of_members: number;
-  number_of_likes: number;
   number_of_scraps: number;
-  waypoints: string[];
+  region_list: string[];
   schedules: ScheduleT[];
   plan_budget: number;
+}
+
+export interface DeletePlanResponseT {
+  success: boolean;
+  message: string;
+  plan_id: number;
 }

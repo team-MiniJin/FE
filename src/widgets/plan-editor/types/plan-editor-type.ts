@@ -1,4 +1,3 @@
-import { ScheduleT } from '@/shared';
 import { BudgetT } from '@/shared/types/plan';
 
 export interface EditorBudgetT {
@@ -8,7 +7,7 @@ export interface EditorBudgetT {
 
 export interface EditorScheduleT {
   // schedule_date: Date;
-  id: number;
+  idx: number;
   place_category: string;
   place_name: string;
   place_addr: string;
@@ -29,7 +28,7 @@ export interface EditorPlanT {
   end_date: Date;
   scope: boolean;
   number_of_members: number;
-  schedules: EditorScheduleT[] | ScheduleT[];
+  schedules: EditorScheduleT[];
 }
 
 export interface PostNewScheduleT {
@@ -39,7 +38,7 @@ export interface PostNewScheduleT {
   place_addr: string;
   region: string;
   place_memo: string;
-  arrival_time: string; // HH:mm:ss
+  arrival_time: string; // HH:mm
   budgets: BudgetT[];
   x: number;
   y: number;

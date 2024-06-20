@@ -1,12 +1,12 @@
 export interface BudgetT {
-  // budget_id: number;
+  budget_id?: number;
   budget_category: string;
   cost: number;
 }
 
 export interface ScheduleT {
   schedule_id: number;
-  schedule_day: number;
+  schedule_days: number;
   schedule_date: string;
   place_category: string;
   place_name: string;

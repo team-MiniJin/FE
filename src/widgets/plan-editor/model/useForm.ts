@@ -8,15 +8,23 @@ import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
-import createNewPlanData from '../util/createNewPlanData';
+import createNewPlanData from '../utils/createNewPlanData';
+import putPlan from '../api/putPlan';
 
-export const useForm = (plan: PlanDetailT | undefined) => {
+export const useForm = (
+  plan: PlanDetailT | undefined,
+  isEditMode: boolean | undefined,
+  setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const { setDateOfDays } = usePlanEditorStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const initializeDates = (plan: PlanDetailT | undefined) => {
     if (plan) {
       const startDate = new Date(plan.start_date);
@@ -30,7 +38,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
 
   useEffect(() => {
     initializeDates(plan);
-  }, [setDateOfDays, plan]);
+  }, [plan]);
 
   const form = useReactHookForm<EditorPlanT>({
     resolver: zodResolver(planEditorFormPlanSchema),
@@ -41,11 +49,28 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       end_date: plan ? new Date(plan.end_date) : new Date(),
       scope: plan ? plan.scope : true,
       number_of_members: plan ? plan.number_of_members : 1,
-      schedules: plan ? plan.schedules : [],
+      schedules: plan
+        ? plan.schedules.map((schedule, idx) => ({
+            idx,
+            place_category: schedule.place_category,
+            place_name: schedule.place_name,
+            place_addr: schedule.place_addr,
+            region: schedule.region,
+            place_memo: schedule.place_memo || '',
+            arrival_time: schedule.arrival_time,
+            budgets: (schedule.budgets || []).map((budget) => ({
+              budget_category: budget.budget_category,
+              cost: budget.cost.toString(),
+            })),
+            x: schedule.x,
+            y: schedule.y,
+            schedule_day: schedule.schedule_days,
+          }))
+        : [],
     },
   });
 
-  const { control, reset } = form;
+  const { control, reset, trigger } = form;
 
   const {
     fields: scheduleFields,
@@ -57,8 +82,26 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     name: 'schedules',
   });
 
+  const { mutate: mutateCreatePlan } = useMutation({
+    mutationFn: (data: PostNewPlanT) => postNewPlan(data),
+    onSuccess: (data) => {
+      queryClient
+        .invalidateQueries({ queryKey: ['plan', plan?.plan_id] })
+        .then(() => {
+          router.push(`/my-travels/plan/${data.plan_id}`);
+        });
+    },
+  });
+
+  const { mutate: mutateUpdatePlan } = useMutation({
+    mutationFn: (data: PostNewPlanT) => putPlan(data, plan?.plan_id as number),
+    onSuccess: () => {
+      if (setIsEditMode) setIsEditMode(false);
+      queryClient.invalidateQueries({ queryKey: ['plan'] });
+    },
+  });
+
   const onSubmit: SubmitHandler<EditorPlanT> = async (values) => {
-    const { trigger } = form;
     const isValid = await trigger([
       'plan_name',
       'theme',
@@ -69,14 +112,17 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     ]);
 
     if (!isValid) {
-      console.log('Validation failed');
+      console.error('Validation failed');
       return;
     }
 
     const data: PostNewPlanT = createNewPlanData(values);
-    const result = await postNewPlan(data);
-    console.log(result);
-    router.push('/my-travels');
+
+    if (isEditMode) {
+      mutateUpdatePlan(data);
+    } else {
+      mutateCreatePlan(data);
+    }
   };
 
   const resetForm = (plan: PlanDetailT | undefined) => {
@@ -87,7 +133,24 @@ export const useForm = (plan: PlanDetailT | undefined) => {
       end_date: plan ? new Date(plan.end_date) : new Date(),
       scope: plan ? plan.scope : true,
       number_of_members: plan ? plan.number_of_members : 0,
-      schedules: plan ? plan.schedules : [],
+      schedules: plan
+        ? plan.schedules.map((schedule, idx) => ({
+            idx,
+            place_category: schedule.place_category,
+            place_name: schedule.place_name,
+            place_addr: schedule.place_addr,
+            region: schedule.region,
+            place_memo: schedule.place_memo || '',
+            arrival_time: schedule.arrival_time,
+            budgets: (schedule.budgets || []).map((budget) => ({
+              budget_category: budget.budget_category,
+              cost: budget.cost.toString(),
+            })),
+            x: schedule.x,
+            y: schedule.y,
+            schedule_day: schedule.schedule_days,
+          }))
+        : [],
     });
     initializeDates(plan);
   };

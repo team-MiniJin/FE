@@ -1,5 +1,9 @@
 import { add, format } from 'date-fns';
-import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
+import {
+  EditorPlanT,
+  EditorScheduleT,
+  PostNewPlanT,
+} from '../types/plan-editor-type';
 
 const createNewPlanData = (values: EditorPlanT): PostNewPlanT => {
   const data: PostNewPlanT = {
@@ -16,7 +20,7 @@ const createNewPlanData = (values: EditorPlanT): PostNewPlanT => {
         }),
         'yyyy-MM-dd'
       ),
-      region: schedule.place_addr.split(' ')[1],
+      region: schedule.place_addr.split(' ')[0],
       place_category: schedule.place_category,
       place_name: schedule.place_name,
       place_addr: schedule.place_addr,

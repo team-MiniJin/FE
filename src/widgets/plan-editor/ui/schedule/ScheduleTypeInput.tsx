@@ -18,7 +18,6 @@ export default function PlaceTypeInput({
   form: UseFormReturn<EditorPlanT, any, undefined>;
   curIndex: number;
 }) {
-  const { editingScheduleIndex, isEditing } = usePlanEditorStore();
   const [charCount, setCharCount] = useState<number>(0);
   useEffect(() => {
     setCharCount(form.getValues('plan_name').length);
@@ -27,17 +26,14 @@ export default function PlaceTypeInput({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value.length <= 30) {
-      form.setValue(
-        `schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_category`,
-        value
-      );
+      form.setValue(`schedules.${curIndex}.place_category`, value);
       setCharCount(value.length);
     }
   };
   return (
     <FormField
       control={form.control}
-      name={`schedules.${isEditing ? (editingScheduleIndex as number) : curIndex}.place_category`}
+      name={`schedules.${curIndex}.place_category`}
       render={({ field }) => (
         <FormItem className="max-w-[480px]">
           <FormLabel>어떤 장소인가요?</FormLabel>

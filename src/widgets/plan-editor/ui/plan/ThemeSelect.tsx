@@ -28,7 +28,7 @@ export default function ThemeSelect({
       render={({ field }) => (
         <FormItem className="w-[294px]">
           <FormLabel>여행 테마</FormLabel>
-          <Select onValueChange={field.onChange}>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
                 <SelectValue placeholder="여행 테마를 선택해 주세요." />

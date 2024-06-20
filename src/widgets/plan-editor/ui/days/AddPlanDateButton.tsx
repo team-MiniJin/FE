@@ -1,5 +1,5 @@
 import { AiOutlinePlus } from 'react-icons/ai';
-import { addDays } from '@/widgets/plan-editor/util/addDays';
+import { addDays } from '@/widgets/plan-editor/utils/addDays';
 import { UseFormReturn } from 'react-hook-form';
 import { differenceInDays } from 'date-fns';
 import useCreatePlanStore from '../../store/usePlanEditorStore';

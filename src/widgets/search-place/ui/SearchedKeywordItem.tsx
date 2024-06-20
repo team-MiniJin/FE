@@ -18,12 +18,19 @@ export default function SearchedKeywordItem({
   setQueryText: React.Dispatch<React.SetStateAction<string>>;
   placeNameRef: MutableRefObject<HTMLInputElement | null>;
 }) {
-  const handleClickKeyword = (name: string, address: string) => {
+  const handleClickKeyword = (
+    name: string,
+    address: string,
+    x: string,
+    y: string
+  ) => {
     if (curScheduleIndex < 0 || curScheduleIndex >= scheduleFields.length) {
       return;
     }
     form.setValue(`schedules.${curScheduleIndex}.place_name`, name);
     form.setValue(`schedules.${curScheduleIndex}.place_addr`, address);
+    form.setValue(`schedules.${curScheduleIndex}.x`, Number(x));
+    form.setValue(`schedules.${curScheduleIndex}.y`, Number(y));
     if (placeNameRef.current) {
       placeNameRef.current.readOnly = true;
       placeNameRef.current.classList.add('bg-slate-200');
@@ -38,7 +45,9 @@ export default function SearchedKeywordItem({
         onClick={() =>
           handleClickKeyword(
             doc.place_name,
-            doc.address_name || doc.road_address_name
+            doc.address_name || doc.road_address_name,
+            doc.x,
+            doc.y
           )
         }
       >

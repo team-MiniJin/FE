@@ -27,9 +27,8 @@ export default function ScheduleByDayList({
   );
   return (
     <ul className="space-y-4">
-      {filteredSchedules.map((schedule, idx) => (
+      {filteredSchedules.map((schedule) => (
         <ScheduleByDayCard
-          idx={idx}
           form={form}
           scheduleFields={scheduleFields}
           schedule={schedule}

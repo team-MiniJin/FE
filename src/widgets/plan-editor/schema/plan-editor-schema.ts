@@ -29,7 +29,7 @@ const planEditorFormScheduleSchema = z.object({
 
 const planEditorFormPlanSchema = z
   .object({
-    plan_name: z.string().min(1, '일정 이름을 입력해 주세요.'),
+    plan_name: z.string().min(2, '일정 이름을 2글자 이상 입력해 주세요.'),
     theme: z.string().min(1, '일정 테마를 선택해 주세요.'),
     start_date: z.date(),
     end_date: z.date(),

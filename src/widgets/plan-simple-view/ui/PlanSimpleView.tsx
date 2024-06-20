@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ScheduleT } from '@/shared';
+import { MyPlanScheduleT } from '@/widgets/my-plan-list/types/my-plan-type';
 import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,7 +9,7 @@ export default function PlanSimpleView({
   schedules,
 }: {
   planId: number;
-  schedules: ScheduleT[];
+  schedules: MyPlanScheduleT[];
 }) {
   const pathname = usePathname();
   return (

@@ -1,9 +1,9 @@
-import { calculateStayDuration } from '@/shared';
+import { calculateStayDuration, PlanTheme } from '@/shared';
 import { IoIosArrowRoundForward } from 'react-icons/io';
-import { IoBookmarkOutline } from 'react-icons/io5';
-import { MyPlanT } from '@/widgets/my-plan-list/types/myPlans';
+import { CiBookmark } from 'react-icons/ci';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';
+import { MyPlanT } from '../types/my-plan-type';
 
 export default function MyPlan({ plan }: { plan: MyPlanT }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,9 +31,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
           <div className="absolute top-[50%] h-[50px] w-[50px] -translate-y-1/2 rounded-full bg-slate-100 md:h-[96px] md:w-[96px]" />
           <div className="w-full pl-[70px] md:pl-[132px]">
             <div className="space-y-1">
-              <p className="inline-block rounded bg-[--brand-main-color] px-2 py-1 text-xs font-bold text-white">
-                {plan?.theme}
-              </p>
+              <PlanTheme theme={plan.theme} />
               <div className="flex w-full flex-col space-y-1 md:flex-row md:items-center md:space-x-4">
                 <p className="inline-block truncate font-bold">
                   {plan?.plan_name}
@@ -51,14 +49,14 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
                 <p className="truncate">{plan?.number_of_members}명</p>
               </div>
               <div className="flex space-x-2">
-                {plan?.waypoints?.map((region, idx) => (
+                {plan?.region_list?.map((region, idx) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <div
                     key={idx}
                     className="flex items-center space-x-2 text-sm"
                   >
                     <p className="inline-block truncate">{region}</p>
-                    {idx !== plan.waypoints.length - 1 && (
+                    {idx !== plan.region_list.length - 1 && (
                       <span>
                         <IoIosArrowRoundForward />
                       </span>
@@ -68,7 +66,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-[32px] left-[70px] m-0 flex  space-x-4 text-xs md:bottom-8 md:left-auto md:right-0 ">
+          <div className="absolute bottom-[32px] left-[70px] m-0 flex  items-center space-x-4 text-sm md:bottom-8 md:left-auto md:right-0 ">
             <p className="inline-block shrink-0	">
               {plan.scope ? '공개' : '비공개'}
             </p>
@@ -78,9 +76,9 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
               aria-label={`스크랩 ${plan.number_of_scraps}`}
             >
               <span>
-                <IoBookmarkOutline className="text-base" />
+                <CiBookmark className="pt-0.5 text-lg" />
               </span>
-              <span>{plan.number_of_scraps}</span>
+              <span className="flex items-center">{plan.number_of_scraps}</span>
             </div>
           </div>
         </div>
@@ -88,7 +86,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
       <div
         className={`relative mt-2 overflow-hidden rounded-md transition-all duration-300 ${isOpen ? 'h-[294px]' : 'h-0'}`}
       >
-        <PlanSimpleView planId={plan.plan_id} schedules={plan.schedule} />
+        <PlanSimpleView planId={plan.plan_id} schedules={plan.schedules} />
       </div>
       <div className="my-4 h-[1px] w-full border-b" />
     </>

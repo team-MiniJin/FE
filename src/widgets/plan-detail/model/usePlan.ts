@@ -9,7 +9,7 @@ import deletePlan from '../api/deletePlan';
 export const usePlan = (plan_id: number) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { data, isError } = useQuery<PlanDetailT>({
+  const { data, isError, isLoading } = useQuery<PlanDetailT>({
     queryKey: ['plan', plan_id],
     queryFn: () => fetchPlanDetail(plan_id),
   });
@@ -22,10 +22,9 @@ export const usePlan = (plan_id: number) => {
       router.push('/my-travels');
     },
     onError: (error: any) => {
-      // 삭제 실패 시 처리
       console.error('Failed to delete plan:', error);
     },
   });
 
-  return { data, isError, mutateDeletePlan };
+  return { data, isError, mutateDeletePlan, isLoading };
 };

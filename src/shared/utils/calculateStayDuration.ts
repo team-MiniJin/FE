@@ -14,5 +14,5 @@ export default function calculateStayDuration(
   const nights = Math.floor(dayDifference);
   const days = nights + 1;
 
-  return `${nights}박 ${days}일`;
+  return nights === 0 ? '당일치기' : `${nights}박 ${days}일`;
 }

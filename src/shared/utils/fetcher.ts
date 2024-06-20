@@ -11,7 +11,9 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isAxiosError(error)) {
-      return Promise.reject(new Error(error.message));
+      return Promise.reject(
+        new Error(error.response?.data?.message || error.message)
+      );
     }
     return Promise.reject(new Error('An unknown error occurred'));
   }
@@ -23,7 +25,8 @@ const fetcher = async (
   method: 'get' | 'post' | 'put' | 'delete',
   headers?: Record<string, string>,
   params?: Record<string, any>,
-  data?: any
+  data?: any,
+  withCredentials?: boolean
 ): Promise<any> => {
   try {
     const fullUrl = `${baseurl}${url}`;
@@ -32,6 +35,7 @@ const fetcher = async (
       url: fullUrl,
       headers,
       params,
+      withCredentials,
       ...(method !== 'get' && data && { data }),
     };
 
@@ -44,7 +48,7 @@ const fetcher = async (
       return error;
     }
     console.error('Unexpected error:', error);
-    throw new Error('Unexpected error occurred');
+    throw error;
   }
 };
 

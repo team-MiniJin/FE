@@ -59,7 +59,7 @@ export default function MyPlans() {
               <PiSpinnerGapLight className="h-[32px] w-[32px]" />
             </div>
           )}
-          <div ref={observerRef} />
+          {isFetching && <div ref={observerRef} />}
         </div>
       )}
     </div>

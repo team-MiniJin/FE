@@ -8,15 +8,22 @@ import { useEffect } from 'react';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
 import postNewPlan from '../api/postNewPlan';
 import createNewPlanData from '../utils/createNewPlanData';
+import putPlan from '../api/putPlan';
 
-export const useForm = (plan: PlanDetailT | undefined) => {
+export const useForm = (
+  plan: PlanDetailT | undefined,
+  isEditMode: boolean | undefined,
+  setIsEditMode?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const { setDateOfDays } = usePlanEditorStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const initializeDates = (plan: PlanDetailT | undefined) => {
     if (plan) {
@@ -57,7 +64,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
             })),
             x: schedule.x,
             y: schedule.y,
-            schedule_day: schedule.schedule_days, // 올바르게 매핑
+            schedule_day: schedule.schedule_days,
           }))
         : [],
     },
@@ -75,6 +82,25 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     name: 'schedules',
   });
 
+  const { mutate: mutateCreatePlan } = useMutation({
+    mutationFn: (data: PostNewPlanT) => postNewPlan(data),
+    onSuccess: (data) => {
+      queryClient
+        .invalidateQueries({ queryKey: ['plan', plan?.plan_id] })
+        .then(() => {
+          router.push(`/my-travels/plan/${data.plan_id}`);
+        });
+    },
+  });
+
+  const { mutate: mutateUpdatePlan } = useMutation({
+    mutationFn: (data: PostNewPlanT) => putPlan(data, plan?.plan_id as number),
+    onSuccess: () => {
+      if (setIsEditMode) setIsEditMode(false);
+      queryClient.invalidateQueries({ queryKey: ['plan'] });
+    },
+  });
+
   const onSubmit: SubmitHandler<EditorPlanT> = async (values) => {
     const isValid = await trigger([
       'plan_name',
@@ -86,13 +112,17 @@ export const useForm = (plan: PlanDetailT | undefined) => {
     ]);
 
     if (!isValid) {
-      console.log('Validation failed');
+      console.error('Validation failed');
       return;
     }
 
     const data: PostNewPlanT = createNewPlanData(values);
-    const result = await postNewPlan(data);
-    router.push('/my-travels');
+
+    if (isEditMode) {
+      mutateUpdatePlan(data);
+    } else {
+      mutateCreatePlan(data);
+    }
   };
 
   const resetForm = (plan: PlanDetailT | undefined) => {
@@ -118,7 +148,7 @@ export const useForm = (plan: PlanDetailT | undefined) => {
             })),
             x: schedule.x,
             y: schedule.y,
-            schedule_day: schedule.schedule_days, // 올바르게 매핑
+            schedule_day: schedule.schedule_days,
           }))
         : [],
     });

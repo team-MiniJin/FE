@@ -11,6 +11,7 @@ const useMyPlans = () => {
       if ('next_cursor' in lastPage) return lastPage.next_cursor;
       return undefined;
     },
+    staleTime: 0,
   });
 };
 

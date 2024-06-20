@@ -12,23 +12,18 @@ import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import SeeAllCourseButton from '@/shared/ui/SeeAllCourseButton';
 import RemoveScheduleButton from '@/shared/ui/RemoveScheduleButton';
 import PlanEditor from '@/widgets/plan-editor/ui/PlanEditor';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
 import CopyTravelButton from './CopyTravelButton';
 
 export default function PlanDetail({ planId }: { planId: number }) {
   const pathname = usePathname();
-  const router = useRouter();
+
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const { data, mutateDeletePlan, isError, isLoading, isSuccess } =
-    usePlan(planId);
+  const { data, mutateDeletePlan, isError, isLoading } = usePlan(planId);
   const [activatedCardIndex, setActivatedCardIndex] = useState<number>(0);
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/my-travels');
-    }
-  }, [isSuccess, router]);
+
   if ((!isLoading && !data) || isError) {
     return (
       <div className="absolute inset-0 top-[-96px] flex h-screen flex-col items-center justify-center text-center">

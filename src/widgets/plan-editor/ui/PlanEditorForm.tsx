@@ -49,7 +49,7 @@ export default function PlanEditorForm({
     updateSchedule,
     onSubmit,
     resetForm,
-  } = useForm(plan);
+  } = useForm(plan, isEditMode, setIsEditMode);
 
   useEffect(() => {
     if (isEditMode !== undefined) {

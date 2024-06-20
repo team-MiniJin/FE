@@ -1,4 +1,5 @@
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { useState, useRef, useEffect } from 'react';
 import formatTime from '../utils/formatTime';
 import { BudgetT, ScheduleT } from '../types/plan';
 
@@ -11,16 +12,66 @@ export default function ScheduleCards({
   handleRemove?: (id: number) => void;
   handleEdit?: (id: number) => void;
 }) {
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const [height, setHeight] = useState<{ [key: number]: string }>({});
+  const contentRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+
+  const toggleAccordion = (id: number) => {
+    setOpenAccordion((prev) => (prev === id ? null : id));
+  };
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+    id: number
+  ) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleAccordion(id);
+    }
+  };
+
+  useEffect(() => {
+    const initialHeights = schedules.reduce(
+      (acc, schedule) => {
+        const contentEl = contentRefs.current[schedule.schedule_id];
+        if (contentEl) {
+          acc[schedule.schedule_id] = `${contentEl.scrollHeight}px`;
+        }
+        return acc;
+      },
+      {} as { [key: number]: string }
+    );
+    setHeight(initialHeights);
+  }, [schedules]);
+
+  useEffect(() => {
+    if (openAccordion !== null) {
+      const contentEl = contentRefs.current[openAccordion];
+      if (contentEl) {
+        setHeight((prev) => ({
+          ...prev,
+          [openAccordion]: `${contentEl.scrollHeight}px`,
+        }));
+      }
+    }
+  }, [openAccordion]);
+
   return (
     <ul className="space-y-4">
-      {schedules.map((schedule: ScheduleT) => {
-        return (
-          <li
-            key={schedule.schedule_id}
-            className="relative flex items-center justify-between rounded-md border text-sm"
+      {schedules.map((schedule: ScheduleT) => (
+        <li
+          key={schedule.schedule_id}
+          className="relative flex flex-col rounded-md border text-sm"
+        >
+          <div
+            className="flex h-[140px] cursor-pointer items-center justify-between"
+            onClick={() => toggleAccordion(schedule.schedule_id)}
+            onKeyDown={(event) => handleKeyDown(event, schedule.schedule_id)}
+            role="button"
+            tabIndex={0}
           >
-            <div className="flex items-center">
-              <div className="flex flex-col items-center space-y-2 border-r p-6">
+            <div className="flex h-full items-center">
+              <div className="flex h-full flex-col items-center justify-center space-y-2 border-r p-6">
                 <div className="font-bold">
                   {formatTime(
                     schedule.arrival_time.split(':')[0],
@@ -40,8 +91,9 @@ export default function ScheduleCards({
                   원
                 </div>
               </div>
-              <div className="flex flex-col space-y-2 p-6">
-                <div className="space-x-1">
+              <div className="flex h-full flex-col justify-center p-6">
+                <div className="text-xs ">{schedule.place_category}</div>
+                <div className="mb-2 mt-0.5 space-x-1">
                   <span className="text-base font-bold">
                     {schedule.place_name}
                   </span>
@@ -57,22 +109,56 @@ export default function ScheduleCards({
                 <button
                   type="button"
                   aria-label="장소 삭제"
-                  onClick={() => handleRemove(schedule.schedule_id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemove(schedule.schedule_id);
+                  }}
                 >
                   <AiOutlineDelete className="text-xl" />
                 </button>
                 <button
                   type="button"
                   aria-label="장소 수정"
-                  onClick={() => handleEdit(schedule.schedule_id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEdit(schedule.schedule_id);
+                  }}
                 >
                   <AiOutlineEdit className="text-xl" />
                 </button>
               </div>
             )}
-          </li>
-        );
-      })}
+          </div>
+          <div
+            ref={(el) => {
+              if (el) contentRefs.current[schedule.schedule_id] = el;
+            }}
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+            style={{
+              height:
+                openAccordion === schedule.schedule_id
+                  ? height[schedule.schedule_id]
+                  : '0px',
+            }}
+          >
+            <div className="border-t p-6">
+              <h4 className="text-base font-bold">예산 목록</h4>
+              <ul className="mt-2 space-y-1">
+                {schedule.budgets && schedule.budgets.length > 0 ? (
+                  schedule.budgets.map((budget: BudgetT, index: number) => (
+                    <li key={index} className="flex justify-between">
+                      <span>{budget.budget_category}</span>
+                      <span>{budget.cost.toLocaleString()} 원</span>
+                    </li>
+                  ))
+                ) : (
+                  <p>추가한 예산 항목이 없습니다.</p>
+                )}
+              </ul>
+            </div>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 }

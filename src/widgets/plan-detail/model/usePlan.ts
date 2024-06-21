@@ -20,6 +20,7 @@ export const usePlan = (plan_id: number) => {
     mutationFn: (plan_id: number) => deletePlan(plan_id, jwt as string),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['plans'] });
+      await queryClient.refetchQueries({ queryKey: ['plans'] });
       router.replace('/my-travels');
       await queryClient.invalidateQueries({ queryKey: ['plan', plan_id] });
     },

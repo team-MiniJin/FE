@@ -86,21 +86,43 @@ export const useForm = (
 
   const { mutate: mutateCreatePlan } = useMutation({
     mutationFn: (data: PostNewPlanT) => postNewPlan(data, jwt as string),
-    onSuccess: (data) => {
-      queryClient
-        .invalidateQueries({ queryKey: ['plan', plan?.plan_id] })
-        .then(() => {
-          router.push(`/my-travels/plan/${data.plan_id}`);
-        });
+    onSuccess: async (data) => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['plans'] }),
+        queryClient.invalidateQueries({ queryKey: ['upcomingPlans'] }),
+      ]);
+      await Promise.all([
+        queryClient.refetchQueries({ queryKey: ['plans'] }),
+        queryClient.refetchQueries({ queryKey: ['upcomingPlans'] }),
+      ]);
+
+      router.push(`/my-travels/plan/${data.plan_id}`);
     },
   });
 
   const { mutate: mutateUpdatePlan } = useMutation({
     mutationFn: (data: PostNewPlanT) =>
       putPlan(data, plan?.plan_id as number, jwt as string),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['plan', plan?.plan_id.toString()],
+        }),
+        queryClient.invalidateQueries({ queryKey: ['plans'] }),
+        queryClient.invalidateQueries({
+          queryKey: ['upcomingPlans'],
+        }),
+      ]);
+      await Promise.all([
+        queryClient.refetchQueries({
+          queryKey: ['plan', plan?.plan_id.toString()],
+        }),
+        queryClient.refetchQueries({ queryKey: ['plans'] }),
+        queryClient.refetchQueries({ queryKey: ['upcomingPlans'] }),
+      ]);
+
+      router.push(`/my-travels/plan/${plan?.plan_id}`);
       if (setIsEditMode) setIsEditMode(false);
-      queryClient.invalidateQueries({ queryKey: ['plan'] });
     },
   });
 

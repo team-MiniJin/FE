@@ -25,7 +25,7 @@ export default function UserTravels() {
     return (
       <div className="flex justify-center text-center">
         <p className="mt-16">
-          나의 여행 일정 목록을 가져오는 중에 에러가 발생했어요.
+          다른 사용자의 여행 일정 목록을 가져오는 중에 에러가 발생했어요.
           <br /> 잠시 후 다시 시도해 주세요.
         </p>
       </div>

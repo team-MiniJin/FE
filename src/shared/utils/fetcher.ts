@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
 const fetcher = async (
   baseurl: string,
   url: string,
-  method: 'get' | 'post' | 'put' | 'delete',
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch',
   headers?: Record<string, string>,
   params?: Record<string, any>,
   data?: any,

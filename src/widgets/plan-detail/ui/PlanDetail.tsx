@@ -18,11 +18,20 @@ import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
 import CopyTravelButton from './CopyTravelButton';
 
-export default function PlanDetail({ planId }: { planId: number }) {
+export default function PlanDetail({
+  planId,
+  isMyPlan,
+}: {
+  planId: number;
+  isMyPlan: boolean;
+}) {
   const pathname = usePathname();
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const { data, mutateDeletePlan, isError, isLoading } = usePlan(planId);
+  const { data, mutateDeletePlan, isError, isLoading } = usePlan(
+    planId,
+    isMyPlan
+  );
   const [activatedCardIndex, setActivatedCardIndex] = useState<number>(0);
   if (isLoading) {
     return (

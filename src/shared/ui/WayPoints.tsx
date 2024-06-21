@@ -22,6 +22,9 @@ export default function WayPoints({
           )}
         </div>
       ))}
+      {waypoints.length === 0 && (
+        <p className="text-sm">추가된 장소가 없는 일정</p>
+      )}
     </div>
   );
 }

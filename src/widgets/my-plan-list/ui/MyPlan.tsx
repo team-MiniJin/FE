@@ -1,5 +1,4 @@
 import { calculateStayDuration, PlanTheme, WayPoints } from '@/shared';
-import { IoIosArrowRoundForward } from 'react-icons/io';
 import { CiBookmark } from 'react-icons/ci';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';

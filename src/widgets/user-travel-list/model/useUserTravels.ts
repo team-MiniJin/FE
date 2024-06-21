@@ -9,7 +9,7 @@ const useUserTravels = (
   search: string
 ) => {
   return useInfiniteQuery<GetUserTravelPlanSuccessT>({
-    queryKey: ['userTravels', sort, region, theme],
+    queryKey: ['userTravels', sort, region, theme, search],
     queryFn: ({ pageParam = 0 }) => {
       const page = pageParam as number;
       return getUserTravels(page, sort, region, theme, search);

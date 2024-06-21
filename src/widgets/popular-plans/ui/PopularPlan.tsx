@@ -22,7 +22,6 @@ export default function PopularPlan({
   };
 
   const widthClass = width[visibleSlides] || 'w-full';
-  console.log(widthClass);
   return (
     <li
       className={` h-[180px] w-full flex-shrink-0  text-white transition-transform min-[574px]:w-1/2 lg:w-1/4`}

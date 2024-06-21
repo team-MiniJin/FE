@@ -19,7 +19,7 @@ const initialState: Omit<
   'setSort' | 'setRegion' | 'setTheme' | 'setSearch'
 > = {
   sort: 'newest',
-  region: 'All',
+  region: 'all',
   theme: 'all',
   search: '',
 };

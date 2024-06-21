@@ -12,7 +12,7 @@ export interface UserTravelScheduleT {
 
 export interface UserTravelPlanT {
   plan_id: number;
-  user_nickname: string;
+  user_nickname: string | null;
   plan_name: string;
   theme: string;
   start_date: string;
@@ -20,9 +20,8 @@ export interface UserTravelPlanT {
   plan_budget: number;
   scope: boolean;
   number_of_members: number;
-  number_of_likes: number;
   number_of_scraps: number;
-  waypoints: string[];
+  region_list: string[];
   schedules: UserTravelScheduleT[];
 }
 

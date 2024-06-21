@@ -25,7 +25,6 @@ export const usePlan = (plan_id: number) => {
       await queryClient.invalidateQueries({ queryKey: ['plan', plan_id] });
     },
     onError: (error: any) => {
-      console.log('실패!');
       console.error('Failed to delete plan:', error);
     },
   });

@@ -52,13 +52,13 @@ export default function UserTravel({ plan }: { plan: UserTravelPlanT }) {
                 <p className="truncate">{plan?.number_of_members}명</p>
               </div>
               <div className="flex space-x-2">
-                {plan?.waypoints?.map((region, idx) => (
+                {plan?.region_list?.map((region, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center space-x-2 text-xs"
+                    className="flex items-center space-x-2 text-sm"
                   >
                     <p className="inline-block truncate">{region}</p>
-                    {idx !== plan.waypoints.length - 1 && (
+                    {idx !== plan.region_list.length - 1 && (
                       <span>
                         <IoIosArrowRoundForward />
                       </span>

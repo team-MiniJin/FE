@@ -1,4 +1,4 @@
-import { fetcher, MOCK_SERVER_URL } from '@/shared';
+import { fetcher, MOCK_SERVER_URL, TRAVEL_URL } from '@/shared';
 import { GetUserTravelPlanSuccessT } from '../types/user-travel-type';
 
 const getUserTravels = async (
@@ -10,15 +10,15 @@ const getUserTravels = async (
 ): Promise<GetUserTravelPlanSuccessT> => {
   try {
     const result = await fetcher(
-      MOCK_SERVER_URL,
+      TRAVEL_URL,
       `/plans/others/${sort}`,
       'get',
       undefined,
       {
-        cursor: pageParam,
-        theme,
-        region,
-        search,
+        cursor_id: pageParam,
+        theme: theme === 'all' ? '' : theme,
+        region: region === 'all' ? '' : region,
+        // search,
       }
     );
     return result.data;

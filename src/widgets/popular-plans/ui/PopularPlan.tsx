@@ -17,16 +17,15 @@ export default function PopularPlan({
   visibleSlides,
 }: PopularPlanProps) {
   const width: { [key: number]: string } = {
-    1: 'w-full',
     2: 'w-1/2',
     4: 'w-1/4',
   };
 
   const widthClass = width[visibleSlides] || 'w-full';
-
+  console.log(widthClass);
   return (
     <li
-      className={`${widthClass} h-[180px] flex-shrink-0 text-white transition-transform`}
+      className={` h-[180px] w-full flex-shrink-0  text-white transition-transform min-[574px]:w-1/2 lg:w-1/4`}
       style={{
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}

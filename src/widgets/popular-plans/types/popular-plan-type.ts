@@ -4,13 +4,9 @@ export interface PopularPlanT {
   user_nickname: string;
   plan_name: string;
   theme: string;
-  start_date: string;
-  end_date: string;
-  scope: boolean;
-  number_of_members: number;
-  number_of_likes: number;
-  number_of_scraps: number;
+  start_date: string; // "yyyy-MM-dd" 형식
+  end_date: string; // "yyyy-MM-dd" 형식
   plan_budget: number;
-  waypoints: string[];
-  schedules: any[];
+  number_of_members: number;
+  number_of_scraps: number;
 }

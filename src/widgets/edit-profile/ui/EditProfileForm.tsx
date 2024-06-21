@@ -41,6 +41,11 @@ export default function EditProfileForm() {
           비밀번호 변경하기
         </Link>
       </div>
+      <div className="mt-2 flex h-8 w-full">
+        <Link href="/delete-account" className="hover:text-[#3666FF]">
+          회원탈퇴하기
+        </Link>
+      </div>
     </div>
   );
 }

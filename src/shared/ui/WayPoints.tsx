@@ -5,7 +5,7 @@ export default function WayPoints({
   className,
 }: {
   waypoints: string[];
-  className: string;
+  className?: string;
 }) {
   return (
     <div className="flex space-x-1">

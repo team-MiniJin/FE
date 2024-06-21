@@ -40,7 +40,7 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
           )}
         </div>
         <div className="flex items-center space-x-2">
-          <span>예산 {plan?.plan_budget.toLocaleString()}원</span>
+          <span>예산 {plan?.plan_budget?.toLocaleString()}원</span>
           <span>|</span>
           <span>{plan?.number_of_members}명</span>
         </div>

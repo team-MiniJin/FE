@@ -11,6 +11,7 @@ import {
 interface AuthContextProps {
   jwt: string | null;
   setJwt: (jwt: string | null) => void;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -18,13 +19,16 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [jwt, setJwt] = useState<string | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     setJwt(token);
+    setIsLoading(false);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ jwt, setJwt }}>
+    <AuthContext.Provider value={{ jwt, setJwt, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

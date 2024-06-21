@@ -14,8 +14,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { fetcher, TRAVEL_URL } from '@/shared';
 
 const formSchema = z.object({
+  username: z.string().regex(/^[a-zA-Z0-9]{6,20}$/, {
+    message: '6~20자의 영문, 숫자만 가능합니다.',
+  }),
   email: z.string().email({ message: '올바른 이메일 형식이 아닙니다.' }),
 });
 
@@ -29,13 +33,37 @@ export default function FindPasswordForm() {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
+      username: '',
       email: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setSuccessMessage(`${values.email}로 임시 비밀번호를 보냈습니다.`);
-    setErrorMessage(null);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    try {
+      const response = await fetcher(
+        TRAVEL_URL,
+        '/users/find-password',
+        'post',
+        {
+          'Content-Type': 'application/json',
+        },
+        undefined,
+        values
+      );
+      console.log('응답', response);
+
+      if (response.data) {
+        setSuccessMessage(`${values.email}로 임시 비밀번호를 발송했습니다.`);
+        setErrorMessage(null);
+      }
+    } catch (error: any) {
+      console.log('에러', error);
+      setErrorMessage(error.message);
+      setSuccessMessage(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

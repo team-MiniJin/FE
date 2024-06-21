@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import Link from 'next/link';
+import { fetcher, TRAVEL_URL } from '@/shared';
 
 const formSchema = z.object({
   email: z.string().email({ message: '올바른 이메일 형식이 아닙니다.' }),
@@ -31,9 +32,29 @@ export default function FindUsernameForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    setUsername('id1234');
-    // setErrorMessage('일치하는 회원정보가 없습니다.');
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetcher(
+        TRAVEL_URL,
+        '/users/find-id',
+        'post',
+        {
+          'Content-Type': 'application/json',
+        },
+        undefined,
+        values
+      );
+
+      if (response) {
+        console.log('응답', response);
+        setUsername(response.data.username);
+        setErrorMessage(null);
+      }
+    } catch (error: any) {
+      console.error('오류', error);
+      setUsername(null);
+      setErrorMessage(error.message);
+    }
   }
 
   return (

@@ -23,3 +23,5 @@ export { default as KakaoMap } from './ui/KakaoMap';
 export { THEMES } from './constants/themes';
 export { WIDTH } from './constants/style';
 export { AuthProvider, useAuth } from './api/AuthContext';
+export { default as Loading } from './ui/Loading';
+export { default as NeedLogin } from './ui/NeedLogin';

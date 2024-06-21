@@ -16,3 +16,4 @@ export { default as SearchKeyword } from './travel-info/components/SearchKeyword
 export { default as PlacesList } from './travel-info/components/PlacesList';
 export { default as UserPlanList } from './user-travel-list/ui/UserTravelList';
 export { default as Chatting } from './chat/ui/Chatting';
+export { default as DeleteAccountForm } from './delete-account/ui/DeleteAccountForm';

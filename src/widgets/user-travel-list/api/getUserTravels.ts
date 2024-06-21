@@ -1,4 +1,4 @@
-import { fetcher, MOCK_SERVER_URL, TRAVEL_URL } from '@/shared';
+import { fetcher, TRAVEL_URL } from '@/shared';
 import { GetUserTravelPlanSuccessT } from '../types/user-travel-type';
 
 const getUserTravels = async (
@@ -18,7 +18,7 @@ const getUserTravels = async (
         cursor_id: pageParam,
         theme: theme === 'all' ? '' : theme,
         region: region === 'all' ? '' : region,
-        // search,
+        search,
       }
     );
     return result.data;

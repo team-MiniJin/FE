@@ -20,8 +20,8 @@ export default function CopyTravelButton({ planId }: { planId: number }) {
         description: '지금 복사된 일정을 보러갈 수 있어요.',
         action: (
           <ToastAction
-            altText="Goto schedule to undo"
-            onClick={() => router.push(`/my-travels/plan/${data.planId}`)}
+            altText="일정 보러가기"
+            onClick={() => router.push(`/my-travels/plan/${data.plan_id}`)}
           >
             보러가기
           </ToastAction>

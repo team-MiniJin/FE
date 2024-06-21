@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import postCopiedPlan from '../api/postCopiedPlan';
+import { useAuth } from '@/shared';
+import getCopiedPlan from '../api/getCopiedPlan';
 
 const useCopyPlan = () => {
+  const { jwt } = useAuth();
   return useMutation({
-    mutationFn: (planId: number) => postCopiedPlan(planId),
+    mutationFn: (planId: number) => getCopiedPlan(planId, jwt as string),
   });
 };
 

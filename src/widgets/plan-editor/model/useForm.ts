@@ -84,7 +84,12 @@ export const useForm = (
     name: 'schedules',
   });
 
-  const { mutate: mutateCreatePlan } = useMutation({
+  const {
+    mutate: mutateCreatePlan,
+    isError: isErrorCreatePlan,
+    isPending: isPendingCreatePlan,
+    isSuccess: isSuccessCreatePlan,
+  } = useMutation({
     mutationFn: (data: PostNewPlanT) => postNewPlan(data, jwt as string),
     onSuccess: async (data) => {
       await Promise.all([
@@ -100,7 +105,12 @@ export const useForm = (
     },
   });
 
-  const { mutate: mutateUpdatePlan } = useMutation({
+  const {
+    mutate: mutateUpdatePlan,
+    isError: isErrorUpdatePlan,
+    isPending: isPendingUpdatePlan,
+    isSuccess: isSuccessUpdatePlan,
+  } = useMutation({
     mutationFn: (data: PostNewPlanT) =>
       putPlan(data, plan?.plan_id as number, jwt as string),
     onSuccess: async () => {
@@ -188,5 +198,11 @@ export const useForm = (
     updateSchedule,
     onSubmit,
     resetForm,
+    isErrorCreatePlan,
+    isErrorUpdatePlan,
+    isPendingCreatePlan,
+    isPendingUpdatePlan,
+    isSuccessUpdatePlan,
+    isSuccessCreatePlan,
   };
 };

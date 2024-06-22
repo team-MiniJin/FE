@@ -19,7 +19,7 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
       </div>
       <div className="space-y-1">
         <div className="">
-          {pathname.split('/')[1] !== 'exploring' ? (
+          {pathname.split('/')[1] !== 'plan' ? (
             <div className="space-x-2">
               <span>{`${plan?.start_date} ~ ${plan?.end_date}`}</span>
               <span>
@@ -50,7 +50,7 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
         </div>
       </div>
       <div className="flex items-center text-sm">
-        {pathname.split('/')[1] !== 'exploring' && (
+        {pathname.split('/')[1] !== 'plan' && (
           <>
             <span>{plan?.scope ? '공개된 일정' : '비공개된 일정'}</span>
             <span className="mx-2">|</span>

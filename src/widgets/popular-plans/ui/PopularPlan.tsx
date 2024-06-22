@@ -32,7 +32,7 @@ export default function PopularPlan({
       <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4 text-sm">
         <div>
           <p className="">{plan.user_nickname} 님의</p>
-          <Link href={`/exploring/plan/${plan.plan_id}`}>
+          <Link href={`/plan/${plan.plan_id}`}>
             <p className="text-base font-bold">{plan.plan_name}</p>
           </Link>
         </div>

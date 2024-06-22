@@ -83,7 +83,7 @@ export default function PlanDetail({
                 <BackLink />
               </div>
               <div className="relative space-y-8 pt-6">
-                {pathname.split('/')[1] === 'exploring' ? (
+                {pathname.split('/')[1] === 'plan' ? (
                   <div className="absolute right-0 top-[55px]">
                     <CopyTravelButton planId={planId} />
                   </div>

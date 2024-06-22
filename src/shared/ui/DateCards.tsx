@@ -28,14 +28,14 @@ export default function DateCards({
               {
                 'hover:tr bg-[--brand-main-color] !text-white disabled:!bg-[--brand-sub-color]':
                   activatedCardIndex === index,
-                'space-y-0': pathname.split('/')[1] === 'exploring',
+                'space-y-0': pathname.split('/')[1] === 'plan',
               }
             )}
             aria-label={`${date} ${index}일차 날짜 카드 `}
             disabled={disabled}
           >
             <div className="flex items-center font-bold">{index + 1}일차</div>
-            {pathname.split('/')[1] !== 'exploring' && <div>{date}</div>}
+            {pathname.split('/')[1] !== 'plan' && <div>{date}</div>}
           </button>
         </li>
       ))}

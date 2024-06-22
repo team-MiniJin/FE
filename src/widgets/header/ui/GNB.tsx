@@ -9,7 +9,8 @@ export default function GNB({ closeNav }: { closeNav: () => void }) {
   const pathname = usePathname();
   const [activatedCategory, setActivatedCatogory] = useState<string>('');
   useEffect(() => {
-    const curCategory = pathname.split('/')[1];
+    const curCategory =
+      pathname.split('/')[1] === '' ? '/' : pathname.split('/')[1];
     if (curCategory !== activatedCategory) setActivatedCatogory(curCategory);
   }, [pathname]);
   return (

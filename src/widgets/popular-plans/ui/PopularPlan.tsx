@@ -17,16 +17,14 @@ export default function PopularPlan({
   visibleSlides,
 }: PopularPlanProps) {
   const width: { [key: number]: string } = {
-    1: 'w-full',
     2: 'w-1/2',
     4: 'w-1/4',
   };
 
   const widthClass = width[visibleSlides] || 'w-full';
-
   return (
     <li
-      className={`${widthClass} h-[180px] flex-shrink-0 text-white transition-transform`}
+      className={` h-[180px] w-full flex-shrink-0  text-white transition-transform min-[574px]:w-1/2 lg:w-1/4`}
       style={{
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}
@@ -34,7 +32,7 @@ export default function PopularPlan({
       <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4 text-sm">
         <div>
           <p className="">{plan.user_nickname} 님의</p>
-          <Link href={`/exploring/plan/${plan.plan_id}`}>
+          <Link href={`/plan/${plan.plan_id}`}>
             <p className="text-base font-bold">{plan.plan_name}</p>
           </Link>
         </div>

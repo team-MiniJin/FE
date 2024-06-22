@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { PlanDetailT } from '@/widgets/plan-detail/type/plan-detail';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useToast } from '@/components/ui/use-toast';
 import AddPlanDateButton from './days/AddPlanDateButton';
 import ThemeSelect from './plan/ThemeSelect';
 import TitleInput from './plan/TitleInput';
@@ -31,6 +32,7 @@ export default function PlanEditorForm({
   isEditMode?: boolean;
 }) {
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   const {
     dateOfDays,
@@ -49,6 +51,12 @@ export default function PlanEditorForm({
     updateSchedule,
     onSubmit,
     resetForm,
+    isErrorCreatePlan,
+    isErrorUpdatePlan,
+    isPendingCreatePlan,
+    isPendingUpdatePlan,
+    isSuccessCreatePlan,
+    isSuccessUpdatePlan,
   } = useForm(plan, isEditMode, setIsEditMode);
 
   useEffect(() => {
@@ -58,9 +66,40 @@ export default function PlanEditorForm({
       resetForm(plan);
     }
   }, [isEditMode]);
+
   useEffect(() => {
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (isPendingCreatePlan || isPendingUpdatePlan) {
+      toast({
+        title: `여행 일정 ${
+          isPendingCreatePlan ? '생성이' : '복사가'
+        } 진행되고 있어요.`,
+        description: '잠시만 기다려주세요.',
+      });
+    } else if (isErrorCreatePlan || isErrorUpdatePlan) {
+      toast({
+        title: `여행 일정 ${
+          isErrorCreatePlan ? '생성이' : '복사가'
+        } 실패했어요.`,
+        description: '잠시 후 다시 시도해 주세요.',
+      });
+    } else if (isSuccessCreatePlan || isSuccessUpdatePlan) {
+      toast({
+        title: `여행 일정 ${
+          isSuccessCreatePlan ? '생성을' : '복사를'
+        } 성공했어요.`,
+      });
+    }
+  }, [
+    isErrorCreatePlan,
+    isErrorUpdatePlan,
+    isPendingCreatePlan,
+    isPendingUpdatePlan,
+    toast,
+  ]);
 
   if (loading) {
     return (
@@ -132,7 +171,10 @@ export default function PlanEditorForm({
             <CreatePlanCancelButton setIsEditMode={setIsEditMode} />
           </div>
           <div className="w-[48%]">
-            <SubmitButton isEditMode={plan !== undefined} />
+            <SubmitButton
+              isEditMode={plan !== undefined}
+              disabled={isPendingCreatePlan || isPendingUpdatePlan}
+            />
           </div>
         </div>
       </form>

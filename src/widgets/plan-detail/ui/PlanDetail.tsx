@@ -6,7 +6,7 @@ import {
   EditScheduleButton,
   getDateArray,
 } from '@/shared';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ScheduleCards from '@/shared/ui/ScheduleCards';
 import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import SeeAllCourseButton from '@/shared/ui/SeeAllCourseButton';
@@ -17,12 +17,22 @@ import Image from 'next/image';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
 import CopyTravelButton from './CopyTravelButton';
+import useBookmark from '../model/useBookmark';
 
-export default function PlanDetail({ planId }: { planId: number }) {
+export default function PlanDetail({
+  planId,
+  isMyPlan,
+}: {
+  planId: number;
+  isMyPlan: boolean;
+}) {
+  const { mutateBookmark, bookmark } = useBookmark(planId);
   const pathname = usePathname();
-
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const { data, mutateDeletePlan, isError, isLoading } = usePlan(planId);
+  const { data, mutateDeletePlan, isError, isLoading } = usePlan(
+    planId,
+    isMyPlan
+  );
   const [activatedCardIndex, setActivatedCardIndex] = useState<number>(0);
   if (isLoading) {
     return (
@@ -74,7 +84,7 @@ export default function PlanDetail({ planId }: { planId: number }) {
                 <BackLink />
               </div>
               <div className="relative space-y-8 pt-6">
-                {pathname.split('/')[1] === 'exploring' ? (
+                {pathname.split('/')[1] === 'plan' ? (
                   <div className="absolute right-0 top-[55px]">
                     <CopyTravelButton planId={planId} />
                   </div>
@@ -92,7 +102,11 @@ export default function PlanDetail({ planId }: { planId: number }) {
                     />
                   </div>
                 )}
-                <PlanSummary plan={data} />
+                <PlanSummary
+                  plan={data}
+                  mutateBookmark={mutateBookmark}
+                  isBookmarked={bookmark?.success as boolean}
+                />
                 <div className="h-[1px] w-full border-b"></div>
                 <DateCards
                   dates={getDateArray(

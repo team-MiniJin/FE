@@ -20,3 +20,18 @@ export interface DeletePlanResponseT {
   message: string;
   plan_id: number;
 }
+
+export interface CopiedPlanResponseT {
+  message: string;
+  plan_id: number;
+  number_of_scraps: number;
+  created_at: string; // "yyyy-MM-dd HH:mm:ss"
+  updated_at: string; // "yyyy-MM-dd HH:mm:ss"
+}
+
+export interface DeleteBookmarkResponseT {
+  success: boolean;
+  message: string;
+  scrap_id: number;
+}
+export interface PostBookmarkResponseT extends DeleteBookmarkResponseT {}

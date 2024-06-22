@@ -9,11 +9,12 @@ export default function GNB({ closeNav }: { closeNav: () => void }) {
   const pathname = usePathname();
   const [activatedCategory, setActivatedCatogory] = useState<string>('');
   useEffect(() => {
-    const curCategory = pathname.split('/')[1];
+    const curCategory =
+      pathname.split('/')[1] === '' ? '/' : pathname.split('/')[1];
     if (curCategory !== activatedCategory) setActivatedCatogory(curCategory);
   }, [pathname]);
   return (
-    <nav className="absolute right-0 top-[64px] flex flex-col px-6 text-right md:static md:flex-row md:space-x-8 md:px-0">
+    <nav className="absolute right-0 top-[64px] flex flex-col px-6 text-right min-[900px]:static min-[900px]:flex-row min-[900px]:space-x-8 min-[900px]:px-0">
       {Object.keys(GNB_CATEGORIES).map((categoryKey) => (
         <GNBCategory
           key={categoryKey}

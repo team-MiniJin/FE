@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { plan_id: number } }) {
 
   return (
     <div className="relative">
-      <PlanDetail planId={params.plan_id} />
+      <PlanDetail planId={params.plan_id} isMyPlan />
     </div>
   );
 }

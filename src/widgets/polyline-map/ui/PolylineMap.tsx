@@ -32,11 +32,7 @@ export default function PolylineMap({
             level: 10,
           };
           map = new window.kakao.maps.Map(mapContainerRef.current, options);
-          if (
-            schedules.filter((schedule) => schedule.x === 0 && schedule.y === 0)
-              .length > 0
-          )
-            return;
+          if (schedules.length === 0) return;
 
           let lastDate: string | null = null;
           let linePath: any[] = [];

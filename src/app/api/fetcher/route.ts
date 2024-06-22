@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const response = await axios(config);
     return NextResponse.json(response.data, { status: response.status });
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     if (axios.isAxiosError(error)) {
       return NextResponse.json(
         { error: error.message },

@@ -45,7 +45,7 @@ export default function MyPlan({ plan }: { plan: MyPlanT }) {
               </div>
               <div className=" flex items-center space-x-2 truncate text-sm">
                 <p className="truncate">
-                  예산 {plan?.plan_budget.toLocaleString()}원
+                  {plan?.plan_budget.toLocaleString()}원
                 </p>
                 <span>|</span>
                 <p className="truncate">{plan?.number_of_members}명</p>

@@ -5,6 +5,7 @@ import {
   WayPoints,
 } from '@/shared';
 import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 import { PlanDetailT } from '../type/plan-detail';
 
 export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
@@ -40,7 +41,7 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
           )}
         </div>
         <div className="flex items-center space-x-2">
-          <span>예산 {plan?.plan_budget?.toLocaleString()}원</span>
+          <span>{plan?.plan_budget?.toLocaleString()}원</span>
           <span>|</span>
           <span>{plan?.number_of_members}명</span>
         </div>
@@ -56,9 +57,9 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
           </>
         )}
 
-        <span>
+        <Button variant="outline" disabled>
           <BookmarkWithCount count={plan?.number_of_scraps || 0} />
-        </span>
+        </Button>
       </div>
     </div>
   );

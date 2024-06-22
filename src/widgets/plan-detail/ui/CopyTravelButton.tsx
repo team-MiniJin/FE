@@ -8,13 +8,23 @@ import { useAuth } from '@/shared';
 import useCopyPlan from '../model/useCopyPlan';
 
 export default function CopyTravelButton({ planId }: { planId: number }) {
-  const { jwt, isLoading } = useAuth();
+  const { jwt, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const { data, mutate, isSuccess } = useCopyPlan();
+  const { data, mutate, isSuccess, isPending, isError } = useCopyPlan();
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isPending) {
+      toast({
+        title: '여행 일정 복사가 진행되고 있어요.',
+        description: '잠시만 기다려주세요.',
+      });
+    } else if (isError) {
+      toast({
+        title: '여행 일정 복사가 실패했어요.',
+        description: '잠시 후 다시 시도해 주세요.',
+      });
+    } else if (isSuccess && data) {
       toast({
         title: '여행 일정 복사가 완료되었어요!',
         description: '지금 복사된 일정을 보러갈 수 있어요.',
@@ -28,9 +38,9 @@ export default function CopyTravelButton({ planId }: { planId: number }) {
         ),
       });
     }
-  }, [isSuccess, data, router, toast]);
+  }, [isPending, isError, isSuccess, data, router, toast]);
 
-  if (isLoading || !jwt) return null;
+  if (isAuthLoading || !jwt) return null;
 
   return (
     <Button

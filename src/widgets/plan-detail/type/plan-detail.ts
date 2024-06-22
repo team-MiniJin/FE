@@ -28,3 +28,10 @@ export interface CopiedPlanResponseT {
   created_at: string; // "yyyy-MM-dd HH:mm:ss"
   updated_at: string; // "yyyy-MM-dd HH:mm:ss"
 }
+
+export interface DeleteBookmarkResponseT {
+  success: boolean;
+  message: string;
+  scrap_id: number;
+}
+export interface PostBookmarkResponseT extends DeleteBookmarkResponseT {}

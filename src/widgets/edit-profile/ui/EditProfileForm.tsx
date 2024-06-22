@@ -15,12 +15,12 @@ export default function EditProfileForm() {
   } = useProfile();
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center space-y-8 rounded-lg bg-white px-16 py-8 shadow-xl">
+    <div className="flex w-full max-w-sm flex-col items-center rounded-lg bg-white px-16 py-8 shadow-xl">
       <ImageUploader
         profileImage={profileImage}
         handleProfileImageChange={handleProfileImageChange}
       />
-      <div className="relative flex items-center justify-center">
+      <div className="relative mt-6 flex items-center justify-center">
         <EditableField
           value={nickname}
           onSave={(val) => setNickname(val)}
@@ -36,7 +36,7 @@ export default function EditProfileForm() {
           onSave={(val) => setEmail(val)}
         />
       </div>
-      <div className="flex h-8 w-full justify-center">
+      <div className="mt-6 flex h-8 w-full">
         <Link href="/change-password" className="hover:text-[#3666FF]">
           비밀번호 변경하기
         </Link>

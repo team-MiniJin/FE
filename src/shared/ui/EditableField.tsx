@@ -95,7 +95,7 @@ export default function EditableField({
       setErrorMessage(''); // 유효성 검사 통과 시 에러 메시지 제거
     } catch (error) {
       if (error instanceof z.ZodError) {
-        console.log(error);
+        console.log(error.errors);
         setErrorMessage(error.errors[0].message); // 에러 메시지 표시
       }
     }
@@ -103,10 +103,10 @@ export default function EditableField({
 
   return (
     <div
-      className={`my-2 flex ${label ? 'justify-between' : 'justify-center'} items-center`}
+      className={`flex ${label ? 'justify-between' : 'justify-center'} items-center`}
     >
       {label && (
-        <div className="absolute -left-16 top-3 text-base font-bold">
+        <div className="absolute -left-16 top-2 text-base font-bold">
           {label}
         </div>
       )}
@@ -134,7 +134,7 @@ export default function EditableField({
         )}
         <button
           type="button"
-          className="absolute -right-8 top-3 ml-2 text-sm text-[#3666FF] hover:text-blue-800"
+          className="absolute -right-8 top-2 ml-2 text-sm text-[#3666FF] hover:text-blue-800"
           onClick={editable ? handleSaveInfo : handleEditInfo}
         >
           {editable ? <FiSave /> : <FiEdit />}

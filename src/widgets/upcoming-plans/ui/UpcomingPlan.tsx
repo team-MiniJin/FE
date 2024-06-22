@@ -14,7 +14,7 @@ export default function UpcomingPlan({
 }) {
   return (
     <li
-      className={` ${WIDTH[visibleSlides]} h-full flex-shrink-0 text-white transition-transform`}
+      className="h-full w-full flex-shrink-0 text-white transition-transform md:w-1/2 lg:w-1/3"
       style={{
         transform: `translateX(-${carouselStartIndex * 100}%)`,
       }}

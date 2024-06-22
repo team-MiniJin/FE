@@ -21,7 +21,11 @@ export default function UpcomingPlan({
     >
       <div className="relative mx-2 block h-full space-y-2 rounded-md bg-[--brand-main-color] p-4">
         <div>
-          <p className="font-bold">D-{calculateDday(plan.start_date)}</p>
+          <p className="font-bold">
+            {calculateDday(plan.start_date) === 0
+              ? '오늘 떠나는 여행'
+              : `D - ${calculateDday(plan.start_date)}`}
+          </p>
           <Link href={`/my-travels/plan/${plan.plan_id}`} className="">
             <p className="font-bold">{plan.plan_name}</p>
           </Link>

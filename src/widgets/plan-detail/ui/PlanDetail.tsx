@@ -6,7 +6,7 @@ import {
   EditScheduleButton,
   getDateArray,
 } from '@/shared';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ScheduleCards from '@/shared/ui/ScheduleCards';
 import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import SeeAllCourseButton from '@/shared/ui/SeeAllCourseButton';
@@ -17,6 +17,7 @@ import Image from 'next/image';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
 import CopyTravelButton from './CopyTravelButton';
+import useBookmark from '../model/useBookmark';
 
 export default function PlanDetail({
   planId,
@@ -25,8 +26,8 @@ export default function PlanDetail({
   planId: number;
   isMyPlan: boolean;
 }) {
+  const { mutateBookmark, bookmark } = useBookmark(planId);
   const pathname = usePathname();
-
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const { data, mutateDeletePlan, isError, isLoading } = usePlan(
     planId,
@@ -101,7 +102,11 @@ export default function PlanDetail({
                     />
                   </div>
                 )}
-                <PlanSummary plan={data} />
+                <PlanSummary
+                  plan={data}
+                  mutateBookmark={mutateBookmark}
+                  isBookmarked={bookmark?.success as boolean}
+                />
                 <div className="h-[1px] w-full border-b"></div>
                 <DateCards
                   dates={getDateArray(

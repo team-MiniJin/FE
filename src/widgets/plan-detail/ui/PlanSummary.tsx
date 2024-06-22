@@ -6,10 +6,35 @@ import {
 } from '@/shared';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import { PlanDetailT } from '../type/plan-detail';
 
-export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
+export default function PlanSummary({
+  plan,
+  mutateBookmark,
+  isBookmarked,
+}: {
+  plan: PlanDetailT;
+  mutateBookmark: any;
+  isBookmarked: boolean;
+}) {
   const pathname = usePathname();
+  const [isBookmark, setIsBookmark] = useState<boolean>(isBookmarked);
+  console.log(isBookmarked, isBookmark);
+  const handleBookmarkClick = () => {
+    mutateBookmark({ isDelete: isBookmark, planId: plan.plan_id });
+    setIsBookmark(!isBookmark);
+  };
+
+  const getBookmarkCount = () => {
+    let count = plan.number_of_scraps || 0;
+    if (isBookmarked && !isBookmark) {
+      count -= 1;
+    } else if (!isBookmarked && isBookmark) {
+      count += 1;
+    }
+    return count;
+  };
 
   return (
     <div className="space-y-3">
@@ -57,8 +82,11 @@ export default function PlanSummary({ plan }: { plan: PlanDetailT }) {
           </>
         )}
 
-        <Button variant="outline" disabled>
-          <BookmarkWithCount count={plan?.number_of_scraps || 0} />
+        <Button variant="outline" onClick={handleBookmarkClick}>
+          <BookmarkWithCount
+            count={getBookmarkCount()}
+            isBookmarked={isBookmark}
+          />
         </Button>
       </div>
     </div>

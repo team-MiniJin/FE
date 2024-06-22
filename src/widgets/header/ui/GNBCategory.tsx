@@ -16,7 +16,6 @@ export default function GNBCategory({
   setActivatedCatogory: React.Dispatch<React.SetStateAction<string>>;
   closeNav: () => void;
 }) {
-  console.log(activatedCategory);
   return (
     <Link
       id={categoryKey}

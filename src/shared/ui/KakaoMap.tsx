@@ -11,7 +11,7 @@ interface KakaoMapProps {
 export default function KakaoMap({ mapx, mapy, title }: KakaoMapProps) {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS_KEY}&autoload=false`;
     script.onload = () => {
       window.kakao.maps.load(() => {
         const container = document.getElementById('map');

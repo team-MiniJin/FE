@@ -10,7 +10,7 @@ import GNB from './GNB';
 import JoinLink from './JoinLink';
 import LoginLink from './LoginLink';
 import LogoutButton from './LogoutButton';
-import MyPageLink from './MyPageLink';
+import MyInfoLink from './MyInfoLink';
 
 export default function Header() {
   const navDivRef = useRef<HTMLDivElement>(null);
@@ -46,7 +46,7 @@ export default function Header() {
       <div className="absolute right-[74px] text-sm min-[900px]:static">
         {jwt ? (
           <div className="space-x-4">
-            <MyPageLink />
+            <MyInfoLink />
             <LogoutButton />
           </div>
         ) : (

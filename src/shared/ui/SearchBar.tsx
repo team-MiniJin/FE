@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export default function SearchBar(properties: any) {
+export default function SearchBar({ properties }: { properties: any }) {
   return (
     <div className="flex h-[40px] items-center space-x-3 rounded-md border px-3 py-2 text-sm">
       <span>
@@ -19,7 +19,8 @@ export default function SearchBar(properties: any) {
         aria-label="Search"
         className="w-full outline-none placeholder:text-[--text-description-color]"
         placeholder="검색어를 입력해 주세요."
-        {...properties}
+        value={properties.value}
+        onChange={properties.onChange}
       />
     </div>
   );

@@ -20,7 +20,7 @@ export default function ThemeFilter() {
 
       <SelectContent>
         {Object.keys(THEMES).map((key) => (
-          <SelectItem key={key} id={key} value={THEMES[key]}>
+          <SelectItem key={key} id={key} value={key}>
             {THEMES[key]}
           </SelectItem>
         ))}

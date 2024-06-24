@@ -1,6 +1,6 @@
 import { Noto_Sans_KR } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/widgets';
+import { Footer, Header } from '@/widgets';
 import { Metadata } from 'next';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/shared';
@@ -32,6 +32,7 @@ export default function RootLayout({
               <main>{children}</main>
               <Toaster />
             </div>
+            <Footer />
           </AuthProvider>
         </ReactQueryProvider>
       </body>

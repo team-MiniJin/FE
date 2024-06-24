@@ -18,7 +18,11 @@ export default function SearchBar({ properties }: { properties: any }) {
         type="text"
         aria-label="Search"
         className="w-full outline-none placeholder:text-[--text-description-color]"
-        placeholder="검색어를 입력해 주세요."
+        placeholder={
+          properties?.placeholder
+            ? properties.placeholder
+            : '검색어를 입력해 주세요.'
+        }
         value={properties?.value}
         onChange={properties?.onChange}
       />

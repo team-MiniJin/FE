@@ -19,8 +19,8 @@ export default function SearchBar({ properties }: { properties: any }) {
         aria-label="Search"
         className="w-full outline-none placeholder:text-[--text-description-color]"
         placeholder="검색어를 입력해 주세요."
-        value={properties.value}
-        onChange={properties.onChange}
+        value={properties?.value}
+        onChange={properties?.onChange}
       />
     </div>
   );

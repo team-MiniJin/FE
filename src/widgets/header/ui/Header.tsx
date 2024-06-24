@@ -5,7 +5,7 @@
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useRef } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { useAuth } from '@/shared';
+import { Logo, useAuth } from '@/shared';
 import GNB from './GNB';
 import JoinLink from './JoinLink';
 import LoginLink from './LoginLink';
@@ -27,7 +27,9 @@ export default function Header() {
   return (
     <header className=" flex items-center justify-between py-6 ">
       <div className="flex items-center  space-x-8">
-        <h1 className="text-2xl font-bold">Travel</h1>
+        <h1 className="select-none text-2xl font-bold">
+          <Logo />
+        </h1>
         <div
           className="absolute -right-full top-0 z-50 h-full w-full bg-white transition-all min-[900px]:static min-[900px]:block"
           ref={navDivRef}

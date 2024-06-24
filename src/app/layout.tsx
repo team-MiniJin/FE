@@ -12,9 +12,8 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: 'Travel Helper',
-  description:
-    '트레블 헬퍼는 여행 계획을 쉽게 관리할 수 있게 도와주는 서비스입니다.',
+  title: '코레블:KORAVEL',
+  description: '국내 여행 일정 짜기는 이제 코레블에서!.',
 };
 
 export default function RootLayout({

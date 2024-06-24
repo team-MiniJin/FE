@@ -15,7 +15,7 @@ export default function Footer() {
         </Link>
       </div>
       <div>
-        <p>KORABEL</p>
+        <p>KORAVEL</p>
         <p>국내 여행을 위한 일정짜기 서비스</p>
       </div>
       <div>

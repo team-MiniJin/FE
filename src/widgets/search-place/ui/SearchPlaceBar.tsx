@@ -38,7 +38,7 @@ export default function SearchPlaceBar({
   };
   return (
     <div className="relative">
-      <SearchBar {...properties} />
+      <SearchBar properties={properties} />
       {queryText && (
         <div className="absolute z-50 max-h-[380px] w-full overflow-y-scroll bg-white p-4 text-sm shadow-md">
           <span className="inline-block py-1 font-bold">장소</span>

@@ -17,7 +17,7 @@ const getUserTravels = async (
       {
         cursor_id: pageParam,
         theme: theme === 'all' ? '' : theme,
-        region: region === 'all' ? '' : region,
+        region: region === '모든 지역' || region === 'all' ? '' : region,
         search,
       }
     );

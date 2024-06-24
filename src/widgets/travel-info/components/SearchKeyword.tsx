@@ -32,9 +32,11 @@ export default function SearchKeyword({
           aria-label="검색버튼"
         />
         <SearchBar
-          onChange={handleInputChange}
-          onKeyPress={handleInputKeyPress}
-          placeholder="장소를 검색하세요"
+          properties={{
+            onChange: { handleInputChange },
+            onKeyPress: { handleInputKeyPress },
+            placeholder: '장소를 검색하세요',
+          }}
         />
       </div>
     </div>

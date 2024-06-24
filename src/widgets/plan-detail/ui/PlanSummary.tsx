@@ -2,6 +2,7 @@ import {
   BookmarkWithCount,
   calculateStayDuration,
   PlanTheme,
+  useAuth,
   WayPoints,
 } from '@/shared';
 import { usePathname } from 'next/navigation';
@@ -18,9 +19,9 @@ export default function PlanSummary({
   mutateBookmark: any;
   isBookmarked: boolean;
 }) {
+  const { jwt } = useAuth();
   const pathname = usePathname();
   const [isBookmark, setIsBookmark] = useState<boolean>(isBookmarked);
-  console.log(isBookmarked, isBookmark);
   const handleBookmarkClick = () => {
     mutateBookmark({ isDelete: isBookmark, planId: plan.plan_id });
     setIsBookmark(!isBookmark);
@@ -82,7 +83,7 @@ export default function PlanSummary({
           </>
         )}
 
-        <Button variant="outline" onClick={handleBookmarkClick}>
+        <Button variant="outline" onClick={handleBookmarkClick} disabled={!jwt}>
           <BookmarkWithCount
             count={getBookmarkCount()}
             isBookmarked={isBookmark}

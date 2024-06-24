@@ -33,8 +33,8 @@ export default function SearchKeyword({
         />
         <SearchBar
           properties={{
-            onChange: { handleInputChange },
-            onKeyPress: { handleInputKeyPress },
+            onChange: handleInputChange,
+            onKeyPress: handleInputKeyPress,
             placeholder: '장소를 검색하세요',
           }}
         />

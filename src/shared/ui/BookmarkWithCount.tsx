@@ -7,6 +7,7 @@ export default function BookmarkWithCount({
   count: number;
   isBookmarked: boolean;
 }) {
+  console.log(count, isBookmarked);
   return (
     <div
       className="flex items-center space-x-1"

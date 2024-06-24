@@ -69,12 +69,11 @@ export default function ChatPage({ enterRoom, myChatRooms }: ChatPageProps) {
         </div>
         <div className="mr-4 flex items-center py-4">
           <SearchBar
-            type="text"
-            placeholder="채팅방 검색"
-            value={keyword}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setKeyword(e.target.value)
-            }
+            properties={{
+              value: keyword,
+              onChange: (e: ChangeEvent<HTMLInputElement>) =>
+                setKeyword(e.target.value),
+            }}
           />
         </div>
         <Button variant="outline" onClick={() => setShowModal(true)}>

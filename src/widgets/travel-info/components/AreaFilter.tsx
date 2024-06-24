@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TRAVEL_URL } from '@/shared';
 import AreaCode from './AreaCode';
 
 interface AreaFilterProps {
@@ -28,7 +29,7 @@ export default function AreaFilter({
   const [select, setSelect] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const url = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&numOfRows=100&MobileOS=ETC&MobileApp=APPTest&_type=json`;
+  const url = `${TRAVEL_URL}/tour/info/areaCode1?ServiceKey=0&numOfRows=100&MobileOS=ETC&MobileApp=AppTest&_type=json`;
 
   // 지역 목록 불러오기
   const fetchData = async () => {

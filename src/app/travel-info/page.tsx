@@ -10,6 +10,7 @@ import {
 import { AiOutlineReload, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import useIntersectionObserver from '@/widgets/travel-info/hooks/useIntersectionObserver';
+import { TRAVEL_URL } from '@/shared';
 
 export default function TravelInfo() {
   const [keyword, setKeyword] = useState<string>('');
@@ -36,8 +37,8 @@ export default function TravelInfo() {
       ? `&sigunguCode=${selectedSigunguCode}`
       : '';
     const url = keywordParam.length
-      ? `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
-      : `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
+      ? `${TRAVEL_URL}/tour/info/searchKeyword1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=0&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}${keywordParam}`
+      : `${TRAVEL_URL}/tour/info/areaBasedList1?numOfRows=10&pageNo=${pageParam}&MobileOS=ETC&MobileApp=APPTest&serviceKey=0&_type=json&listYN=Y&arrange=O${contentTypeIdParam}${areaCodeParam}${sigunguCodeParam}`;
 
     const response = await fetch(url);
     if (!response.ok) {

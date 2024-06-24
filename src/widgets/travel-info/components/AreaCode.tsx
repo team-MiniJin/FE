@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { TRAVEL_URL } from '@/shared';
 import SigunguCode from './SigunguCode';
 
 interface AreaCodeProps {
@@ -31,7 +32,7 @@ export default function AreaCode({
     }
   }, [isSelected, initiallySelectedAreaCode]);
 
-  const url = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&areaCode=${code}&numOfRows=100&MobileOS=ETC&MobileApp=APPTest&_type=json`;
+  const url = `${TRAVEL_URL}/tour/info/areaCode1?serviceKey=0&areaCode=${code}&numOfRows=100&MobileOS=ETC&MobileApp=APPTest&_type=json`;
 
   const fetchData = async () => {
     setError(null);
@@ -73,10 +74,10 @@ export default function AreaCode({
           data &&
           data.map((area) => (
             <SigunguCode
-              key={area.code}
-              code={area.code}
+              key={area.sigungucode}
+              code={area.sigungucode}
               name={area.name}
-              isSelected={selectedSigunguCode === area.code}
+              isSelected={selectedSigunguCode === area.sigungucode}
               onClick={onSigunguClick}
             />
           ))}

@@ -2,49 +2,30 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { PlaceT, PlaceDetailT } from '@/widgets/travel-info/types/Place';
+import { PlaceInfoT } from '@/widgets/travel-info/types/Place';
 import { KakaoMap } from '@/shared';
 import Link from 'next/link';
 import { AiOutlineHome } from 'react-icons/ai';
 
 interface PlacesListProps {
-  apiData: PlaceT[] | null;
+  apiData: PlaceInfoT[] | null;
 }
 
 export default function PlacesList({ apiData }: PlacesListProps) {
   const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [detailedData, setDetailedData] = useState<
-    Record<number, PlaceDetailT | null>
-  >({});
 
   const handleToggle = async (contentId: number) => {
     if (expandedId === contentId) {
       setExpandedId(null);
     } else {
       setExpandedId(contentId);
-      if (!detailedData[contentId]) {
-        try {
-          const url = `https://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${process.env.NEXT_PUBLIC_TOUR_API_KEY}&contentId=${contentId}&MobileOS=ETC&MobileApp=APPTest&_type=json&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error('Network response was not ok.');
-          }
-          const data = await response.json();
-          setDetailedData((prevData) => ({
-            ...prevData,
-            [contentId]: data.response.body.items.item[0],
-          }));
-        } catch (error) {
-          console.error('Error fetching detail data:', error);
-        }
-      }
     }
   };
 
   return (
     <section className="space-y-4">
       {apiData &&
-        apiData.map((place: PlaceT) => (
+        apiData.map((place: PlaceInfoT) => (
           <div
             key={place.contentid}
             className="group flex w-full cursor-pointer flex-col border-t border-gray-200"
@@ -97,53 +78,48 @@ export default function PlacesList({ apiData }: PlacesListProps) {
                   : 'max-h-0 opacity-0'
               }`}
             >
-              {expandedId === place.contentid &&
-                detailedData[place.contentid] !== null && (
-                  <div className="space-y-4 rounded-md bg-gray-100 p-4">
-                    {detailedData[place.contentid]?.homepage && (
-                      <article>
-                        <h3 className="text-base font-bold hover:text-[#3666FF]">
-                          <Link
-                            href={
-                              detailedData[place.contentid]?.homepage.split(
-                                '"'
-                              )[1] || '#'
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex"
-                          >
-                            홈페이지
-                            <AiOutlineHome className="ml-2" size={24} />
-                          </Link>
-                        </h3>
-                      </article>
-                    )}
-                    {detailedData[place.contentid]?.tel && (
-                      <article>
-                        <h3 className="text-base font-bold">전화</h3>
-                        <p>{detailedData[place.contentid]?.tel}</p>
-                      </article>
-                    )}
-                    {detailedData[place.contentid]?.overview && (
-                      <article className="space-y-2">
-                        <h3 className="text-base font-bold">상세정보</h3>
-                        {detailedData[place.contentid]?.overview
-                          .split(/<br\s*\/?>/i)
-                          .map((p, i) => <p key={i}>{p}</p>)}
-                      </article>
-                    )}
-                    {detailedData[place.contentid]?.mapx && (
-                      <article className="fixed left-[50%] top-20 h-full w-1/2 max-w-[512px] pl-2 pr-8">
-                        <KakaoMap
-                          mapx={detailedData[place.contentid]?.mapx}
-                          mapy={detailedData[place.contentid]?.mapy}
-                          title={detailedData[place.contentid]?.title}
-                        />
-                      </article>
-                    )}
-                  </div>
-                )}
+              {expandedId === place.contentid && (
+                <div className="space-y-4 rounded-md bg-gray-100 p-4">
+                  {place.homepage && (
+                    <article>
+                      <h3 className="text-base font-bold hover:text-[#3666FF]">
+                        <Link
+                          href={place.homepage.split('"')[1] || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex"
+                        >
+                          홈페이지
+                          <AiOutlineHome className="ml-2" size={24} />
+                        </Link>
+                      </h3>
+                    </article>
+                  )}
+                  {place.tel && (
+                    <article>
+                      <h3 className="text-base font-bold">전화</h3>
+                      <p>{place.tel}</p>
+                    </article>
+                  )}
+                  {place.overview && (
+                    <article className="space-y-2">
+                      <h3 className="text-base font-bold">상세정보</h3>
+                      {place.overview.split(/<br\s*\/?>/i).map((p, i) => (
+                        <p key={i}>{p}</p>
+                      ))}
+                    </article>
+                  )}
+                  {place.mapx && (
+                    <article className="fixed left-[50%] top-20 h-full w-1/2 max-w-[512px] pl-2 pr-8">
+                      <KakaoMap
+                        mapx={place.mapx}
+                        mapy={place.mapy}
+                        title={place.title}
+                      />
+                    </article>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))}

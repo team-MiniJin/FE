@@ -1,22 +1,14 @@
 'use client';
 
-import {
-  BackLink,
-  DateCards,
-  EditScheduleButton,
-  getDateArray,
-} from '@/shared';
+import { BackLink, DateCards, getDateArray } from '@/shared';
 import { useState } from 'react';
 import ScheduleCards from '@/shared/ui/ScheduleCards';
 import PolylineMap from '@/widgets/polyline-map/ui/PolylineMap';
 import SeeAllCourseButton from '@/shared/ui/SeeAllCourseButton';
-import RemoveScheduleButton from '@/shared/ui/RemoveScheduleButton';
 import PlanEditor from '@/widgets/plan-editor/ui/PlanEditor';
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { usePlan } from '../model/usePlan';
 import PlanSummary from './PlanSummary';
-import CopyTravelButton from './CopyTravelButton';
 import useBookmark from '../model/useBookmark';
 
 export default function PlanDetail({
@@ -27,7 +19,6 @@ export default function PlanDetail({
   isMyPlan: boolean;
 }) {
   const { mutateBookmark, bookmark } = useBookmark(planId);
-  const pathname = usePathname();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const { data, mutateDeletePlan, isError, isLoading } = usePlan(
     planId,
@@ -83,29 +74,13 @@ export default function PlanDetail({
               <div className="absolute -left-2 z-20 inline-block">
                 <BackLink />
               </div>
-              <div className="relative space-y-8 pt-6">
-                {pathname.split('/')[1] === 'plan' ? (
-                  <div className="absolute right-0 top-[55px]">
-                    <CopyTravelButton planId={planId} />
-                  </div>
-                ) : (
-                  <div className="absolute right-0 top-[55px] space-x-2">
-                    <EditScheduleButton
-                      onClickHandler={() => {
-                        setIsEditMode(true);
-                      }}
-                    />
-                    <RemoveScheduleButton
-                      onClickHandler={() => {
-                        mutateDeletePlan(planId);
-                      }}
-                    />
-                  </div>
-                )}
+              <div className="relative space-y-8 pt-10">
                 <PlanSummary
                   plan={data}
                   mutateBookmark={mutateBookmark}
                   isBookmarked={bookmark?.success as boolean}
+                  setIsEditMode={setIsEditMode}
+                  mutateDeletePlan={mutateDeletePlan}
                 />
                 <div className="h-[1px] w-full border-b"></div>
                 <DateCards
@@ -117,11 +92,11 @@ export default function PlanDetail({
                   onClickHandler={setActivatedCardIndex}
                   disabled={false}
                 />
-                <div className="flex w-full space-x-[1%]">
-                  <div className="w-[49%]">
+                <div className="flex w-full flex-col items-center space-y-2 lg:flex-row lg:items-start lg:space-x-[1%] lg:space-y-0">
+                  <div className="lg_mt-0 order-last mt-2 w-full lg:order-none lg:w-[49%]">
                     <ScheduleCards schedules={filteredSchedules} />
                   </div>
-                  <div className="flex h-[500px] w-[49%] flex-col justify-end space-y-3 rounded-md">
+                  <div className="flex h-[500px] w-full flex-col justify-end rounded-md lg:w-[49%] lg:space-y-3">
                     <PolylineMap schedules={filteredSchedules} />
                     <SeeAllCourseButton schedules={data.schedules} />
                   </div>

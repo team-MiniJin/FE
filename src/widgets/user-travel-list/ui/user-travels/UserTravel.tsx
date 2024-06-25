@@ -1,4 +1,4 @@
-import { calculateStayDuration, ScheduleT, WayPoints } from '@/shared';
+import { calculateStayDuration, ScheduleT, THEMES, WayPoints } from '@/shared';
 import { IoBookmarkOutline } from 'react-icons/io5';
 import PlanSimpleView from '@/widgets/plan-simple-view/ui/PlanSimpleView';
 import { useState } from 'react';
@@ -33,12 +33,16 @@ export default function UserTravel({ plan }: { plan: UserTravelPlanT }) {
           className="relative flex cursor-pointer items-center py-6 md:h-auto md:items-center md:px-3"
         >
           <div className="absolute top-[50%] h-[80px] w-[80px] -translate-y-1/2 overflow-hidden rounded-full bg-slate-100 md:h-[96px] md:w-[96px]">
-            <Image src={`/theme/${plan.theme}.webp`} fill alt={plan.theme} />
+            <Image
+              src={`/theme/${plan.theme}.webp`}
+              fill
+              alt={THEMES[plan.theme]}
+            />
           </div>
           <div className="w-full pl-[110px] md:pl-[132px]">
             <div className="space-y-1">
               <p className="inline-block rounded bg-[--brand-main-color] px-2 py-1 text-xs font-bold text-white">
-                {plan.theme}
+                {THEMES[plan.theme]}
               </p>
               <div className="flex w-full flex-col md:flex-row md:items-center md:space-x-2">
                 <p className="inline-block">{plan.user_nickname} 님의 </p>

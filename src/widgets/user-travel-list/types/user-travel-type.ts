@@ -30,4 +30,4 @@ export type GetUserTravelPlanSuccessT = {
   nextCursor?: number;
 };
 
-export type SortType = 'newest' | 'scrap';
+export type SortType = 'newest' | 'scraps';

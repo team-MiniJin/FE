@@ -21,7 +21,7 @@ export default function TravelSort() {
 
       <SelectContent>
         <SelectItem value="newest">최신순</SelectItem>
-        <SelectItem value="scrap">스크랩 많은 순</SelectItem>
+        <SelectItem value="scraps">스크랩 많은 순</SelectItem>
       </SelectContent>
     </Select>
   );

@@ -27,7 +27,7 @@ export interface UserTravelPlanT {
 
 export type GetUserTravelPlanSuccessT = {
   data: UserTravelPlanT[];
-  nextCursor?: number;
+  next_cursor?: number;
 };
 
 export type SortType = 'newest' | 'scraps';

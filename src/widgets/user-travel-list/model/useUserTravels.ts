@@ -16,7 +16,7 @@ const useUserTravels = (
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      if (lastPage?.nextCursor) return lastPage.nextCursor;
+      if (lastPage?.next_cursor) return lastPage.next_cursor;
       return undefined;
     },
   });

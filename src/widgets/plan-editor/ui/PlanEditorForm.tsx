@@ -75,21 +75,21 @@ export default function PlanEditorForm({
     if (isPendingCreatePlan || isPendingUpdatePlan) {
       toast({
         title: `여행 일정 ${
-          isPendingCreatePlan ? '생성이' : '복사가'
+          isPendingCreatePlan ? '생성이' : '수정이'
         } 진행되고 있어요.`,
         description: '잠시만 기다려주세요.',
       });
     } else if (isErrorCreatePlan || isErrorUpdatePlan) {
       toast({
         title: `여행 일정 ${
-          isErrorCreatePlan ? '생성이' : '복사가'
+          isErrorCreatePlan ? '생성이' : '수정을'
         } 실패했어요.`,
         description: '잠시 후 다시 시도해 주세요.',
       });
     } else if (isSuccessCreatePlan || isSuccessUpdatePlan) {
       toast({
         title: `여행 일정 ${
-          isSuccessCreatePlan ? '생성을' : '복사를'
+          isSuccessCreatePlan ? '생성을' : '수정을'
         } 성공했어요.`,
       });
     }

@@ -136,7 +136,7 @@ export default function JoinForm() {
             control={form.control}
             name="password"
             render={({ field }) => (
-              <FormItem className="h-12">
+              <FormItem className="h-18">
                 <FormControl>
                   <Input
                     placeholder="비밀번호"
@@ -144,7 +144,7 @@ export default function JoinForm() {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="h-6" />
+                <FormMessage className="h-12" />
               </FormItem>
             )}
           />
@@ -162,7 +162,7 @@ export default function JoinForm() {
             control={form.control}
             name="confirmPassword"
             render={({ field }) => (
-              <FormItem className="h-12">
+              <FormItem className="h-18">
                 <FormControl>
                   <Input
                     placeholder="비밀번호 확인"
@@ -170,7 +170,7 @@ export default function JoinForm() {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="h-6" />
+                <FormMessage className="h-12" />
               </FormItem>
             )}
           />

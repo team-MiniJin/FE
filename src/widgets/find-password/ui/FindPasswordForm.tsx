@@ -25,7 +25,7 @@ const formSchema = z.object({
 
 export default function FindPasswordForm() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false); // 요청 중 상태 관리
   const router = useRouter();
 
@@ -76,6 +76,18 @@ export default function FindPasswordForm() {
           <div className="font-bold">비밀번호 찾기</div>
           <FormField
             control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="h-12">
+                <FormControl>
+                  <Input placeholder="아이디" {...field} />
+                </FormControl>
+                <FormMessage className="h-6" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem className="h-12">
@@ -93,6 +105,9 @@ export default function FindPasswordForm() {
           >
             {isSubmitting ? '처리 중...' : '임시 비밀번호 발급받기'}
           </Button>
+          {errorMessage && (
+            <div className="mt-4 text-red-500">{errorMessage}</div>
+          )}
         </form>
       </Form>
       {successMessage && (
@@ -101,7 +116,7 @@ export default function FindPasswordForm() {
             <p className="text-lg font-semibold">{successMessage}</p>
             <Button
               className="bg-[--brand-main-color] hover:bg-[--brand-main-color] hover:opacity-50"
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/my-info')}
             >
               확인
             </Button>

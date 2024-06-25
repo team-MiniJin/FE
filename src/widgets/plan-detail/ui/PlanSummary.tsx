@@ -2,11 +2,11 @@ import {
   BookmarkWithCount,
   calculateStayDuration,
   PlanTheme,
+  useAuth,
   WayPoints,
 } from '@/shared';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { PlanDetailT } from '../type/plan-detail';
 
 export default function PlanSummary({
@@ -18,22 +18,11 @@ export default function PlanSummary({
   mutateBookmark: any;
   isBookmarked: boolean;
 }) {
+  const { jwt } = useAuth();
   const pathname = usePathname();
-  const [isBookmark, setIsBookmark] = useState<boolean>(isBookmarked);
-  console.log(isBookmarked, isBookmark);
-  const handleBookmarkClick = () => {
-    mutateBookmark({ isDelete: isBookmark, planId: plan.plan_id });
-    setIsBookmark(!isBookmark);
-  };
 
-  const getBookmarkCount = () => {
-    let count = plan.number_of_scraps || 0;
-    if (isBookmarked && !isBookmark) {
-      count -= 1;
-    } else if (!isBookmarked && isBookmark) {
-      count += 1;
-    }
-    return count;
+  const handleBookmarkClick = () => {
+    mutateBookmark({ isDelete: isBookmarked, planId: plan.plan_id });
   };
 
   return (
@@ -82,10 +71,10 @@ export default function PlanSummary({
           </>
         )}
 
-        <Button variant="outline" onClick={handleBookmarkClick}>
+        <Button variant="outline" onClick={handleBookmarkClick} disabled={!jwt}>
           <BookmarkWithCount
-            count={getBookmarkCount()}
-            isBookmarked={isBookmark}
+            count={plan.number_of_scraps}
+            isBookmarked={isBookmarked}
           />
         </Button>
       </div>

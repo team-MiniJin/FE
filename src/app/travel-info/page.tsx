@@ -126,15 +126,12 @@ export default function TravelInfo() {
             setSelectedAreaCode={setSelectedAreaCode}
             selectedSigunguCode={selectedSigunguCode}
             setSelectedSigunguCode={setSelectedSigunguCode}
-            selectedAreaName={selectedAreaName}
             setSelectedAreaName={setSelectedAreaName}
-            selectedSigunguName={selectedSigunguName}
             setSelectedSigunguName={setSelectedSigunguName}
           />
           <CategoryFilter
             selectedCategoryId={selectedCategoryId}
             setSelectedCategoryId={setSelectedCategoryId}
-            selectedCategoryName={selectedCategoryName}
             setSelectedCategoryName={setSelectedCategoryName}
           />
         </div>

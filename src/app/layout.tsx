@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`${notoSansKR.className} min-h-svh`}>
         <ReactQueryProvider>
           <AuthProvider>
-            <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] px-8 pb-16 text-[--text-default-color] disabled:!bg-[--deactivated-color] disabled:!text-[--deactivated-text-color]">
+            <div className="relative mx-auto min-h-svh min-w-[360px] max-w-[1024px] overflow-hidden px-8 pb-16 text-[--text-default-color] disabled:!bg-[--deactivated-color] disabled:!text-[--deactivated-text-color]">
               <Header />
               <main>{children}</main>
               <Toaster />

@@ -5,15 +5,17 @@ import TravelSort from './filter-and-sort/TravelSort';
 
 export default function UserTravelFilterAndSort() {
   return (
-    <div className="flex space-x-4">
-      <div className="w-[140px]">
-        <TravelSort />
-      </div>
-      <div className="w-[160px]">
-        <RegionFilter />
-      </div>
-      <div className="w-[140px]">
-        <ThemeFilter />
+    <div className="flex flex-col space-y-2 md:flex-row md:space-x-4 md:space-y-0">
+      <div className="flex space-x-4 ">
+        <div className="grow">
+          <TravelSort />
+        </div>
+        <div className="grow">
+          <RegionFilter />
+        </div>
+        <div className="grow">
+          <ThemeFilter />
+        </div>
       </div>
       <div className="grow">
         <TravelSearchBar />

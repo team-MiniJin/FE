@@ -56,6 +56,8 @@ export default function ScheduleCards({
     }
   }, [openAccordion]);
 
+  if (schedules.length === 0)
+    return <p className="text-center text-xs"> 아직 등록된 장소가 없어요!</p>;
   return (
     <ul className="space-y-4">
       {schedules.map((schedule: ScheduleT) => (

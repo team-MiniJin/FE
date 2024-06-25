@@ -80,7 +80,7 @@ export default function ChangePasswordForm() {
         console.log('응답', response);
         if (response.data.success) {
           alert('비밀번호가 수정되었습니다.');
-          router.push('/my-page');
+          router.push('/my-info');
         }
       }
     } catch (error: any) {

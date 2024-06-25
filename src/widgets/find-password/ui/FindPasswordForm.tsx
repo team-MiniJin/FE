@@ -116,7 +116,7 @@ export default function FindPasswordForm() {
             <p className="text-lg font-semibold">{successMessage}</p>
             <Button
               className="bg-[--brand-main-color] hover:bg-[--brand-main-color] hover:opacity-50"
-              onClick={() => router.push('/my-info')}
+              onClick={() => router.push('/login')}
             >
               확인
             </Button>

@@ -98,6 +98,8 @@ export default function PlanEditorForm({
     isErrorUpdatePlan,
     isPendingCreatePlan,
     isPendingUpdatePlan,
+    isSuccessCreatePlan,
+    isSuccessUpdatePlan,
     toast,
   ]);
 

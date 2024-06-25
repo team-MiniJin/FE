@@ -10,6 +10,7 @@ import { eachDayOfInterval } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/shared';
+import { useToast } from '@/components/ui/use-toast';
 import { EditorPlanT, PostNewPlanT } from '../types/plan-editor-type';
 import { planEditorFormPlanSchema } from '../schema/plan-editor-schema';
 import usePlanEditorStore from '../store/usePlanEditorStore';
@@ -73,7 +74,7 @@ export const useForm = (
   });
 
   const { control, reset, trigger } = form;
-
+  const { toast } = useToast();
   const {
     fields: scheduleFields,
     append: appendSchedule,
@@ -132,6 +133,11 @@ export const useForm = (
         queryClient.refetchQueries({ queryKey: ['plans'] }),
         queryClient.refetchQueries({ queryKey: ['upcomingPlans'] }),
       ]);
+      toast({
+        title: `여행 일정 ${
+          isSuccessCreatePlan ? '생성을' : '수정을'
+        } 성공했어요.`,
+      });
     },
   });
 

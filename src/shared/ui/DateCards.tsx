@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 
@@ -15,16 +16,69 @@ export default function DateCards({
   onClickHandler?: (index: number) => void;
 }) {
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (containerRef.current) {
+      setIsDragging(true);
+      setStartX(e.pageX - containerRef.current.offsetLeft);
+      setScrollLeft(containerRef.current.scrollLeft);
+    }
+  };
+
+  const onMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const onMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = x - startX;
+    containerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (!containerRef.current) return;
+    if (e.key === 'ArrowLeft') {
+      containerRef.current.scrollLeft -= 100;
+    } else if (e.key === 'ArrowRight') {
+      containerRef.current.scrollLeft += 100;
+    }
+  };
 
   return (
-    <ul className="flex space-x-2 overflow-y-auto">
+    <div
+      ref={containerRef}
+      role="listbox"
+      tabIndex={0}
+      onMouseDown={onMouseDown}
+      onMouseLeave={onMouseLeave}
+      onMouseUp={onMouseUp}
+      onMouseMove={onMouseMove}
+      onKeyDown={onKeyDown}
+      className="flex cursor-grab space-x-2 overflow-hidden active:cursor-grabbing"
+      aria-label="Date cards list"
+    >
       {dates.map((date, index) => (
-        <li key={date}>
+        <div
+          key={date}
+          role="option"
+          aria-selected={activatedCardIndex === index}
+          className="shrink-0"
+        >
           <button
             onClick={onClickHandler ? () => onClickHandler(index) : undefined}
             type="button"
             className={clsx(
-              'flex h-[100px] w-[110px] shrink-0 flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-[--brand-sub-color] hover:text-white disabled:bg-gray-100 disabled:text-[--deactivated-text-color]',
+              'flex h-[100px] w-[110px] flex-col items-center justify-center space-y-2 rounded-md border p-4 text-sm hover:bg-[--brand-sub-color] hover:text-white disabled:bg-gray-100 disabled:text-[--deactivated-text-color]',
               {
                 'hover:tr bg-[--brand-main-color] !text-white disabled:!bg-[--brand-sub-color]':
                   activatedCardIndex === index,
@@ -37,8 +91,8 @@ export default function DateCards({
             <div className="flex items-center font-bold">{index + 1}일차</div>
             {pathname.split('/')[1] !== 'plan' && <div>{date}</div>}
           </button>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }

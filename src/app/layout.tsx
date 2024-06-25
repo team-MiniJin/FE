@@ -12,7 +12,7 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: '코레블:KORAVEL',
+  title: '코레블 - 국내 여행 일정 짜기 서비스',
   description: '국내 여행 일정 짜기는 이제 코레블에서!.',
   icons: {
     icon: '/image/koravel.png',

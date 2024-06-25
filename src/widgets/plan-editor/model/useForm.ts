@@ -123,6 +123,8 @@ export const useForm = (
           queryKey: ['upcomingPlans'],
         }),
       ]);
+
+      if (setIsEditMode) setIsEditMode(false);
       await Promise.all([
         queryClient.refetchQueries({
           queryKey: ['plan', plan?.plan_id.toString()],
@@ -130,9 +132,6 @@ export const useForm = (
         queryClient.refetchQueries({ queryKey: ['plans'] }),
         queryClient.refetchQueries({ queryKey: ['upcomingPlans'] }),
       ]);
-
-      router.push(`/my-travels/plan/${plan?.plan_id}`);
-      if (setIsEditMode) setIsEditMode(false);
     },
   });
 

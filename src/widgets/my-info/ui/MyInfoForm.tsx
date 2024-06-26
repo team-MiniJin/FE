@@ -216,11 +216,18 @@ export default function MyInfoForm() {
             </Button>
           )}
         </div>
-        <div className="flex justify-between pt-6 text-sm">
-          <Link href="/change-password" className="hover:text-[#3666FF]">
+        <div className="flex h-10 items-center hover:bg-gray-100 hover:text-[--brand-color]">
+          <Link href="/my-scrap" className="w-full">
+            내가 스크랩한 일정
+          </Link>
+        </div>
+        <div className="flex h-10 items-center hover:bg-gray-100 hover:text-[--brand-color]">
+          <Link href="/change-password" className="w-full">
             비밀번호 변경하기
           </Link>
-          <Link href="/delete-account" className="hover:text-[#3666FF]">
+        </div>
+        <div className="flex h-10 items-center hover:bg-gray-100 hover:text-[--brand-color]">
+          <Link href="/delete-account" className="w-full">
             회원탈퇴하기
           </Link>
         </div>

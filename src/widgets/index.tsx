@@ -18,3 +18,4 @@ export { default as Chatting } from './chat/ui/Chatting';
 export { default as DeleteAccountForm } from './delete-account/ui/DeleteAccountForm';
 export { default as Footer } from '../shared/ui/Footer';
 export { default as MyInfoForm } from './my-info/ui/MyInfoForm';
+export { default as ScrapList } from './my-scrap/ui/ScrapList';
